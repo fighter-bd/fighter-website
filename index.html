@@ -1,191 +1,337 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FIGHTER - হিসাব রাখার ওয়েবসাইট | Developed by Borno Sarker</title>
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <style>
-    :root{
-      --bg:#f3f6ff; --card:#fff; --text:#0f172a; --primary:#1e40af;
-      --income:#16a34a; --expense:#dc2626;
-    }
-    body.dark{
-      --bg:#0b1220; --card:#0f172a; --text:#e5e7eb; --primary:#60a5fa;
-      --income:#22c55e; --expense:#ef4444;
-    }
-    body{ background:var(--bg); color:var(--text); font-family:Arial, sans-serif; margin:0; }
-    .container{ max-width:1000px; margin:20px auto; background:var(--card); padding:16px; border-radius:12px; box-shadow:0 5px 15px rgba(0,0,0,.1);}
-    h1{ text-align:center; color:var(--primary); margin:6px 0; }
-    .topbar{ display:flex; justify-content:space-between; align-items:center; gap:8px; flex-wrap:wrap;}
-    .brand{ display:flex; align-items:center; gap:10px;}
-    .logo{
-      width:42px; height:42px; border-radius:50%;
-      display:grid; place-items:center; box-shadow:0 4px 10px rgba(0,0,0,.2);
-      background:linear-gradient(135deg,#1e40af,#60a5fa);
-    }
-    .logo img{ width:100%; height:100%; object-fit:cover; border-radius:50%; }
-    .owner{ font-size:14px; opacity:.9 }
-    .toggle{ cursor:pointer; padding:8px 12px; border-radius:8px; border:1px solid #ccc; background:transparent; }
-    .summary{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:12px 0; }
-    .box{ padding:12px; border-radius:10px; color:white; text-align:center; font-weight:bold;}
-    .income{ background:var(--income);} .expense{ background:var(--expense);} .balance{ background:var(--primary);}
-    .form{ display:grid; grid-template-columns:1.2fr 1fr 1fr 1fr auto; gap:8px; margin-bottom:16px; }
-    input, select, button{ padding:10px; border-radius:6px; border:1px solid #ccc; }
-    button{ background:var(--primary); color:white; border:none; cursor:pointer; }
-    table{ width:100%; border-collapse:collapse; margin-top:12px; }
-    th, td{ border:1px solid #ddd; padding:8px; text-align:center; color:#000; font-weight:bold; background:#eef2ff; }
-    body.dark th, body.dark td{ color:#e5e7eb; background:#1f2937; border-color:#374151; }
-    .chart-wrap{ margin-top:16px; background:var(--card); padding:12px; border-radius:12px; }
-    .rules{
-      margin-top:20px; background:#fff3cd; color:#856404; padding:16px;
-      border-radius:12px; border:1px solid #ffeeba; box-shadow:0 4px 8px rgba(0,0,0,.1);
-      font-size:16px; line-height:1.6;
-    }
-    .rules h3{ margin-bottom:10px; color:#856404; }
-    body.dark .rules{ background:#4b3c00; color:#fff8c6; border-color:#6b5500; }
-    footer{ text-align:center; margin-top:14px; font-size:13px; opacity:.8 }
-    @media (max-width:700px){ .form{ grid-template-columns:1fr; } .summary{ grid-template-columns:1fr; } }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FIGHTER | Developed by Borno Sarker</title>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+<style>
+
+:root{
+--bg:#f3f6ff;
+--card:#ffffff;
+--text:#000;
+--primary:#1e40af;
+}
+
+body.dark{
+--bg:#0b1220;
+--card:#0f172a;
+--text:#ffffff;
+--primary:#60a5fa;
+}
+
+body{
+margin:0;
+font-family:Arial;
+background:var(--bg);
+color:var(--text);
+}
+
+.container{
+max-width:1000px;
+margin:auto;
+background:var(--card);
+padding:20px;
+border-radius:10px;
+box-shadow:0 5px 15px rgba(0,0,0,0.1);
+}
+
+.top{
+display:flex;
+justify-content:space-between;
+align-items:center;
+}
+
+.logo img{
+width:70px;
+border-radius:50%;
+}
+
+button{
+padding:8px 12px;
+border:none;
+border-radius:6px;
+background:var(--primary);
+color:white;
+cursor:pointer;
+}
+
+.summary{
+display:grid;
+grid-template-columns:repeat(3,1fr);
+gap:10px;
+margin-top:15px;
+}
+
+.box{
+padding:10px;
+color:white;
+border-radius:8px;
+text-align:center;
+font-weight:bold;
+}
+
+.income{background:#16a34a;}
+.expense{background:#dc2626;}
+.balance{background:#1e40af;}
+
+.form{
+margin-top:15px;
+display:grid;
+grid-template-columns:1fr 1fr 1fr 1fr auto;
+gap:8px;
+}
+
+input,select{
+padding:8px;
+border-radius:5px;
+border:1px solid #ccc;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:15px;
+}
+
+th,td{
+border:1px solid #ddd;
+padding:8px;
+text-align:center;
+}
+
+th{
+background:var(--primary);
+color:white;
+}
+
+/* calculator */
+
+.calculator{
+margin-top:30px;
+max-width:300px;
+background:#eee;
+padding:15px;
+border-radius:10px;
+}
+
+.calc-display{
+width:100%;
+height:40px;
+font-size:20px;
+text-align:right;
+margin-bottom:10px;
+}
+
+.calc-grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:5px;
+}
+
+.calc-grid button{
+padding:10px;
+font-size:18px;
+}
+
+</style>
 </head>
+
 <body>
-  <div class="container">
-    <div class="topbar">
-      <div class="brand">
-        <div class="logo">
-          <!-- এখানে আপনার logo path দিন -->
-          <img src="logo.png" alt="FIGHTER Logo">
-        </div>
-        <div>
-          <h1>🥊 FIGHTER - হিসাব রাখার ওয়েবসাইট</h1>
-          <div class="owner">Developed by <b>Borno Sarker</b></div>
-        </div>
-      </div>
-      <button class="toggle" onclick="toggleDark()">🌙 ডার্ক মোড</button>
-    </div>
 
-    <div class="summary">
-      <div class="box income">মোট জমা: ৳ <span id="totalIncome">0</span></div>
-      <div class="box expense">মোট ব্যয়: ৳ <span id="totalExpense">0</span></div>
-      <div class="box balance">বাকি টাকা: ৳ <span id="balance">0</span></div>
-    </div>
+<div class="container">
 
-    <div class="form">
-      <input type="text" id="title" placeholder="বিবরণ (যেমন: জার্সি কিনলাম)" />
-      <input type="number" id="amount" placeholder="টাকার পরিমাণ" />
-      <select id="category">
-        <option value="Football">Football</option>
-        <option value="Cricket Bat">Cricket Bat</option>
-        <option value="Ball">Ball</option>
-        <option value="Stumps">Stumps</option>
-        <option value="Jersey">Jersey</option>
-        <option value="Shoes">Shoes</option>
-        <option value="Gloves">Gloves</option>
-      </select>
-      <input type="date" id="date" />
-      <select id="type">
-        <option value="income">জমা</option>
-        <option value="expense">ব্যয়</option>
-      </select>
-      <button onclick="addEntry()">যোগ করুন</button>
-    </div>
+<div class="top">
 
-    <table>
-      <thead>
-        <tr>
-          <th>বিবরণ</th>
-          <th>ক্যাটাগরি</th>
-          <th>তারিখ</th>
-          <th>ধরন</th>
-          <th>টাকা</th>
-          <th>অপশন</th>
-        </tr>
-      </thead>
-      <tbody id="list"></tbody>
-    </table>
+<div style="display:flex;align-items:center;gap:10px">
 
-    <div class="chart-wrap">
-      <canvas id="chart"></canvas>
-    </div>
+<div class="logo">
+<img src="fighter-cricket-logo.png">
+</div>
 
-    <div class="rules">
-      <h3>📜 পার্সোনাল রুলস</h3>
-      <ol>
-        <li>প্রতিদিন রাতে হিসাব আপডেট করবো।</li>
-        <li>মাসে একবার চার্ট দেখে খরচ বিশ্লেষণ করবো।</li>
-        <li>ভুল এন্ট্রি হলে সাথে সাথে ডিলিট করবো।</li>
-        <li>মাসের শেষে ব্যালান্স চেক করবো।</li>
-      </ol>
-    </div>
+<div>
+<h2>FIGHTER</h2>
+<p>Developed by Borno Sarker</p>
+</div>
 
-    <footer>© 2026 Borno Sarker • FIGHTER</footer>
-  </div>
+</div>
 
-  <script>
-    const KEY = "fighterDataV2";
-    let data = JSON.parse(localStorage.getItem(KEY)) || [];
-    let chart;
+<button onclick="toggleDark()">🌙 Dark Mode</button>
 
-    function save(){ localStorage.setItem(KEY, JSON.stringify(data)); }
+</div>
 
-    function render(){
-      const list = document.getElementById("list");
-      let totalIncome = 0, totalExpense = 0;
-      const byCat = {};
-      list.innerHTML = "";
-      data.forEach((item, i) => {
-        if(item.type === "income") totalIncome += item.amount;
-        else totalExpense += item.amount;
-        byCat[item.category] = (byCat[item.category] || 0) + (item.type==="expense" ? item.amount : 0);
-        list.innerHTML += `
-          <tr>
-            <td>${item.title}</td>
-            <td>${item.category}</td>
-            <td>${item.date || ""}</td>
-            <td>${item.type === "income" ? "জমা" : "ব্যয়"}</td>
-            <td>৳ ${item.amount}</td>
-            <td><button onclick="removeEntry(${i})">ডিলিট</button></td>
-          </tr>`;
-      });
-      document.getElementById("totalIncome").innerText = totalIncome;
-      document.getElementById("totalExpense").innerText = totalExpense;
-      document.getElementById("balance").innerText = totalIncome - totalExpense;
-      drawChart(byCat);
-    }
+<div class="summary">
 
-    function addEntry(){
-      const title = document.getElementById("title").value.trim();
-      const amount = Number(document.getElementById("amount").value);
-      const category = document.getElementById("category").value;
-      const date = document.getElementById("date").value;
-      const type = document.getElementById("type").value;
-      if(!title || !amount || !date){ alert("বিবরণ, টাকা ও তারিখ দিন"); return; }
-      data.push({ title, amount, category, date, type });
-      save(); render();
-      document.getElementById("title").value = "";
-      document.getElementById("amount").value = "";
-      document.getElementById("date").value = "";
-    }
+<div class="box income">
+মোট জমা<br>
+৳ <span id="income">0</span>
+</div>
 
-    function removeEntry(i){ data.splice(i,1); save(); render(); }
+<div class="box expense">
+মোট ব্যয়<br>
+৳ <span id="expense">0</span>
+</div>
 
-    function drawChart(byCat){
-      const labels = Object.keys(byCat);
-      const values = Object.values(byCat);
-      if(chart) chart.destroy();
-      chart = new Chart(document.getElementById("chart"), {
-        type: "pie",
-        data: { labels, datasets: [{ data: values }] },
-        options: { plugins:{ legend:{ position:"bottom" } } }
-      });
-    }
+<div class="box balance">
+ব্যালেন্স<br>
+৳ <span id="balance">0</span>
+</div>
 
-    function toggleDark(){
-      document.body.classList.toggle("dark");
-      localStorage.setItem("fighterDark", document.body.classList.contains("dark"));
-    }
-    if(localStorage.getItem("fighterDark")==="true"){ document.body.classList.add("dark"); }
-    render();
-  </script>
+</div>
+
+<div class="form">
+
+<input id="title" placeholder="বিবরণ">
+<input id="amount" type="number" placeholder="টাকা">
+
+<select id="category">
+<option>Football</option>
+<option>Bat</option>
+<option>Ball</option>
+<option>Jersey</option>
+<option>Shoes</option>
+</select>
+
+<input type="date" id="date">
+
+<select id="type">
+<option value="income">জমা</option>
+<option value="expense">ব্যয়</option>
+</select>
+
+<button onclick="add()">যোগ</button>
+
+</div>
+
+<table>
+
+<tr>
+<th>বিবরণ</th>
+<th>ক্যাটাগরি</th>
+<th>তারিখ</th>
+<th>ধরন</th>
+<th>টাকা</th>
+<th>ডিলিট</th>
+</tr>
+
+<tbody id="list"></tbody>
+
+</table>
+
+<canvas id="chart"></canvas>
+
+<div class="calculator">
+
+<h3>Calculator</h3>
+
+<input class="calc-display" id="display">
+
+<div class="calc-grid">
+
+<button onclick="press('7')">7</button>
+<button onclick="press('8')">8</button>
+<button onclick="press('9')">9</button>
+<button onclick="press('/')">÷</button>
+
+<button onclick="press('4')">4</button>
+<button onclick="press('5')">5</button>
+<button onclick="press('6')">6</button>
+<button onclick="press('*')">×</button>
+
+<button onclick="press('1')">1</button>
+<button onclick="press('2')">2</button>
+<button onclick="press('3')">3</button>
+<button onclick="press('-')">−</button>
+
+<button onclick="press('0')">0</button>
+<button onclick="clearCalc()">C</button>
+<button onclick="calculate()">=</button>
+<button onclick="press('+')">+</button>
+
+</div>
+
+</div>
+
+</div>
+
+<script>
+
+let data=[]
+
+function add(){
+
+let title=document.getElementById("title").value
+let amount=Number(document.getElementById("amount").value)
+let category=document.getElementById("category").value
+let date=document.getElementById("date").value
+let type=document.getElementById("type").value
+
+data.push({title,amount,category,date,type})
+
+render()
+
+}
+
+function remove(i){
+data.splice(i,1)
+render()
+}
+
+function render(){
+
+let list=document.getElementById("list")
+
+let income=0
+let expense=0
+
+list.innerHTML=""
+
+data.forEach((d,i)=>{
+
+if(d.type=="income") income+=d.amount
+else expense+=d.amount
+
+list.innerHTML+=`
+<tr>
+<td>${d.title}</td>
+<td>${d.category}</td>
+<td>${d.date}</td>
+<td>${d.type=="income"?"জমা":"ব্যয়"}</td>
+<td>${d.amount}</td>
+<td><button onclick="remove(${i})">X</button></td>
+</tr>
+`
+
+})
+
+document.getElementById("income").innerText=income
+document.getElementById("expense").innerText=expense
+document.getElementById("balance").innerText=income-expense
+
+}
+
+function toggleDark(){
+document.body.classList.toggle("dark")
+}
+
+function press(v){
+document.getElementById("display").value+=v
+}
+
+function clearCalc(){
+document.getElementById("display").value=""
+}
+
+function calculate(){
+let x=document.getElementById("display").value
+document.getElementById("display").value=eval(x)
+}
+
+</script>
+
 </body>
 </html>
