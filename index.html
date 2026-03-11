@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>FIGHTER - Expense Tracker + Calculator | Borno Sarker</title>
+  <title>FIGHTER - হিসাব রাখার ওয়েবসাইট | Developed by Borno Sarker</title>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
   <style>
     :root{
@@ -21,93 +21,52 @@
     .brand{ display:flex; align-items:center; gap:10px;}
     .logo{
       width:42px; height:42px; border-radius:50%;
+      display:grid; place-items:center; box-shadow:0 4px 10px rgba(0,0,0,.2);
       background:linear-gradient(135deg,#1e40af,#60a5fa);
-      display:grid; place-items:center; color:#fff; font-weight:bold;
-      box-shadow:0 4px 10px rgba(0,0,0,.2);
     }
+    .logo img{ width:100%; height:100%; object-fit:cover; border-radius:50%; }
     .owner{ font-size:14px; opacity:.9 }
     .toggle{ cursor:pointer; padding:8px 12px; border-radius:8px; border:1px solid #ccc; background:transparent; }
     .summary{ display:grid; grid-template-columns:repeat(3,1fr); gap:10px; margin:12px 0; }
     .box{ padding:12px; border-radius:10px; color:white; text-align:center; font-weight:bold;}
     .income{ background:var(--income);} .expense{ background:var(--expense);} .balance{ background:var(--primary);}
-    .form{ display:grid; grid-template-columns:1.2fr 1fr 1fr 1fr auto; gap:8px; margin-bottom:10px; }
+    .form{ display:grid; grid-template-columns:1.2fr 1fr 1fr 1fr auto; gap:8px; margin-bottom:16px; }
     input, select, button{ padding:10px; border-radius:6px; border:1px solid #ccc; }
     button{ background:var(--primary); color:white; border:none; cursor:pointer; }
     table{ width:100%; border-collapse:collapse; margin-top:12px; }
-    th, td{ border:1px solid #ddd; padding:8px; text-align:center; }
-    th{ background:#1e40af; color:white; }
+    th, td{ border:1px solid #ddd; padding:8px; text-align:center; color:#000; font-weight:bold; background:#eef2ff; }
+    body.dark th, body.dark td{ color:#e5e7eb; background:#1f2937; border-color:#374151; }
     .chart-wrap{ margin-top:16px; background:var(--card); padding:12px; border-radius:12px; }
     .rules{
       margin-top:20px; background:#fff3cd; color:#856404; padding:16px;
-      border-radius:12px; border:1px solid #ffeeba; box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      border-radius:12px; border:1px solid #ffeeba; box-shadow:0 4px 8px rgba(0,0,0,.1);
       font-size:16px; line-height:1.6;
     }
     .rules h3{ margin-bottom:10px; color:#856404; }
     body.dark .rules{ background:#4b3c00; color:#fff8c6; border-color:#6b5500; }
-
     footer{ text-align:center; margin-top:14px; font-size:13px; opacity:.8 }
-
-    /* Calculator Styles */
-    .calculator-box{
-      background:var(--card);
-      padding:20px;
-      border-radius:12px;
-      max-width:300px;
-      margin:30px auto;
-      box-shadow:0 5px 15px rgba(0,0,0,.1);
-    }
-    #calculatorDisplay{
-      width:100%;
-      height:50px;
-      font-size:24px;
-      text-align:right;
-      padding:8px;
-      margin-bottom:12px;
-      border-radius:6px;
-      border:1px solid #ccc;
-    }
-    .calc-buttons{
-      display:grid;
-      grid-template-columns:repeat(4, 1fr);
-      gap:8px;
-    }
-    .calc-buttons button{
-      padding:15px;
-      font-size:18px;
-      border:none;
-      border-radius:6px;
-      background:var(--primary);
-      color:white;
-      cursor:pointer;
-      transition:0.2s;
-    }
-    .calc-buttons button:hover{ background:#2563eb; }
-
-    /* Search input */
-    #searchInput{ width:100%; padding:8px; border-radius:6px; border:1px solid #ccc; margin-bottom:10px; }
-    /* Edit modal */
-    .modal{ display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.5); justify-content:center; align-items:center; }
-    .modal-content{ background:var(--card); padding:20px; border-radius:12px; max-width:400px; width:90%; }
+    @media (max-width:700px){ .form{ grid-template-columns:1fr; } .summary{ grid-template-columns:1fr; } }
   </style>
 </head>
 <body>
   <div class="container">
     <div class="topbar">
       <div class="brand">
-        <div class="logo">F</div>
+        <div class="logo">
+          <!-- এখানে আপনার logo path দিন -->
+          <img src="logo.png" alt="FIGHTER Logo">
+        </div>
         <div>
-          <h1>🥊 FIGHTER</h1>
+          <h1>🥊 FIGHTER - হিসাব রাখার ওয়েবসাইট</h1>
           <div class="owner">Developed by <b>Borno Sarker</b></div>
         </div>
       </div>
       <button class="toggle" onclick="toggleDark()">🌙 ডার্ক মোড</button>
     </div>
 
-    <input type="text" id="searchInput" placeholder="Search by description or category" oninput="render()">
-
     <div class="summary">
-      <div class="box income">মোট আয়: ৳ <span id="totalIncome">0</span></div>
-      <div class="box expense">মোট খরচ: ৳ <span id="totalExpense">0</span></div>
+      <div class="box income">মোট জমা: ৳ <span id="totalIncome">0</span></div>
+      <div class="box expense">মোট ব্যয়: ৳ <span id="totalExpense">0</span></div>
       <div class="box balance">বাকি টাকা: ৳ <span id="balance">0</span></div>
     </div>
 
@@ -125,8 +84,8 @@
       </select>
       <input type="date" id="date" />
       <select id="type">
-        <option value="income">আয়</option>
-        <option value="expense">খরচ</option>
+        <option value="income">জমা</option>
+        <option value="expense">ব্যয়</option>
       </select>
       <button onclick="addEntry()">যোগ করুন</button>
     </div>
@@ -138,7 +97,7 @@
           <th>ক্যাটাগরি</th>
           <th>তারিখ</th>
           <th>ধরন</th>
-          <th>টাকা (৳)</th>
+          <th>টাকা</th>
           <th>অপশন</th>
         </tr>
       </thead>
@@ -154,7 +113,7 @@
       <ol>
         <li>প্রতিদিন রাতে হিসাব আপডেট করবো।</li>
         <li>মাসে একবার চার্ট দেখে খরচ বিশ্লেষণ করবো।</li>
-        <li>ভুল এন্ট্রি হলে সাথে সাথে ডিলিট বা এডিট করবো।</li>
+        <li>ভুল এন্ট্রি হলে সাথে সাথে ডিলিট করবো।</li>
         <li>মাসের শেষে ব্যালান্স চেক করবো।</li>
       </ol>
     </div>
@@ -162,88 +121,30 @@
     <footer>© 2026 Borno Sarker • FIGHTER</footer>
   </div>
 
-  <!-- Premium Calculator -->
-  <div class="calculator-box">
-    <h2 style="text-align:center;margin-bottom:12px;">🧮 Calculator</h2>
-    <input type="text" id="calculatorDisplay" disabled>
-    <div class="calc-buttons">
-      <button onclick="calcAppend('1')">1</button>
-      <button onclick="calcAppend('2')">2</button>
-      <button onclick="calcAppend('3')">3</button>
-      <button onclick="calcAppend('+')">+</button>
-
-      <button onclick="calcAppend('4')">4</button>
-      <button onclick="calcAppend('5')">5</button>
-      <button onclick="calcAppend('6')">6</button>
-      <button onclick="calcAppend('-')">-</button>
-
-      <button onclick="calcAppend('7')">7</button>
-      <button onclick="calcAppend('8')">8</button>
-      <button onclick="calcAppend('9')">9</button>
-      <button onclick="calcAppend('*')">*</button>
-
-      <button onclick="calcAppend('0')">0</button>
-      <button onclick="calcClear()">C</button>
-      <button onclick="calcResult()">=</button>
-      <button onclick="calcAppend('/')">/</button>
-    </div>
-  </div>
-
-  <!-- Edit Modal -->
-  <div class="modal" id="editModal">
-    <div class="modal-content">
-      <h3>Edit Entry</h3>
-      <input type="text" id="editTitle" placeholder="বিবরণ">
-      <input type="number" id="editAmount" placeholder="টাকার পরিমাণ">
-      <select id="editCategory">
-        <option value="Football">Football</option>
-        <option value="Cricket Bat">Cricket Bat</option>
-        <option value="Ball">Ball</option>
-        <option value="Stumps">Stumps</option>
-        <option value="Jersey">Jersey</option>
-        <option value="Shoes">Shoes</option>
-        <option value="Gloves">Gloves</option>
-      </select>
-      <input type="date" id="editDate">
-      <select id="editType">
-        <option value="income">আয়</option>
-        <option value="expense">খরচ</option>
-      </select>
-      <button onclick="saveEdit()">Save</button>
-      <button onclick="closeEdit()">Cancel</button>
-    </div>
-  </div>
-
   <script>
-    // Expense Tracker
-    const KEY = "fighterDataV3";
+    const KEY = "fighterDataV2";
     let data = JSON.parse(localStorage.getItem(KEY)) || [];
     let chart;
-    let editIndex = null;
 
     function save(){ localStorage.setItem(KEY, JSON.stringify(data)); }
 
     function render(){
       const list = document.getElementById("list");
-      const search = document.getElementById("searchInput").value.toLowerCase();
       let totalIncome = 0, totalExpense = 0;
       const byCat = {};
       list.innerHTML = "";
       data.forEach((item, i) => {
-        if(search && !item.title.toLowerCase().includes(search) && !item.category.toLowerCase().includes(search)) return;
         if(item.type === "income") totalIncome += item.amount;
         else totalExpense += item.amount;
         byCat[item.category] = (byCat[item.category] || 0) + (item.type==="expense" ? item.amount : 0);
-        list.innerHTML += `<tr>
+        list.innerHTML += `
+          <tr>
             <td>${item.title}</td>
             <td>${item.category}</td>
             <td>${item.date || ""}</td>
-            <td>${item.type === "income" ? "আয়" : "খরচ"}</td>
+            <td>${item.type === "income" ? "জমা" : "ব্যয়"}</td>
             <td>৳ ${item.amount}</td>
-            <td>
-              <button onclick="editEntry(${i})">Edit</button>
-              <button onclick="removeEntry(${i})">ডিলিট</button>
-            </td>
+            <td><button onclick="removeEntry(${i})">ডিলিট</button></td>
           </tr>`;
       });
       document.getElementById("totalIncome").innerText = totalIncome;
@@ -268,34 +169,6 @@
 
     function removeEntry(i){ data.splice(i,1); save(); render(); }
 
-    function editEntry(i){
-      editIndex = i;
-      const item = data[i];
-      document.getElementById("editTitle").value = item.title;
-      document.getElementById("editAmount").value = item.amount;
-      document.getElementById("editCategory").value = item.category;
-      document.getElementById("editDate").value = item.date;
-      document.getElementById("editType").value = item.type;
-      document.getElementById("editModal").style.display = "flex";
-    }
-
-    function saveEdit(){
-      if(editIndex===null) return;
-      data[editIndex] = {
-        title: document.getElementById("editTitle").value.trim(),
-        amount: Number(document.getElementById("editAmount").value),
-        category: document.getElementById("editCategory").value,
-        date: document.getElementById("editDate").value,
-        type: document.getElementById("editType").value
-      };
-      editIndex = null;
-      save();
-      render();
-      closeEdit();
-    }
-
-    function closeEdit(){ document.getElementById("editModal").style.display = "none"; }
-
     function drawChart(byCat){
       const labels = Object.keys(byCat);
       const values = Object.values(byCat);
@@ -313,28 +186,6 @@
     }
     if(localStorage.getItem("fighterDark")==="true"){ document.body.classList.add("dark"); }
     render();
-
-    // Premium Calculator
-    let calcInput = '';
-    const calcDisplay = document.getElementById('calculatorDisplay');
-
-    function calcAppend(val){
-      calcInput += val;
-      calcDisplay.value = calcInput;
-    }
-    function calcClear(){
-      calcInput = '';
-      calcDisplay.value = '';
-    }
-    function calcResult(){
-      try{
-        calcInput = eval(calcInput).toString();
-        calcDisplay.value = calcInput;
-      } catch {
-        calcDisplay.value = 'Error';
-        calcInput = '';
-      }
-    }
   </script>
 </body>
 </html>
