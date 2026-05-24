@@ -1,388 +1,498 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="Welcome to the official Fighter website...">
-
-<title>FIGHTER </title>
+<title>FIGHTER</title>
 
 <link rel="icon" type="image/png" href="fighter-cricket-logo.png">
 
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
+
 <style>
-
-body{
-font-family:Arial;
-margin:0;
-background:#f2f2f2;
+:root {
+    --bg-color: #f4f6f9;
+    --card-bg: #ffffff;
+    --text-color: #333333;
+    --primary: #2563eb;
+    --primary-hover: #1d4ed8;
+    --border-color: #e5e7eb;
 }
 
-.dark{
-background:#111;
-color:white;
+.dark {
+    --bg-color: #0f172a;
+    --card-bg: #1e293b;
+    --text-color: #f8fafc;
+    --primary: #3b82f6;
+    --primary-hover: #60a5fa;
+    --border-color: #334155;
 }
 
-.container{
-max-width:1000px;
-margin:auto;
-background:white;
-padding:20px;
-border-radius:10px;
+* {
+    box-sizing: border-box;
+    font-family: 'Poppins', Arial, sans-serif;
+    transition: background 0.3s, color 0.3s;
 }
 
-.dark .container{
-background:#1e1e1e;
+body {
+    margin: 0;
+    padding: 20px 10px;
+    background: var(--bg-color);
+    color: var(--text-color);
 }
 
-.logo{
-width:150px;
-display:block;
-margin:auto;
+.container {
+    max-width: 1000px;
+    margin: auto;
+    background: var(--card-bg);
+    padding: 30px;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.05);
 }
 
-button{
-padding:8px 12px;
-border:none;
-background:#2563eb;
-color:white;
-border-radius:5px;
-cursor:pointer;
-margin:3px;
+.header-section {
+    text-align: center;
+    margin-bottom: 30px;
 }
 
-table{
-width:100%;
-border-collapse:collapse;
-margin-top:10px;
+.logo {
+    width: 130px;
+    display: block;
+    margin: 0 auto 15px;
+    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
 }
 
-th,td{
-border:1px solid #ccc;
-padding:8px;
-text-align:center;
+.top-bar {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-bottom: 25px;
 }
 
-th{
-background:#2563eb;
-color:white;
+/* Premium Buttons */
+button {
+    padding: 10px 18px;
+    border: none;
+    background: var(--primary);
+    color: white;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    box-shadow: 0 2px 5px rgba(37, 99, 235, 0.2);
 }
 
-.dark th{
-background:#444;
+button:hover {
+    background: var(--primary-hover);
 }
 
-input{
-padding:8px;
-margin:5px;
+.btn-danger { background: #ef4444; }
+.btn-danger:hover { background: #dc2626; }
+.btn-success { background: #10b981; }
+.btn-success:hover { background: #059669; }
+.btn-secondary { background: #64748b; }
+
+/* Dashboard Cards */
+.summary {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 15px;
+    margin-bottom: 30px;
 }
 
-.summary{
-display:flex;
-gap:10px;
-margin-top:15px;
+.box {
+    padding: 20px;
+    color: white;
+    border-radius: 12px;
+    text-align: center;
+    font-weight: 600;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
-.box{
-flex:1;
-padding:10px;
-color:white;
-border-radius:8px;
-text-align:center;
+.box span {
+    display: block;
+    font-size: 24px;
+    margin-top: 5px;
+    font-weight: bold;
 }
 
-.income{background:green;}
-.balance{background:#2563eb;}
-.expense{background:red;}
+.income { background: linear-gradient(135deg, #10b981, #059669); }
+.expense { background: linear-gradient(135deg, #ef4444, #dc2626); }
+.balance { background: linear-gradient(135deg, #3b82f6, #2563eb); }
 
-.calc{
-max-width:250px;
-margin:30px auto;
-background:#ddd;
-padding:15px;
-border-radius:10px;
+/* Form Inputs */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 12px;
+    margin-bottom: 20px;
 }
 
-.dark .calc{
-background:#222;
+input, select {
+    padding: 12px;
+    border: 1px solid var(--border-color);
+    background: var(--card-bg);
+    color: var(--text-color);
+    border-radius: 8px;
+    outline: none;
+    width: 100%;
 }
 
-.calc input{
-width:100%;
-height:40px;
-text-align:right;
-margin-bottom:10px;
-font-size:18px;
+input:focus, select:focus {
+    border-color: var(--primary);
 }
 
-.grid{
-display:grid;
-grid-template-columns:repeat(4,1fr);
-gap:5px;
+.action-buttons {
+    display: flex;
+    gap: 10px;
+    margin-bottom: 25px;
 }
 
-.grid button{
-padding:10px;
-font-size:16px;
+/* Responsive Table */
+.table-responsive {
+    overflow-x: auto;
+    border-radius: 8px;
+    border: 1px solid var(--border-color);
 }
 
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: var(--card-bg);
+}
+
+th, td {
+    padding: 14px;
+    text-align: center;
+    border-bottom: 1px solid var(--border-color);
+}
+
+th {
+    background: var(--primary);
+    color: white;
+    font-weight: 600;
+}
+
+.dark th {
+    background: #334155;
+}
+
+/* Side Calculator Inside Layout */
+.calc {
+    max-width: 280px;
+    margin: 40px auto 0;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 20px;
+    border-radius: 14px;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
+}
+
+.calc h3 { margin-top: 0; text-align: center; }
+
+.calc input {
+    width: 100%;
+    height: 45px;
+    text-align: right;
+    margin-bottom: 12px;
+    font-size: 20px;
+    font-weight: 600;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 8px;
+}
+
+.grid button {
+    padding: 12px;
+    font-size: 16px;
+}
+
+.admin-status {
+    text-align: center;
+    font-size: 14px;
+    color: #ef4444;
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+.admin-active { color: #10b981; }
+
+footer {
+    text-align: center;
+    margin-top: 40px;
+    font-size: 14px;
+    color: #64748b;
+}
 </style>
-
 </head>
-
 <body>
 
 <div class="container">
 
-<img src="fighter-cricket-logo.png" class="logo">
+    <div class="header-section">
+        <img src="fighter-cricket-logo.png" class="logo" alt="FIGHTER Logo">
+        <h2>FIGHTER Cricket Club হিসাব</h2>
+        <p>📧 Email: <a href="mailto:fighterbd.com123@gmail.com" style="color: var(--primary);">fighterbd.com123@gmail.com</a></p>
+    </div>
 
-<h2>FIGHTER Cricket Club হিসাব</h2> <p>
-📧 Email:
-<a href="mailto:fighterbd.com123@gmail.com">
-fighterbd.com123@gmail.com
-</a>
-</p>
+    <div class="top-bar">
+        <button onclick="toggleDark()">Dark Mode</button>
+        <button id="authBtn" class="btn-success" onclick="handleAuth()">Admin Login</button>
+    </div>
 
-<button onclick="dark()">Dark Mode</button>
+    <div id="adminStatus" class="admin-status">View Mode: আপনি এখন হিসাব শুধু দেখতে পারবেন।</div>
 
-<div class="summary">
-<div class="box income">
-মোট টাকা<br><span id="totalMoney">0</span>
-</div>
-<div class="box expense">
-মোট বাকি<br><span id="totalRemaining">0</span>
-</div>
-<div class="box balance">
-মোট সদস্য<br><span id="totalMembers">0</span>
-</div>
-</div>
+    <div class="summary">
+        <div class="box income">
+            মোট টাকা জমা<br><span id="totalMoney">0</span>
+        </div>
+        <div class="box expense">
+            মোট খরচ / বাকি<br><span id="totalRemaining">0</span>
+        </div>
+        <div class="box balance">
+            মোট সদস্য<br><span id="totalMembers">0</span>
+        </div>
+    </div>
 
-<br>
+    <div style="margin-bottom: 20px;">
+        <input id="search" placeholder="🔍 সার্চ করুন (নাম বা জিনিস)..." onkeyup="render()">
+    </div>
 
-<input id="search" placeholder="Search..." onkeyup="render()">
+    <div id="adminForm" style="display: none; background: rgba(0,0,0,0.02); padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px dashed var(--border-color);">
+        <h4 style="margin-top:0;">নতুন হিসাব যোগ করুন (অ্যাডমিন প্যানেল)</h4>
+        <div class="form-grid">
+            <input id="member" placeholder="সদস্যের নাম">
+            <input id="item" placeholder="বিবরণ / খেলাধুলার জিনিস">
+            <select id="type">
+                <option value="income">জমা (Income)</option>
+                <option value="expense">খরচ (Expense)</option>
+            </select>
+            <input id="price" type="number" placeholder="মোট দাম / চাঁদা">
+            <input id="paid" type="number" placeholder="দেওয়া টাকা">
+            <input type="date" id="date">
+        </div>
+        <div class="action-buttons">
+            <button class="btn-success" onclick="add()">যোগ করুন</button>
+        </div>
+    </div>
 
-<br>
+    <div class="action-buttons">
+        <button class="btn-secondary" onclick="downloadCSV()">📥 Excel (CSV) ডাউনলোড</button>
+    </div>
 
-<input id="member" placeholder="সদস্যের নাম">
-<input id="item" placeholder="খেলাধুলার জিনিস">
-<input id="price" type="number" placeholder="জিনিসের মোট দাম">
-<input id="paid" type="number" placeholder="সদস্যের দেওয়া টাকা">
-<input type="date" id="date">
-
-<br>
-
-<button onclick="add()">যোগ</button>
-<button onclick="download()">Excel Download</button>
-
-<table>
-
-<tr>
-<th>নাম</th>
-<th>জিনিস</th>
-<th>তারিখ</th>
-<th>মোট দাম</th>
-<th>দেওয়া টাকা</th>
-<th>বাকি টাকা</th>
-<th>পরিবর্তন</th>
-</tr>
-
-<tbody id="list"></tbody>
-
-</table>
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>নাম</th>
+                    <th>বিবরণ</th>
+                    <th>ধরণ</th>
+                    <th>তারিখ</th>
+                    <th>মোট টাকা</th>
+                    <th>দেওয়া টাকা</th>
+                    <th>বাকি টাকা</th>
+                    <th class="admin-action-col" style="display:none;">পরিবর্তন</th>
+                </tr>
+            </thead>
+            <tbody id="list"></tbody>
+        </table>
+    </div>
 
 </div>
 
 <div class="calc">
-
-<h3>Calculator</h3>
-
-<input id="display">
-
-<div class="grid">
-
-<button onclick="p('7')">7</button>
-<button onclick="p('8')">8</button>
-<button onclick="p('9')">9</button>
-<button onclick="p('/')">÷</button>
-
-<button onclick="p('4')">4</button>
-<button onclick="p('5')">5</button>
-<button onclick="p('6')">6</button>
-<button onclick="p('*')">×</button>
-
-<button onclick="p('1')">1</button>
-<button onclick="p('2')">2</button>
-<button onclick="p('3')">3</button>
-<button onclick="p('-')">-</button>
-
-<button onclick="p('0')">0</button>
-<button onclick="clearCalc()">C</button>
-<button onclick="calc()">=</button>
-<button onclick="p('+')">+</button>
-
+    <h3>კালকুলেটর</h3>
+    <input id="display" readonly>
+    <div class="grid">
+        <button onclick="p('7')">7</button>
+        <button onclick="p('8')">8</button>
+        <button onclick="p('9')">9</button>
+        <button class="btn-secondary" onclick="p('/')">÷</button>
+        
+        <button onclick="p('4')">4</button>
+        <button onclick="p('5')">5</button>
+        <button onclick="p('6')">6</button>
+        <button class="btn-secondary" onclick="p('*')">×</button>
+        
+        <button onclick="p('1')">1</button>
+        <button onclick="p('2')">2</button>
+        <button onclick="p('3')">3</button>
+        <button class="btn-secondary" onclick="p('-')">-</button>
+        
+        <button onclick="p('0')">0</button>
+        <button class="btn-danger" onclick="clearCalc()">C</button>
+        <button class="btn-success" onclick="calc()">=</button>
+        <button class="btn-secondary" onclick="p('+')">+</button>
+    </div>
 </div>
 
-</div>
+<footer>
+    <p>© 2026 FIGHTER Cricket Club | Developed by Borno Sarker</p>
+</footer>
 
 <script>
-
-let data = JSON.parse(localStorage.getItem("fighterData")) || []
+let data = JSON.parse(localStorage.getItem("fighterData")) || [];
+let isAdmin = false;
 
 function save(){
-localStorage.setItem("fighterData", JSON.stringify(data))
+    localStorage.setItem("fighterData", JSON.stringify(data));
+}
+
+// Simple Admin Authentication
+function handleAuth() {
+    if(!isAdmin) {
+        let pass = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
+        if(pass === "1234") { // ডিফল্ট পাসওয়ার্ড ১২৩৪, আপনি চাইলে বদলাতে পারেন
+            isAdmin = true;
+            document.getElementById("authBtn").innerText = "Logout";
+            document.getElementById("authBtn").className = "btn-danger";
+            document.getElementById("adminForm").style.display = "block";
+            document.getElementById("adminStatus").innerText = "Admin Mode: সচল আছে। আপনি ডাটা এন্ট্রি করতে পারবেন।";
+            document.getElementById("adminStatus").className = "admin-status admin-active";
+        } else {
+            alert("ভুল পাসওয়ার্ড!");
+        }
+    } else {
+        isAdmin = false;
+        document.getElementById("authBtn").innerText = "Admin Login";
+        document.getElementById("authBtn").className = "btn-success";
+        document.getElementById("adminForm").style.display = "none";
+        document.getElementById("adminStatus").innerText = "View Mode: আপনি এখন হিসাব শুধু দেখতে পারবেন।";
+        document.getElementById("adminStatus").className = "admin-status";
+    }
+    render();
 }
 
 function add(){
+    let member = document.getElementById("member").value;
+    let item = document.getElementById("item").value;
+    let type = document.getElementById("type").value;
+    let price = Number(document.getElementById("price").value);
+    let paid = Number(document.getElementById("paid").value);
+    let date = document.getElementById("date").value;
 
-let member=document.getElementById("member").value
-let item=document.getElementById("item").value
-let price=Number(document.getElementById("price").value)
-let paid=Number(document.getElementById("paid").value)
-let date=document.getElementById("date").value
+    if(!member || !item || !price || !date){
+        alert("অনুগ্রহ করে সব ফিল্ড পূরণ করুন");
+        return;
+    }
 
-if(!member || !item || !price || !date){
-alert("সব ফিল্ড পূরণ করুন")
-return
-}
-
-let remaining = price - paid
-
-data.push({member,item,price,paid,remaining,date})
-
-save()
-
-render()
-
+    let remaining = price - paid;
+    data.push({member, item, type, price, paid, remaining, date});
+    save();
+    render();
+    
+    // Clear Inputs
+    document.getElementById("member").value = "";
+    document.getElementById("item").value = "";
+    document.getElementById("price").value = "";
+    document.getElementById("paid").value = "";
 }
 
 function edit(i){
+    if(!isAdmin) return alert("অ্যাডমিন লগইন প্রয়োজন");
+    let d = data[i];
+    document.getElementById("member").value = d.member;
+    document.getElementById("item").value = d.item;
+    document.getElementById("type").value = d.type || "income";
+    document.getElementById("price").value = d.price;
+    document.getElementById("paid").value = d.paid;
+    document.getElementById("date").value = d.date;
 
-let d=data[i]
-
-document.getElementById("member").value=d.member
-document.getElementById("item").value=d.item
-document.getElementById("price").value=d.price
-document.getElementById("paid").value=d.paid
-document.getElementById("date").value=d.date
-
-data.splice(i,1)
-
-save()
-
-render()
-
+    data.splice(i,1);
+    save();
+    render();
 }
 
 function del(i){
-
-data.splice(i,1)
-
-save()
-
-render()
-
+    if(!isAdmin) return alert("অ্যাডমিন লগইন প্রয়োজন");
+    if(confirm("আপনি কি নিশ্চিতভাবে এটি ডিলিট করতে চান?")) {
+        data.splice(i,1);
+        save();
+        render();
+    }
 }
 
 function render(){
+    let list = document.getElementById("list");
+    let search = document.getElementById("search").value.toLowerCase();
+    list.innerHTML = "";
 
-let list=document.getElementById("list")
+    let totalMoney = 0;
+    let totalRemaining = 0;
+    let membersSet = new Set();
 
-let search=document.getElementById("search").value.toLowerCase()
+    // Toggle admin columns visibility
+    let adminCols = document.querySelectorAll('.admin-action-col');
+    adminCols.forEach(col => col.style.display = isAdmin ? 'table-cell' : 'none');
 
-list.innerHTML=""
+    data.forEach((d, i) => {
+        if(d.member.toLowerCase().includes(search) || d.item.toLowerCase().includes(search)){
+            let remaining = d.price - d.paid;
+            
+            if(d.type === "expense") {
+                totalRemaining += d.price; // Expenses act as cash outflow
+            } else {
+                totalMoney += d.paid; // Incomes add to cash
+                totalRemaining += remaining; // Unpaid amounts act as dues
+            }
+            
+            if(d.member) membersSet.add(d.member);
 
-let totalMoney=0
-let totalRemaining=0
-let membersSet = new Set()
+            let typeBadge = d.type === "expense" ? "<span style='color:red;font-weight:bold;'>খরচ</span>" : "<span style='color:green;font-weight:bold;'>জমা</span>";
 
-data.forEach((d,i)=>{
+            list.innerHTML += `
+                <tr>
+                    <td><strong>${d.member}</strong></td>
+                    <td>${d.item}</td>
+                    <td>${typeBadge}</td>
+                    <td>${d.date}</td>
+                    <td>${d.price} ৳</td>
+                    <td>${d.paid} ৳</td>
+                    <td style="color:${remaining > 0 ? '#ef4444' : 'inherit'}">${remaining} ৳</td>
+                    ${isAdmin ? `<td>
+                        <button class="btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="edit(${i})">Edit</button>
+                        <button class="btn-danger" style="padding:4px 8px; font-size:12px;" onclick="del(${i})">Delete</button>
+                    </td>` : ''}
+                </tr>
+            `;
+        }
+    });
 
-if(
-d.member.toLowerCase().includes(search) ||
-d.item.toLowerCase().includes(search)
-){
-
-let remaining=d.price-d.paid
-totalMoney += d.price
-totalRemaining += remaining
-membersSet.add(d.member)
-
-list.innerHTML+=`
-
-<tr>
-
-<td>${d.member}</td>
-<td>${d.item}</td>
-<td>${d.date}</td>
-<td>${d.price}</td>
-<td>${d.paid}</td>
-<td>${remaining}</td>
-
-<td>
-
-<button onclick="edit(${i})">Edit</button>
-<button onclick="del(${i})">Delete</button>
-
-</td>
-
-</tr>
-
-`
-
+    document.getElementById("totalMoney").innerText = totalMoney + " ৳";
+    document.getElementById("totalRemaining").innerText = totalRemaining + " ৳";
+    document.getElementById("totalMembers").innerText = membersSet.size + " জন";
 }
 
-})
-
-// Update summary
-document.getElementById("totalMoney").innerText = totalMoney
-document.getElementById("totalRemaining").innerText = totalRemaining
-document.getElementById("totalMembers").innerText = membersSet.size
-
+function downloadCSV(){
+    let csv = "Name,Description,Type,Date,Total,Paid,Remaining\n";
+    data.forEach(d => {
+        let remaining = d.price - d.paid;
+        csv += `"${d.member}","${d.item}","${d.type || 'income'}","${d.date}",${d.price},${d.paid},${remaining}\n`;
+    });
+    let blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = "fighter_club_report.csv";
+    a.click();
 }
 
-render()
-
-function download(){
-
-let csv="member,item,date,price,paid,remaining\n"
-
-data.forEach(d=>{
-
-let remaining=d.price-d.paid
-
-csv+=`${d.member},${d.item},${d.date},${d.price},${d.paid},${remaining}\n`
-
-})
-
-let blob=new Blob([csv])
-
-let a=document.createElement("a")
-
-a.href=URL.createObjectURL(blob)
-
-a.download="fighter_hisab.csv"
-
-a.click()
-
+function toggleDark(){
+    document.body.classList.toggle("dark");
 }
 
-function dark(){
-document.body.classList.toggle("dark")
+// Calculator Logic
+let display = document.getElementById("display");
+function p(v){ display.value += v; }
+function clearCalc(){ display.value = ""; }
+function calc(){ 
+    try { display.value = eval(display.value); } 
+    catch { display.value = "Error"; } 
 }
 
-function p(v){
-display.value+=v
-}
-
-function clearCalc(){
-display.value=""
-}
-
-function calc(){
-display.value=eval(display.value)
-}
-
+// Initial Run
+render();
 </script>
-<iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3606.1053403832148!2d89.53285607516824!3d25.334245977623016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjXCsDIwJzAzLjMiTiA4OcKwMzInMDcuNiJF!5e0!3m2!1sen!2sbd!4v1779614506587!5m2!1sen!2sbd" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> 
-<p> Developed by Borno Sarker</p>
 </body>
 </html>
