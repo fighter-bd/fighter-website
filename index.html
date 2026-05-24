@@ -6,7 +6,7 @@
 <meta name="description" content="Welcome to the official Fighter website...">
 <title>FIGHTER</title>
 
-<link rel="icon" type="image/png" href="fighter-cricket-logo.png">
+<link rel="icon" type="image/png" href="fighter cricket club logo.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -70,7 +70,6 @@ body {
     margin-bottom: 25px;
 }
 
-/* Premium Buttons */
 button {
     padding: 10px 18px;
     border: none;
@@ -92,7 +91,6 @@ button:hover {
 .btn-success:hover { background: #059669; }
 .btn-secondary { background: #64748b; }
 
-/* Dashboard Cards */
 .summary {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -120,7 +118,6 @@ button:hover {
 .expense { background: linear-gradient(135deg, #ef4444, #dc2626); }
 .balance { background: linear-gradient(135deg, #3b82f6, #2563eb); }
 
-/* Form Inputs */
 .form-grid {
     display: grid;
     grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
@@ -148,7 +145,6 @@ input:focus, select:focus {
     margin-bottom: 25px;
 }
 
-/* Responsive Table */
 .table-responsive {
     overflow-x: auto;
     border-radius: 8px;
@@ -177,7 +173,6 @@ th {
     background: #334155;
 }
 
-/* Side Calculator Inside Layout */
 .calc {
     max-width: 280px;
     margin: 40px auto 0;
@@ -232,7 +227,7 @@ footer {
 <div class="container">
 
     <div class="header-section">
-        <img src="fighter-cricket-logo.png" class="logo" alt="FIGHTER Logo">
+        <img src="fighter cricket club logo.png" class="logo" alt="FIGHTER Logo">
         <h2>FIGHTER Cricket Club হিসাব</h2>
         <p>📧 Email: <a href="mailto:fighterbd.com123@gmail.com" style="color: var(--primary);">fighterbd.com123@gmail.com</a></p>
     </div>
@@ -303,7 +298,7 @@ footer {
 </div>
 
 <div class="calc">
-    <h3>კালকুলেটর</h3>
+    <h3>Calculator</h3>
     <input id="display" readonly>
     <div class="grid">
         <button onclick="p('7')">7</button>
@@ -329,7 +324,7 @@ footer {
 </div>
 
 <footer>
-    <p>© 2026 FIGHTER Cricket Club | Developed by Borno Sarker</p>
+    <p>© 2026 FIGHTER Cricket Club | Developed by <a href="about.html" target="_blank" style="color: var(--primary); font-weight: bold; text-decoration: none;">Borno Sarker</a></p>
 </footer>
 
 <script>
@@ -340,11 +335,10 @@ function save(){
     localStorage.setItem("fighterData", JSON.stringify(data));
 }
 
-// Simple Admin Authentication
 function handleAuth() {
     if(!isAdmin) {
         let pass = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
-        if(pass === "1234") { // ডিফল্ট পাসওয়ার্ড ১২৩৪, আপনি চাইলে বদলাতে পারেন
+        if(pass === "1234") { 
             isAdmin = true;
             document.getElementById("authBtn").innerText = "Logout";
             document.getElementById("authBtn").className = "btn-danger";
@@ -383,7 +377,6 @@ function add(){
     save();
     render();
     
-    // Clear Inputs
     document.getElementById("member").value = "";
     document.getElementById("item").value = "";
     document.getElementById("price").value = "";
@@ -423,7 +416,6 @@ function render(){
     let totalRemaining = 0;
     let membersSet = new Set();
 
-    // Toggle admin columns visibility
     let adminCols = document.querySelectorAll('.admin-action-col');
     adminCols.forEach(col => col.style.display = isAdmin ? 'table-cell' : 'none');
 
@@ -432,10 +424,10 @@ function render(){
             let remaining = d.price - d.paid;
             
             if(d.type === "expense") {
-                totalRemaining += d.price; // Expenses act as cash outflow
+                totalRemaining += d.price; 
             } else {
-                totalMoney += d.paid; // Incomes add to cash
-                totalRemaining += remaining; // Unpaid amounts act as dues
+                totalMoney += d.paid; 
+                totalRemaining += remaining; 
             }
             
             if(d.member) membersSet.add(d.member);
@@ -482,7 +474,6 @@ function toggleDark(){
     document.body.classList.toggle("dark");
 }
 
-// Calculator Logic
 let display = document.getElementById("display");
 function p(v){ display.value += v; }
 function clearCalc(){ display.value = ""; }
@@ -491,7 +482,6 @@ function calc(){
     catch { display.value = "Error"; } 
 }
 
-// Initial Run
 render();
 </script>
 </body>
