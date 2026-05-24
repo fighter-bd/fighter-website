@@ -8,7 +8,7 @@
 <meta name="robots" content="index, follow">
 <title>FIGHTER Cricket Club</title>
 
-<link rel="icon" type="image/png" href="fighter cricket club logo.png">
+<link rel="icon" type="image/png" href="fighter-cricket-logo.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -209,6 +209,55 @@ th {
     background: #334155;
 }
 
+.member-link {
+    color: var(--primary);
+    cursor: pointer;
+    text-decoration: underline;
+}
+
+/* Modal / Profile Popup Box Styling */
+.modal {
+    display: none;
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: rgba(0,0,0,0.6);
+    z-index: 1000;
+    justify-content: center;
+    align-items: center;
+}
+.modal-content {
+    background: var(--card-bg);
+    color: var(--text-color);
+    padding: 25px;
+    border-radius: 16px;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 4px 25px rgba(0,0,0,0.2);
+    position: relative;
+}
+.close-modal {
+    position: absolute;
+    top: 15px; right: 20px;
+    font-size: 24px; cursor: pointer; color: #ef4444;
+}
+
+/* Feedback/Chat Styling */
+.feedback-section {
+    margin-top: 40px;
+    background: var(--card-bg);
+    border: 1px solid var(--border-color);
+    padding: 25px;
+    border-radius: 14px;
+}
+.msg-box {
+    background: rgba(0,0,0,0.02);
+    padding: 12px;
+    border-radius: 8px;
+    margin-bottom: 10px;
+    border-left: 4px solid var(--primary);
+}
+.dark .msg-box { background: rgba(255,255,255,0.02); }
+
 .calc {
     max-width: 280px;
     margin: 40px auto 0;
@@ -218,56 +267,30 @@ th {
     border-radius: 14px;
     box-shadow: 0 4px 15px rgba(0,0,0,0.05);
 }
-
 .calc h3 { margin-top: 0; text-align: center; }
-
 .calc input {
-    width: 100%;
-    height: 45px;
-    text-align: right;
-    margin-bottom: 12px;
-    font-size: 20px;
-    font-weight: 600;
+    width: 100%; height: 45px; text-align: right; margin-bottom: 12px; font-size: 20px; font-weight: 600;
 }
-
-.grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 8px;
-}
-
-.grid button {
-    padding: 12px;
-    font-size: 16px;
-}
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
+.grid button { padding: 12px; font-size: 16px; }
 
 .admin-status {
-    text-align: center;
-    font-size: 14px;
-    color: #ef4444;
-    font-weight: bold;
-    margin-bottom: 10px;
+    text-align: center; font-size: 14px; color: #ef4444; font-weight: bold; margin-bottom: 10px;
 }
 .admin-active { color: #10b981; }
-
-footer {
-    text-align: center;
-    margin-top: 40px;
-    font-size: 14px;
-    color: #64748b;
-}
+footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; }
 </style>
 </head>
 <body>
 
 <div class="notice-board">
-    <div class="notice-text" id="noticeText">স্বাগতম! FIGHTER Cricket Club-এর অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম। ল্যাপটপ বা মোবাইল থেকে এডমিন প্যানেলে নোটিশ আপডেট করলেই এখানে লাইভ চেঞ্জ হবে।</div>
+    <div class="notice-text" id="noticeText">স্বাগতম! FIGHTER Cricket Club-এর অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম।</div>
 </div>
 
 <div class="container">
 
     <div class="header-section">
-        <img src="fighter cricket club logo.png" class="logo" alt="FIGHTER Logo">
+        <img src="fighter-cricket-logo.png" class="logo" alt="FIGHTER Logo">
         <h2>FIGHTER Cricket Club হিসাব</h2>
         <p>📧 Email: <a href="mailto:fighterbd.com123@gmail.com" style="color: var(--primary);">fighterbd.com123@gmail.com</a></p>
     </div>
@@ -326,6 +349,7 @@ footer {
     </div>
 
     <div class="table-responsive">
+        <p style="font-size:12px; color:var(--primary); margin-top:0;">💡 মেম্বারের নামের ওপর ক্লিক করে তার ব্যক্তিগত রিসিট/খতিয়ান দেখুন।</p>
         <table>
             <thead>
                 <tr>
@@ -373,31 +397,47 @@ footer {
         </table>
     </div>
 
+    <div class="feedback-section">
+        <h3>💬 মেম্বার ফিডব্যাক ও পরামর্শ বোর্ড (Live)</h3>
+        <div id="feedbackList" style="max-height: 250px; overflow-y: auto; margin-bottom: 15px;"></div>
+        <div class="form-grid" style="grid-template-columns: 1fr 2fr;">
+            <input id="fbName" placeholder="আপনার নাম">
+            <input id="fbMsg" placeholder="আপনার পরামর্শ বা বার্তাটি এখানে লিখুন...">
+        </div>
+        <button class="btn-success" style="margin-top: 10px;" onclick="sendFeedback()">বার্তা পাঠান</button>
+    </div>
+
+</div>
+
+<div id="memberModal" class="modal">
+    <div class="modal-content">
+        <span class="close-modal" onclick="closeModal()">&times;</span>
+        <h3 id="modalMemberName" style="color: var(--primary); margin-top:0;"></h3>
+        <hr style="border:0; border-top: 1px solid var(--border-color);">
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; font-weight: bold; text-align: center;">
+            <div style="background:#10b981; color:white; padding:10px; border-radius:8px;">মোট পেইড: <span id="modalTotalPaid">0</span> ৳</div>
+            <div style="background:#ef4444; color:white; padding:10px; border-radius:8px;">মোট বাকি: <span id="modalTotalDue">0</span> ৳</div>
+        </div>
+        <h4>হিসাবের খতিয়ান বিবরণী:</h4>
+        <div style="max-height: 200px; overflow-y: auto; font-size: 14px;">
+            <table style="width: 100%;">
+                <thead>
+                    <tr><th>বিবরণ</th><th>তারিখ</th><th>পেইড</th><th>বাকি</th></tr>
+                </thead>
+                <tbody id="modalTableBody"></tbody>
+            </table>
+        </div>
+    </div>
 </div>
 
 <div class="calc">
     <h3>Calculator</h3>
     <input id="display" readonly>
     <div class="grid">
-        <button onclick="p('7')">7</button>
-        <button onclick="p('8')">8</button>
-        <button onclick="p('9')">9</button>
-        <button class="btn-secondary" onclick="p('/')">÷</button>
-        
-        <button onclick="p('4')">4</button>
-        <button onclick="p('5')">5</button>
-        <button onclick="p('6')">6</button>
-        <button class="btn-secondary" onclick="p('*')">×</button>
-        
-        <button onclick="p('1')">1</button>
-        <button onclick="p('2')">2</button>
-        <button onclick="p('3')">3</button>
-        <button class="btn-secondary" onclick="p('-')">-</button>
-        
-        <button onclick="p('0')">0</button>
-        <button class="btn-danger" onclick="clearCalc()">C</button>
-        <button class="btn-success" onclick="calc()">=</button>
-        <button class="btn-secondary" onclick="p('+')">+</button>
+        <button onclick="p('7')">7</button><button onclick="p('8')">8</button><button onclick="p('9')">9</button><button class="btn-secondary" onclick="p('/')">÷</button>
+        <button onclick="p('4')">4</button><button onclick="p('5')">5</button><button onclick="p('6')">6</button><button class="btn-secondary" onclick="p('*')">×</button>
+        <button onclick="p('1')">1</button><button onclick="p('2')">2</button><button onclick="p('3')">3</button><button class="btn-secondary" onclick="p('-')">-</button>
+        <button onclick="p('0')">0</button><button class="btn-danger" onclick="clearCalc()">C</button><button class="btn-success" onclick="calc()">=</button><button class="btn-secondary" onclick="p('+')">+</button>
     </div>
 </div>
 
@@ -406,28 +446,26 @@ footer {
 </footer>
 
 <script>
-// --- আপনার আসল ফায়ারবেস ডাটাবেজ লিংক এখানে সেট করে দেওয়া হয়েছে ---
 const FIREBASE_URL = "https://fighter-club-f5623-default-rtdb.firebaseio.com"; 
 
 let data = JSON.parse(localStorage.getItem("fighterData")) || [];
 let inventoryData = [];
+let feedbackData = [];
 let isAdmin = false;
 
-// ডাটাবেজ থেকে নোটিশ এবং ইনভেন্টরি ডাটা রিয়েল-টাইম লোড করা
+// ফায়ারবেস থেকে রিয়েল-টাইম ডাটা লোড
 if (FIREBASE_URL !== "YOUR_FIREBASE_DATABASE_URL") {
-    // লোড নোটিশ
     fetch(FIREBASE_URL + "/notice.json")
         .then(res => res.json())
         .then(text => {
             if(text) document.getElementById("noticeText").innerText = text;
         }).catch(() => {});
 
-    // লাইভ লোড ইনভেন্টরি
     loadLiveInventory();
+    loadLiveFeedback();
 }
 
 function loadLiveInventory() {
-    if (FIREBASE_URL === "YOUR_FIREBASE_DATABASE_URL") return;
     fetch(FIREBASE_URL + "/inventory.json")
         .then(res => res.json())
         .then(serverData => {
@@ -438,6 +476,20 @@ function loadLiveInventory() {
                 });
             }
             renderInventory();
+        });
+}
+
+function loadLiveFeedback() {
+    fetch(FIREBASE_URL + "/feedback.json")
+        .then(res => res.json())
+        .then(serverData => {
+            feedbackData = [];
+            if(serverData) {
+                Object.keys(serverData).forEach(key => {
+                    feedbackData.push({ id: key, ...serverData[key] });
+                });
+            }
+            renderFeedback();
         });
 }
 
@@ -455,7 +507,7 @@ function handleAuth() {
             document.getElementById("adminForm").style.display = "block";
             document.getElementById("inventoryForm").style.display = "block";
             document.getElementById("noticeForm").style.display = "block";
-            document.getElementById("adminStatus").innerText = "Admin Mode: সচল আছে। আপনি ডাটা এন্ট্রি করতে পারবেন।";
+            document.getElementById("adminStatus").innerText = "Admin Mode: সচল আছে।";
             document.getElementById("adminStatus").className = "admin-status admin-active";
         } else {
             alert("ভুল পাসওয়ার্ড!");
@@ -472,19 +524,19 @@ function handleAuth() {
     }
     render();
     renderInventory();
+    renderFeedback();
 }
 
 function updateNotice() {
     let text = document.getElementById("newNotice").value;
     if(!text) return alert("নোটিশ খালি রাখা যাবে না");
-    
     fetch(FIREBASE_URL + "/notice.json", {
         method: "PUT",
         body: JSON.stringify(text)
     }).then(() => {
         document.getElementById("noticeText").innerText = text;
         document.getElementById("newNotice").value = "";
-        alert("নোটিশ গ্লোবালি আপডেট হয়েছে! এখন সবাই দেখতে পাবে।");
+        alert("নোটিশ আপডেট হয়েছে!");
     });
 }
 
@@ -496,10 +548,7 @@ function add(){
     let paid = Number(document.getElementById("paid").value);
     let date = document.getElementById("date").value;
 
-    if(!member || !item || !price || !date){
-        alert("অনুগ্রহ করে সব ফিল্ড পূরণ করুন");
-        return;
-    }
+    if(!member || !item || !price || !date){ return alert("সব ফিল্ড পূরণ করুন"); }
 
     let remaining = price - paid;
     data.push({member, item, type, price, paid, remaining, date});
@@ -513,7 +562,6 @@ function add(){
 }
 
 function edit(i){
-    if(!isAdmin) return alert("অ্যাডমিন লগইন প্রয়োজন");
     let d = data[i];
     document.getElementById("member").value = d.member;
     document.getElementById("item").value = d.item;
@@ -521,14 +569,12 @@ function edit(i){
     document.getElementById("price").value = d.price;
     document.getElementById("paid").value = d.paid;
     document.getElementById("date").value = d.date;
-
     data.splice(i,1);
     save();
     render();
 }
 
 function del(i){
-    if(!isAdmin) return alert("অ্যাডমিন লগইন প্রয়োজন");
     if(confirm("আপনি কি নিশ্চিতভাবে এটি ডিলিট করতে চান?")) {
         data.splice(i,1);
         save();
@@ -558,14 +604,13 @@ function render(){
                 totalMoney += d.paid; 
                 totalRemaining += remaining; 
             }
-            
             if(d.member) membersSet.add(d.member);
 
-            let typeBadge = d.type === "expense" ? "<span style='color:red;font-weight:bold;'>খরচ</span>" : "<span style='color:green;font-weight:bold;'>জমা</span>";
+            let typeBadge = d.type === "expense" ? "<span style='color:red;'>খরচ</span>" : "<span style='color:green;'>জমা</span>";
 
             list.innerHTML += `
                 <tr>
-                    <td><strong>${d.member}</strong></td>
+                    <td><strong class="member-link" onclick="openMemberProfile('${d.member}')">${d.member}</strong></td>
                     <td>${d.item}</td>
                     <td>${typeBadge}</td>
                     <td>${d.date}</td>
@@ -586,46 +631,62 @@ function render(){
     document.getElementById("totalMembers").innerText = membersSet.size + " জন";
 }
 
+function openMemberProfile(name) {
+    document.getElementById("modalMemberName").innerText = "👤 " + name + " এর খতিয়ান";
+    let modalBody = document.getElementById("modalTableBody");
+    modalBody.innerHTML = "";
+    
+    let totalPaid = 0;
+    let totalDue = 0;
+    
+    data.forEach(d => {
+        if(d.member === name) {
+            let remaining = d.price - d.paid;
+            if(d.type !== "expense") {
+                totalPaid += d.paid;
+                totalDue += remaining;
+            }
+            modalBody.innerHTML += `
+                <tr>
+                    <td>${d.item}</td>
+                    <td>${d.date}</td>
+                    <td>${d.paid} ৳</td>
+                    <td>${remaining} ৳</td>
+                </tr>
+            `;
+        }
+    });
+    
+    document.getElementById("modalTotalPaid").innerText = totalPaid;
+    document.getElementById("modalTotalDue").innerText = totalDue;
+    document.getElementById("memberModal").style.display = "flex";
+}
+
+function closeModal() {
+    document.getElementById("memberModal").style.display = "none";
+}
+
 function addInventory(){
     let item = document.getElementById("invItem").value;
     let qty = document.getElementById("invQty").value;
     let status = document.getElementById("invStatus").value;
-
-    if(!item || !qty){
-        alert("সব তথ্য দিন");
-        return;
-    }
-
-    let newRecord = {item, qty, status};
+    if(!item || !qty) return alert("সব তথ্য দিন");
 
     fetch(FIREBASE_URL + "/inventory.json", {
         method: "POST",
-        body: JSON.stringify(newRecord)
-    }).then(() => {
-        loadLiveInventory();
-        document.getElementById("invItem").value = "";
-        document.getElementById("invQty").value = "";
-    });
+        body: JSON.stringify({item, qty, status})
+    }).then(() => { loadLiveInventory(); document.getElementById("invItem").value = ""; document.getElementById("invQty").value = ""; });
 }
 
 function delInventory(id){
-    if(!isAdmin) return alert("অ্যাডমিন লগইন প্রয়োজন");
-    if(confirm("মালামালের এই রেকর্ডটি কি গ্লোবালি ডিলিট করতে চান?")){
-        fetch(`${FIREBASE_URL}/inventory/${id}.json`, {
-            method: "DELETE"
-        }).then(() => {
-            loadLiveInventory();
-        });
+    if(confirm("মালামাল ডিলিট করতে চান?")){
+        fetch(`${FIREBASE_URL}/inventory/${id}.json`, { method: "DELETE" }).then(() => loadLiveInventory());
     }
 }
 
 function renderInventory(){
     let invList = document.getElementById("inventoryList");
     invList.innerHTML = "";
-
-    let adminCols = document.querySelectorAll('.admin-action-col');
-    adminCols.forEach(col => col.style.display = isAdmin ? 'table-cell' : 'none');
-
     inventoryData.forEach((d) => {
         let statusColor = d.status === "নষ্ট" ? "#ef4444" : "#10b981";
         invList.innerHTML += `
@@ -633,10 +694,48 @@ function renderInventory(){
                 <td><strong>${d.item}</strong></td>
                 <td>${d.qty} টি</td>
                 <td style="color:${statusColor}; font-weight:bold;">${d.status}</td>
-                ${isAdmin ? `<td>
-                    <button class="btn-danger" style="padding:4px 8px; font-size:12px;" onclick="delInventory('${d.id}')">Delete</button>
-                </td>` : ''}
+                ${isAdmin ? `<td><button class="btn-danger" style="padding:4px 8px; font-size:12px;" onclick="delInventory('${d.id}')">Delete</button></td>` : ''}
             </tr>
+        `;
+    });
+}
+
+function sendFeedback() {
+    let name = document.getElementById("fbName").value;
+    let msg = document.getElementById("fbMsg").value;
+    if(!name || !msg) return alert("নাম এবং মেসেজ দুটোই লিখুন ভাই!");
+
+    fetch(FIREBASE_URL + "/feedback.json", {
+        method: "POST",
+        body: JSON.stringify({ name, msg, time: new Date().toLocaleDateString('bn-BD') })
+    }).then(() => {
+        loadLiveFeedback();
+        document.getElementById("fbMsg").value = "";
+    });
+}
+
+function delFeedback(id) {
+    if(confirm("এই মেসেজটি কি বোর্ড থেকে মুছে ফেলতে চান?")) {
+        fetch(`${FIREBASE_URL}/feedback/${id}.json`, { method: "DELETE" }).then(() => loadLiveFeedback());
+    }
+}
+
+function renderFeedback() {
+    let fbList = document.getElementById("feedbackList");
+    fbList.innerHTML = "";
+    if(feedbackData.length === 0) {
+        fbList.innerHTML = "<p style='color:#64748b; font-size:14px;'>এখনো কোনো মেসেজ নেই।</p>";
+    }
+    feedbackData.forEach(d => {
+        fbList.innerHTML += `
+            <div class="msg-box">
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
+                    <span style="font-weight:600; color:var(--primary);">👤 ${d.name}</span>
+                    <span style="font-size:11px; color:#64748b;">${d.time || ''}</span>
+                </div>
+                <div style="font-size:14px; word-wrap:break-word;">${d.msg}</div>
+                ${isAdmin ? `<button class="btn-danger" style="padding:2px 6px; font-size:11px; margin-top:5px;" onclick="delFeedback('${d.id}')">Delete Message</button>` : ''}
+            </div>
         `;
     });
 }
@@ -654,17 +753,11 @@ function downloadCSV(){
     a.click();
 }
 
-function toggleDark(){
-    document.body.classList.toggle("dark");
-}
-
+function toggleDark(){ document.body.classList.toggle("dark"); }
 let display = document.getElementById("display");
 function p(v){ display.value += v; }
 function clearCalc(){ display.value = ""; }
-function calc(){ 
-    try { display.value = eval(display.value); } 
-    catch { display.value = "Error"; } 
-}
+function calc(){ try { display.value = eval(display.value); } catch { display.value = "Error"; } }
 
 render();
 </script>
