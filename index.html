@@ -3,10 +3,12 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="Welcome to the official Fighter website...">
-<title>FIGHTER</title>
+<meta name="description" content="FIGHTER Cricket Club - Official expense tracker and member dashboard. Developed by Borno Sarker.">
+<meta name="keywords" content="FIGHTER, FIGHTER Cricket Club, fighter cricket, fighter website, fighter-bd">
+<meta name="robots" content="index, follow">
+<title>FIGHTER Cricket Club</title>
 
-<link rel="icon" type="image/png" href="fighter cricket club logo.png">
+<link rel="icon" type="image/png" href="fighter%20cricket%20club%20logo.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -37,14 +39,37 @@
 
 body {
     margin: 0;
-    padding: 20px 10px;
+    padding: 0 0 20px 0;
     background: var(--bg-color);
     color: var(--text-color);
 }
 
+/* Notice Board Styling */
+.notice-board {
+    background: #f59e0b;
+    color: #ffffff;
+    padding: 10px;
+    font-weight: 600;
+    font-size: 14px;
+    overflow: hidden;
+    position: relative;
+    white-space: nowrap;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+.dark .notice-board { background: #b45309; }
+.notice-text {
+    display: inline-block;
+    padding-left: 100%;
+    animation: marquee 20s linear infinite;
+}
+@keyframes marquee {
+    0% { transform: translate3d(0, 0, 0); }
+    100% { transform: translate3d(-100%, 0, 0); }
+}
+
 .container {
     max-width: 1000px;
-    margin: auto;
+    margin: 20px auto;
     background: var(--card-bg);
     padding: 30px;
     border-radius: 16px;
@@ -60,7 +85,15 @@ body {
     width: 130px;
     display: block;
     margin: 0 auto 15px;
-    filter: drop-shadow(0 4px 6px rgba(0,0,0,0.1));
+    border-radius: 12px;
+    background: #ffffff;
+    padding: 5px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+}
+
+.dark .logo {
+    filter: none !important;
+    background: #ffffff !important;
 }
 
 .top-bar {
@@ -149,6 +182,7 @@ input:focus, select:focus {
     overflow-x: auto;
     border-radius: 8px;
     border: 1px solid var(--border-color);
+    margin-bottom: 30px;
 }
 
 table {
@@ -224,10 +258,14 @@ footer {
 </head>
 <body>
 
+<div class="notice-board">
+    <div class="notice-text" id="noticeText">স্বাগতম! FIGHTER Cricket Club-এর অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম।</div>
+</div>
+
 <div class="container">
 
     <div class="header-section">
-        <img src="fighter cricket club logo.png" class="logo" alt="FIGHTER Logo">
+        <img src="fighter%20cricket%20club%20logo.png" class="logo" alt="FIGHTER Logo">
         <h2>FIGHTER Cricket Club হিসাব</h2>
         <p>📧 Email: <a href="mailto:fighterbd.com123@gmail.com" style="color: var(--primary);">fighterbd.com123@gmail.com</a></p>
     </div>
@@ -238,6 +276,14 @@ footer {
     </div>
 
     <div id="adminStatus" class="admin-status">View Mode: আপনি এখন হিসাব শুধু দেখতে পারবেন।</div>
+
+    <div id="noticeForm" style="display: none; background: rgba(245, 158, 11, 0.05); padding: 15px; border-radius: 12px; margin-bottom: 25px; border: 1px dashed #f59e0b;">
+        <h4 style="margin-top:0; color: #b45309;">📢 নোটিশ বোর্ড আপডেট করুন</h4>
+        <div style="display: flex; gap: 10px;">
+            <input id="newNotice" placeholder="নতুন নোটিশটি এখানে লিখুন...">
+            <button class="btn-success" onclick="updateNotice()" style="background: #f59e0b;">আপডেট</button>
+        </div>
+    </div>
 
     <div class="summary">
         <div class="box income">
@@ -295,6 +341,36 @@ footer {
         </table>
     </div>
 
+    <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 40px 0;">
+    <h3 style="text-align: center; margin-bottom: 20px;">🏏 ক্লাবের মালামালের হিসাব (Inventory)</h3>
+    
+    <div id="inventoryForm" style="display: none; background: rgba(0,0,0,0.02); padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px dashed var(--border-color);">
+        <h4 style="margin-top:0;">নতুন মালামাল যোগ করুন</h4>
+        <div class="form-grid">
+            <input id="invItem" placeholder="জিনিসের নাম (যেমন: ব্যাট, বল)">
+            <input id="invQty" type="number" placeholder="পরিমাণ (টি)">
+            <select id="invStatus">
+                <option value="ভালো">ভালো আছে (Good)</option>
+                <option value="নষ্ট">নষ্ট / হারানো (Damaged/Lost)</option>
+            </select>
+        </div>
+        <button class="btn-success" onclick="addInventory()">যোগ করুন</button>
+    </div>
+
+    <div class="table-responsive">
+        <table>
+            <thead>
+                <tr>
+                    <th>জিনিসের নাম</th>
+                    <th>পরিমাণ</th>
+                    <th>অবস্থা</th>
+                    <th class="admin-action-col" style="display:none;">পরিবর্তন</th>
+                </tr>
+            </thead>
+            <tbody id="inventoryList"></tbody>
+        </table>
+    </div>
+
 </div>
 
 <div class="calc">
@@ -329,10 +405,19 @@ footer {
 
 <script>
 let data = JSON.parse(localStorage.getItem("fighterData")) || [];
+let inventoryData = JSON.parse(localStorage.getItem("fighterInventory")) || [];
+let savedNotice = localStorage.getItem("fighterNotice") || "স্বাগতম! FIGHTER Cricket Club-এর অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম।";
 let isAdmin = false;
+
+// Initialize Notice Board
+document.getElementById("noticeText").innerText = savedNotice;
 
 function save(){
     localStorage.setItem("fighterData", JSON.stringify(data));
+}
+
+function saveInventory(){
+    localStorage.setItem("fighterInventory", JSON.stringify(inventoryData));
 }
 
 function handleAuth() {
@@ -343,6 +428,8 @@ function handleAuth() {
             document.getElementById("authBtn").innerText = "Logout";
             document.getElementById("authBtn").className = "btn-danger";
             document.getElementById("adminForm").style.display = "block";
+            document.getElementById("inventoryForm").style.display = "block";
+            document.getElementById("noticeForm").style.display = "block";
             document.getElementById("adminStatus").innerText = "Admin Mode: সচল আছে। আপনি ডাটা এন্ট্রি করতে পারবেন।";
             document.getElementById("adminStatus").className = "admin-status admin-active";
         } else {
@@ -353,10 +440,23 @@ function handleAuth() {
         document.getElementById("authBtn").innerText = "Admin Login";
         document.getElementById("authBtn").className = "btn-success";
         document.getElementById("adminForm").style.display = "none";
+        document.getElementById("inventoryForm").style.display = "none";
+        document.getElementById("noticeForm").style.display = "none";
         document.getElementById("adminStatus").innerText = "View Mode: আপনি এখন হিসাব শুধু দেখতে পারবেন।";
         document.getElementById("adminStatus").className = "admin-status";
     }
     render();
+    renderInventory();
+}
+
+// Notice Board Update Function
+function updateNotice() {
+    let text = document.getElementById("newNotice").value;
+    if(!text) return alert("নোটিশ খালি রাখা যাবে না");
+    localStorage.setItem("fighterNotice", text);
+    document.getElementById("noticeText").innerText = text;
+    document.getElementById("newNotice").value = "";
+    alert("নোটিশ সফলভাবে আপডেট হয়েছে!");
 }
 
 function add(){
@@ -457,6 +557,53 @@ function render(){
     document.getElementById("totalMembers").innerText = membersSet.size + " জন";
 }
 
+// Inventory Logic
+function addInventory(){
+    let item = document.getElementById("invItem").value;
+    let qty = document.getElementById("invQty").value;
+    let status = document.getElementById("invStatus").value;
+
+    if(!item || !qty){
+        alert("সব তথ্য দিন");
+        return;
+    }
+
+    inventoryData.push({item, qty, status});
+    saveInventory();
+    renderInventory();
+
+    document.getElementById("invItem").value = "";
+    document.getElementById("invQty").value = "";
+}
+
+function delInventory(i){
+    if(!isAdmin) return alert("অ্যাডমিন লগইন প্রয়োজন");
+    if(confirm("মালামালের এই রেকর্ডটি কি ডিলিট করতে চান?")){
+        inventoryData.splice(i,1);
+        saveInventory();
+        renderInventory();
+    }
+}
+
+function renderInventory(){
+    let invList = document.getElementById("inventoryList");
+    invList.innerHTML = "";
+
+    inventoryData.forEach((d, i) => {
+        let statusColor = d.status === "নষ্ট" ? "#ef4444" : "#10b981";
+        invList.innerHTML += `
+            <tr>
+                <td><strong>${d.item}</strong></td>
+                <td>${d.qty} টি</td>
+                <td style="color:${statusColor}; font-weight:bold;">${d.status}</td>
+                ${isAdmin ? `<td>
+                    <button class="btn-danger" style="padding:4px 8px; font-size:12px;" onclick="delInventory(${i})">Delete</button>
+                </td>` : ''}
+            </tr>
+        `;
+    });
+}
+
 function downloadCSV(){
     let csv = "Name,Description,Type,Date,Total,Paid,Remaining\n";
     data.forEach(d => {
@@ -483,6 +630,7 @@ function calc(){
 }
 
 render();
+renderInventory();
 </script>
 </body>
 </html>
