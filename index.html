@@ -8,7 +8,7 @@
 <meta name="robots" content="index, follow">
 <title>FIGHTER Cricket Club</title>
 
-<link rel="icon" type="image/png" href="fighter%20cricket%20club%20logo.png">
+<link rel="icon" type="image/png" href="fighter cricket club logo.png">
 
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
@@ -55,6 +55,8 @@ body {
     position: relative;
     white-space: nowrap;
     box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+    width: 100%;
+    display: block !important;
 }
 .dark .notice-board { background: #b45309; }
 .notice-text {
@@ -259,13 +261,13 @@ footer {
 <body>
 
 <div class="notice-board">
-    <div class="notice-text" id="noticeText">স্বাগতম! FIGHTER Cricket Club-এর অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম।</div>
+    <div class="notice-text" id="noticeText">স্বাগতম! FIGHTER Cricket Club-এর অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম। ল্যাপটপ বা মোবাইল থেকে এডমিন প্যানেলে নোটিশ আপডেট করলেই এখানে লাইভ চেঞ্জ হবে।</div>
 </div>
 
 <div class="container">
 
     <div class="header-section">
-        <img src="fighter%20cricket%20club%20logo.png" class="logo" alt="FIGHTER Logo">
+        <img src="fighter cricket club logo.png" class="logo" alt="FIGHTER Logo">
         <h2>FIGHTER Cricket Club হিসাব</h2>
         <p>📧 Email: <a href="mailto:fighterbd.com123@gmail.com" style="color: var(--primary);">fighterbd.com123@gmail.com</a></p>
     </div>
@@ -278,7 +280,7 @@ footer {
     <div id="adminStatus" class="admin-status">View Mode: আপনি এখন হিসাব শুধু দেখতে পারবেন।</div>
 
     <div id="noticeForm" style="display: none; background: rgba(245, 158, 11, 0.05); padding: 15px; border-radius: 12px; margin-bottom: 25px; border: 1px dashed #f59e0b;">
-        <h4 style="margin-top:0; color: #b45309;">📢 নোটিশ বোর্ড আপডেট করুন</h4>
+        <h4 style="margin-top:0; color: #b45309;">📢 নোটিশ বোর্ড আপডেট করুন (সবার ফোনে লাইভ চেঞ্জ হবে)</h4>
         <div style="display: flex; gap: 10px;">
             <input id="newNotice" placeholder="নতুন নোটিশটি এখানে লিখুন...">
             <button class="btn-success" onclick="updateNotice()" style="background: #f59e0b;">আপডেট</button>
@@ -342,7 +344,7 @@ footer {
     </div>
 
     <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 40px 0;">
-    <h3 style="text-align: center; margin-bottom: 20px;">🏏 ক্লাবের মালামালের হিসাব (Inventory)</h3>
+    <h3 style="text-align: center; margin-bottom: 20px;">🏏 ক্লাবের মালামালের হিসাব (Inventory - Live)</h3>
     
     <div id="inventoryForm" style="display: none; background: rgba(0,0,0,0.02); padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px dashed var(--border-color);">
         <h4 style="margin-top:0;">নতুন মালামাল যোগ করুন</h4>
@@ -404,20 +406,43 @@ footer {
 </footer>
 
 <script>
+// --- আপনার আসল ফায়ারবেস ডাটাবেজ লিংক এখানে সেট করে দেওয়া হয়েছে ---
+const FIREBASE_URL = "https://fighter-club-f5623-default-rtdb.firebaseio.com"; 
+
 let data = JSON.parse(localStorage.getItem("fighterData")) || [];
-let inventoryData = JSON.parse(localStorage.getItem("fighterInventory")) || [];
-let savedNotice = localStorage.getItem("fighterNotice") || "স্বাগতম! FIGHTER Cricket Club-এর অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম।";
+let inventoryData = [];
 let isAdmin = false;
 
-// Initialize Notice Board
-document.getElementById("noticeText").innerText = savedNotice;
+// ডাটাবেজ থেকে নোটিশ এবং ইনভেন্টরি ডাটা রিয়েল-টাইম লোড করা
+if (FIREBASE_URL !== "YOUR_FIREBASE_DATABASE_URL") {
+    // লোড নোটিশ
+    fetch(FIREBASE_URL + "/notice.json")
+        .then(res => res.json())
+        .then(text => {
+            if(text) document.getElementById("noticeText").innerText = text;
+        }).catch(() => {});
+
+    // লাইভ লোড ইনভেন্টরি
+    loadLiveInventory();
+}
+
+function loadLiveInventory() {
+    if (FIREBASE_URL === "YOUR_FIREBASE_DATABASE_URL") return;
+    fetch(FIREBASE_URL + "/inventory.json")
+        .then(res => res.json())
+        .then(serverData => {
+            inventoryData = [];
+            if(serverData) {
+                Object.keys(serverData).forEach(key => {
+                    inventoryData.push({ id: key, ...serverData[key] });
+                });
+            }
+            renderInventory();
+        });
+}
 
 function save(){
     localStorage.setItem("fighterData", JSON.stringify(data));
-}
-
-function saveInventory(){
-    localStorage.setItem("fighterInventory", JSON.stringify(inventoryData));
 }
 
 function handleAuth() {
@@ -449,14 +474,18 @@ function handleAuth() {
     renderInventory();
 }
 
-// Notice Board Update Function
 function updateNotice() {
     let text = document.getElementById("newNotice").value;
     if(!text) return alert("নোটিশ খালি রাখা যাবে না");
-    localStorage.setItem("fighterNotice", text);
-    document.getElementById("noticeText").innerText = text;
-    document.getElementById("newNotice").value = "";
-    alert("নোটিশ সফলভাবে আপডেট হয়েছে!");
+    
+    fetch(FIREBASE_URL + "/notice.json", {
+        method: "PUT",
+        body: JSON.stringify(text)
+    }).then(() => {
+        document.getElementById("noticeText").innerText = text;
+        document.getElementById("newNotice").value = "";
+        alert("নোটিশ গ্লোবালি আপডেট হয়েছে! এখন সবাই দেখতে পাবে।");
+    });
 }
 
 function add(){
@@ -557,7 +586,6 @@ function render(){
     document.getElementById("totalMembers").innerText = membersSet.size + " জন";
 }
 
-// Inventory Logic
 function addInventory(){
     let item = document.getElementById("invItem").value;
     let qty = document.getElementById("invQty").value;
@@ -568,20 +596,26 @@ function addInventory(){
         return;
     }
 
-    inventoryData.push({item, qty, status});
-    saveInventory();
-    renderInventory();
+    let newRecord = {item, qty, status};
 
-    document.getElementById("invItem").value = "";
-    document.getElementById("invQty").value = "";
+    fetch(FIREBASE_URL + "/inventory.json", {
+        method: "POST",
+        body: JSON.stringify(newRecord)
+    }).then(() => {
+        loadLiveInventory();
+        document.getElementById("invItem").value = "";
+        document.getElementById("invQty").value = "";
+    });
 }
 
-function delInventory(i){
+function delInventory(id){
     if(!isAdmin) return alert("অ্যাডমিন লগইন প্রয়োজন");
-    if(confirm("মালামালের এই রেকর্ডটি কি ডিলিট করতে চান?")){
-        inventoryData.splice(i,1);
-        saveInventory();
-        renderInventory();
+    if(confirm("মালামালের এই রেকর্ডটি কি গ্লোবালি ডিলিট করতে চান?")){
+        fetch(`${FIREBASE_URL}/inventory/${id}.json`, {
+            method: "DELETE"
+        }).then(() => {
+            loadLiveInventory();
+        });
     }
 }
 
@@ -589,7 +623,10 @@ function renderInventory(){
     let invList = document.getElementById("inventoryList");
     invList.innerHTML = "";
 
-    inventoryData.forEach((d, i) => {
+    let adminCols = document.querySelectorAll('.admin-action-col');
+    adminCols.forEach(col => col.style.display = isAdmin ? 'table-cell' : 'none');
+
+    inventoryData.forEach((d) => {
         let statusColor = d.status === "নষ্ট" ? "#ef4444" : "#10b981";
         invList.innerHTML += `
             <tr>
@@ -597,7 +634,7 @@ function renderInventory(){
                 <td>${d.qty} টি</td>
                 <td style="color:${statusColor}; font-weight:bold;">${d.status}</td>
                 ${isAdmin ? `<td>
-                    <button class="btn-danger" style="padding:4px 8px; font-size:12px;" onclick="delInventory(${i})">Delete</button>
+                    <button class="btn-danger" style="padding:4px 8px; font-size:12px;" onclick="delInventory('${d.id}')">Delete</button>
                 </td>` : ''}
             </tr>
         `;
@@ -630,7 +667,6 @@ function calc(){
 }
 
 render();
-renderInventory();
 </script>
 </body>
 </html>
