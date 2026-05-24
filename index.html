@@ -1,246 +1,387 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="bn">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ADITA CAKE HOUSE</title>
-  <style>
-    body{
-      font-family: Arial, sans-serif;
-      margin:0;
-      background:#f5f5f5;
-    }
-    header{
-      background:#ff4d6d;
-      padding:15px;
-      color:white;
-      display:flex;
-      justify-content:space-between;
-      align-items:center;
-    }
-    .logo{
-      font-size:20px;
-      font-weight:bold;
-    }
-    .cart-btn{
-      background:white;
-      color:#ff4d6d;
-      border:none;
-      padding:6px 10px;
-      border-radius:5px;
-      cursor:pointer;
-      font-weight:bold;
-    }
-    .search-box input{
-      padding:8px;
-      width:180px;
-      border-radius:5px;
-      border:none;
-    }
-    .banner{
-      background:url('https://images.unsplash.com/photo-1542826438-bd32f43d626f') center/cover;
-      height:200px;
-      display:flex;
-      align-items:center;
-      justify-content:center;
-      color:white;
-      font-size:26px;
-      font-weight:bold;
-      text-shadow:2px 2px 5px black;
-      text-align:center;
-      padding:10px;
-    }
-    .categories{
-      display:flex;
-      gap:10px;
-      padding:10px;
-      overflow-x:auto;
-      background:white;
-    }
-    .cat{
-      background:#ffccd5;
-      padding:10px;
-      border-radius:10px;
-      white-space:nowrap;
-    }
-    .products{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(160px,1fr));
-      gap:10px;
-      padding:10px;
-    }
-    .card{
-      background:white;
-      padding:10px;
-      border-radius:10px;
-      text-align:center;
-    }
-    .card img{
-      width:100%;
-      height:120px;
-      object-fit:cover;
-      border-radius:10px;
-    }
-    .add-btn{
-      background:#ff4d6d;
-      color:white;
-      padding:6px;
-      border:none;
-      border-radius:5px;
-      cursor:pointer;
-      margin-top:5px;
-      width:100%;
-    }
-    footer{
-      text-align:center;
-      padding:15px;
-      background:#222;
-      color:white;
-      margin-top:20px;
-    }
 
-    /* cart modal */
-    .modal{
-      display:none;
-      position:fixed;
-      top:0;left:0;
-      width:100%;height:100%;
-      background:rgba(0,0,0,0.6);
-    }
-    .modal-content{
-      background:white;
-      margin:10% auto;
-      padding:15px;
-      width:90%;
-      max-width:400px;
-      border-radius:10px;
-    }
-    .close{
-      float:right;
-      cursor:pointer;
-      font-size:20px;
-    }
-    .place-btn{
-      background:#25D366;
-      color:white;
-      padding:8px;
-      border:none;
-      border-radius:5px;
-      cursor:pointer;
-      width:100%;
-      margin-top:10px;
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>FIGHTER </title>
+
+<style>
+
+body{
+font-family:Arial;
+margin:0;
+background:#f2f2f2;
+}
+
+.dark{
+background:#111;
+color:white;
+}
+
+.container{
+max-width:1000px;
+margin:auto;
+background:white;
+padding:20px;
+border-radius:10px;
+}
+
+.dark .container{
+background:#1e1e1e;
+}
+
+.logo{
+width:150px;
+display:block;
+margin:auto;
+}
+
+button{
+padding:8px 12px;
+border:none;
+background:#2563eb;
+color:white;
+border-radius:5px;
+cursor:pointer;
+margin:3px;
+}
+
+table{
+width:100%;
+border-collapse:collapse;
+margin-top:10px;
+}
+
+th,td{
+border:1px solid #ccc;
+padding:8px;
+text-align:center;
+}
+
+th{
+background:#2563eb;
+color:white;
+}
+
+.dark th{
+background:#444;
+}
+
+input{
+padding:8px;
+margin:5px;
+}
+
+.summary{
+display:flex;
+gap:10px;
+margin-top:15px;
+}
+
+.box{
+flex:1;
+padding:10px;
+color:white;
+border-radius:8px;
+text-align:center;
+}
+
+.income{background:green;}
+.balance{background:#2563eb;}
+.expense{background:red;}
+
+.calc{
+max-width:250px;
+margin:30px auto;
+background:#ddd;
+padding:15px;
+border-radius:10px;
+}
+
+.dark .calc{
+background:#222;
+}
+
+.calc input{
+width:100%;
+height:40px;
+text-align:right;
+margin-bottom:10px;
+font-size:18px;
+}
+
+.grid{
+display:grid;
+grid-template-columns:repeat(4,1fr);
+gap:5px;
+}
+
+.grid button{
+padding:10px;
+font-size:16px;
+}
+
+</style>
+
 </head>
+
 <body>
 
-<header>
-  <div class="logo">ADITA CAKE HOUSE 🍰</div>
-  <button class="cart-btn" onclick="openCart()">🛒 Cart (<span id="cartCount">0</span>)</button>
-</header>
+<div class="container">
 
-<div class="banner">
-  Fresh Cake Delivery - Only 25 Taka Cup Cake
+<img src="fighter-cricket-logo.png" class="logo">
+
+<h2>FIGHTER Cricket Club হিসাব</h2> <p>
+📧 Email:
+<a href="mailto:fighterbd.com123@gmail.com">
+fighterbd.com123@gmail.com
+</a>
+</p>
+
+<button onclick="dark()">Dark Mode</button>
+
+<!-- Summary -->
+<div class="summary">
+<div class="box income">
+মোট টাকা<br><span id="totalMoney">0</span>
+</div>
+<div class="box expense">
+মোট বাকি<br><span id="totalRemaining">0</span>
+</div>
+<div class="box balance">
+মোট সদস্য<br><span id="totalMembers">0</span>
+</div>
 </div>
 
-<div class="categories">
-  <div class="cat">Cup Cake</div>
-  <div class="cat">Chocolate Cake</div>
-  <div class="cat">Birthday Cake</div>
-  <div class="cat">Custom Cake</div>
+<br>
+
+<input id="search" placeholder="Search..." onkeyup="render()">
+
+<br>
+
+<input id="member" placeholder="সদস্যের নাম">
+<input id="item" placeholder="খেলাধুলার জিনিস">
+<input id="price" type="number" placeholder="জিনিসের মোট দাম">
+<input id="paid" type="number" placeholder="সদস্যের দেওয়া টাকা">
+<input type="date" id="date">
+
+<br>
+
+<button onclick="add()">যোগ</button>
+<button onclick="download()">Excel Download</button>
+
+<table>
+
+<tr>
+<th>নাম</th>
+<th>জিনিস</th>
+<th>তারিখ</th>
+<th>মোট দাম</th>
+<th>দেওয়া টাকা</th>
+<th>বাকি টাকা</th>
+<th>পরিবর্তন</th>
+</tr>
+
+<tbody id="list"></tbody>
+
+</table>
+
 </div>
 
-<div class="products">
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1519869325930-281384150729" />
-    <h4>Cup Cake</h4>
-    <p>25 Taka</p>
-    <button class="add-btn" onclick="addToCart('Cup Cake',25)">Add to Cart</button>
-  </div>
+<div class="calc">
 
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1578985545062-69928b1d9587" />
-    <h4>Chocolate Cake</h4>
-    <p>500 Taka</p>
-    <button class="add-btn" onclick="addToCart('Chocolate Cake',500)">Add to Cart</button>
-  </div>
+<h3>Calculator</h3>
 
-  <div class="card">
-    <img src="https://images.unsplash.com/photo-1606313564200-e75d5e30476c" />
-    <h4>Birthday Cake</h4>
-    <p>800 Taka</p>
-    <button class="add-btn" onclick="addToCart('Birthday Cake',800)">Add to Cart</button>
-  </div>
+<input id="display">
+
+<div class="grid">
+
+<button onclick="p('7')">7</button>
+<button onclick="p('8')">8</button>
+<button onclick="p('9')">9</button>
+<button onclick="p('/')">÷</button>
+
+<button onclick="p('4')">4</button>
+<button onclick="p('5')">5</button>
+<button onclick="p('6')">6</button>
+<button onclick="p('*')">×</button>
+
+<button onclick="p('1')">1</button>
+<button onclick="p('2')">2</button>
+<button onclick="p('3')">3</button>
+<button onclick="p('-')">-</button>
+
+<button onclick="p('0')">0</button>
+<button onclick="clearCalc()">C</button>
+<button onclick="calc()">=</button>
+<button onclick="p('+')">+</button>
+
 </div>
 
-<!-- CART MODAL -->
-<div class="modal" id="cartModal">
-  <div class="modal-content">
-    <span class="close" onclick="closeCart()">&times;</span>
-    <h3>Your Cart 🛒</h3>
-    <div id="cartItems"></div>
-    <hr>
-    <p><b>Total: </b><span id="total">0</span> Taka</p>
-    <button class="place-btn" onclick="placeOrder()">Place Order</button>
-  </div>
 </div>
-
-<footer>
-  © 2026 ADITA CAKE HOUSE | Contact: +8801303780409
-</footer>
 
 <script>
-let cart = [];
 
-function addToCart(name, price){
-  cart.push({name, price});
-  document.getElementById('cartCount').innerText = cart.length;
-  alert(name + " added to cart!");
+let data = JSON.parse(localStorage.getItem("fighterData")) || []
+
+function save(){
+localStorage.setItem("fighterData", JSON.stringify(data))
 }
 
-function openCart(){
-  document.getElementById('cartModal').style.display='block';
-  renderCart();
+function add(){
+
+let member=document.getElementById("member").value
+let item=document.getElementById("item").value
+let price=Number(document.getElementById("price").value)
+let paid=Number(document.getElementById("paid").value)
+let date=document.getElementById("date").value
+
+if(!member || !item || !price || !date){
+alert("সব ফিল্ড পূরণ করুন")
+return
 }
 
-function closeCart(){
-  document.getElementById('cartModal').style.display='none';
+let remaining = price - paid
+
+data.push({member,item,price,paid,remaining,date})
+
+save()
+
+render()
+
 }
 
-function renderCart(){
-  let html = "";
-  let total = 0;
-  cart.forEach(item=>{
-    html += `<p>${item.name} - ${item.price} Taka</p>`;
-    total += item.price;
-  });
-  document.getElementById('cartItems').innerHTML = html;
-  document.getElementById('total').innerText = total;
+function edit(i){
+
+let d=data[i]
+
+document.getElementById("member").value=d.member
+document.getElementById("item").value=d.item
+document.getElementById("price").value=d.price
+document.getElementById("paid").value=d.paid
+document.getElementById("date").value=d.date
+
+data.splice(i,1)
+
+save()
+
+render()
+
 }
 
-function placeOrder(){
-  if(cart.length === 0){
-    alert("Cart is empty!");
-    return;
-  }
+function del(i){
 
-  let msg = "Order from ADITA CAKE HOUSE:\n";
-  let total = 0;
+data.splice(i,1)
 
-  cart.forEach(item=>{
-    msg += item.name + " - " + item.price + " Taka\n";
-    total += item.price;
-  });
+save()
 
-  msg += "Total: " + total + " Taka";
+render()
 
-  alert("Order placed successfully!\n\n" + msg);
-
-  cart = [];
-  document.getElementById('cartCount').innerText = 0;
-  closeCart();
 }
+
+function render(){
+
+let list=document.getElementById("list")
+
+let search=document.getElementById("search").value.toLowerCase()
+
+list.innerHTML=""
+
+let totalMoney=0
+let totalRemaining=0
+let membersSet = new Set()
+
+data.forEach((d,i)=>{
+
+if(
+d.member.toLowerCase().includes(search) ||
+d.item.toLowerCase().includes(search)
+){
+
+let remaining=d.price-d.paid
+totalMoney += d.price
+totalRemaining += remaining
+membersSet.add(d.member)
+
+list.innerHTML+=`
+
+<tr>
+
+<td>${d.member}</td>
+<td>${d.item}</td>
+<td>${d.date}</td>
+<td>${d.price}</td>
+<td>${d.paid}</td>
+<td>${remaining}</td>
+
+<td>
+
+<button onclick="edit(${i})">Edit</button>
+<button onclick="del(${i})">Delete</button>
+
+</td>
+
+</tr>
+
+`
+
+}
+
+})
+
+// Update summary
+document.getElementById("totalMoney").innerText = totalMoney
+document.getElementById("totalRemaining").innerText = totalRemaining
+document.getElementById("totalMembers").innerText = membersSet.size
+
+}
+
+render()
+
+function download(){
+
+let csv="member,item,date,price,paid,remaining\n"
+
+data.forEach(d=>{
+
+let remaining=d.price-d.paid
+
+csv+=`${d.member},${d.item},${d.date},${d.price},${d.paid},${remaining}\n`
+
+})
+
+let blob=new Blob([csv])
+
+let a=document.createElement("a")
+
+a.href=URL.createObjectURL(blob)
+
+a.download="fighter_hisab.csv"
+
+a.click()
+
+}
+
+function dark(){
+document.body.classList.toggle("dark")
+}
+
+function p(v){
+display.value+=v
+}
+
+function clearCalc(){
+display.value=""
+}
+
+function calc(){
+display.value=eval(display.value)
+}
+
 </script>
-
+<iframe src="https://www.google.com/maps/embed?pb=!1m17!1m12!1m3!1d3606.1053403832148!2d89.53285607516824!3d25.334245977623016!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m2!1m1!2zMjXCsDIwJzAzLjMiTiA4OcKwMzInMDcuNiJF!5e0!3m2!1sen!2sbd!4v1779614506587!5m2!1sen!2sbd" width="600" height="450" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe> 
+<p> Developed by Borno Sarker</p>
 </body>
 </html>
