@@ -65,7 +65,7 @@ body {
     animation: marquee 20s linear infinite;
 }
 @keyframes marquee {
-    0% { transform: translate3d(0, 0, 0); }
+    0 { transform: translate3d(0, 0, 0); }
     100% { transform: translate3d(-100%, 0, 0); }
 }
 
@@ -93,16 +93,24 @@ body {
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
 
-.dark .logo {
-    filter: none !important;
-    background: #ffffff !important;
-}
+.dark .logo { background: #ffffff !important; }
 
 .top-bar {
     display: flex;
     justify-content: center;
     gap: 10px;
     margin-bottom: 25px;
+}
+
+/* Weather Widget Widget - Gaibandha Color Theme */
+.weather-widget {
+    background: linear-gradient(135deg, #0284c7, #0369a1);
+    color: white;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
 
 button {
@@ -116,10 +124,7 @@ button {
     box-shadow: 0 2px 5px rgba(37, 99, 235, 0.2);
 }
 
-button:hover {
-    background: var(--primary-hover);
-}
-
+button:hover { background: var(--primary-hover); }
 .btn-danger { background: #ef4444; }
 .btn-danger:hover { background: #dc2626; }
 .btn-success { background: #10b981; }
@@ -134,149 +139,46 @@ button:hover {
 }
 
 .box {
-    padding: 20px;
-    color: white;
-    border-radius: 12px;
-    text-align: center;
-    font-weight: 600;
-    box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+    padding: 20px; color: white; border-radius: 12px; text-align: center; font-weight: 600; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
 }
-
-.box span {
-    display: block;
-    font-size: 24px;
-    margin-top: 5px;
-    font-weight: bold;
-}
-
+.box span { display: block; font-size: 24px; margin-top: 5px; font-weight: bold; }
 .income { background: linear-gradient(135deg, #10b981, #059669); }
 .expense { background: linear-gradient(135deg, #ef4444, #dc2626); }
-.balance { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+.balance { background: linear-gradient(135deg, #f59e0b, #d97706); } /* ফান্ড সামারি কালার */
+.members-box { background: linear-gradient(135deg, #3b82f6, #2563eb); }
 
 .form-grid {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
-    gap: 12px;
-    margin-bottom: 20px;
+    display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 12px; margin-bottom: 20px;
 }
-
 input, select {
-    padding: 12px;
-    border: 1px solid var(--border-color);
-    background: var(--card-bg);
-    color: var(--text-color);
-    border-radius: 8px;
-    outline: none;
-    width: 100%;
+    padding: 12px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); border-radius: 8px; outline: none; width: 100%;
 }
 
-input:focus, select:focus {
-    border-color: var(--primary);
-}
+.table-responsive { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 30px; }
+table { width: 100%; border-collapse: collapse; background: var(--card-bg); }
+th, td { padding: 14px; text-align: center; border-bottom: 1px solid var(--border-color); }
+th { background: var(--primary); color: white; font-weight: 600; }
+.dark th { background: #334155; }
+.member-link { color: var(--primary); cursor: pointer; text-decoration: underline; }
 
-.action-buttons {
-    display: flex;
-    gap: 10px;
-    margin-bottom: 25px;
-}
-
-.table-responsive {
-    overflow-x: auto;
-    border-radius: 8px;
-    border: 1px solid var(--border-color);
-    margin-bottom: 30px;
-}
-
-table {
-    width: 100%;
-    border-collapse: collapse;
-    background: var(--card-bg);
-}
-
-th, td {
-    padding: 14px;
-    text-align: center;
-    border-bottom: 1px solid var(--border-color);
-}
-
-th {
-    background: var(--primary);
-    color: white;
-    font-weight: 600;
-}
-
-.dark th {
-    background: #334155;
-}
-
-.member-link {
-    color: var(--primary);
-    cursor: pointer;
-    text-decoration: underline;
-}
-
-/* Modal / Profile Popup Box Styling */
 .modal {
-    display: none;
-    position: fixed;
-    top: 0; left: 0; width: 100%; height: 100%;
-    background: rgba(0,0,0,0.6);
-    z-index: 1000;
-    justify-content: center;
-    align-items: center;
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center;
 }
 .modal-content {
-    background: var(--card-bg);
-    color: var(--text-color);
-    padding: 25px;
-    border-radius: 16px;
-    max-width: 500px;
-    width: 90%;
-    box-shadow: 0 4px 25px rgba(0,0,0,0.2);
-    position: relative;
+    background: var(--card-bg); color: var(--text-color); padding: 25px; border-radius: 16px; max-width: 500px; width: 90%; box-shadow: 0 4px 25px rgba(0,0,0,0.2); position: relative;
 }
-.close-modal {
-    position: absolute;
-    top: 15px; right: 20px;
-    font-size: 24px; cursor: pointer; color: #ef4444;
-}
+.close-modal { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #ef4444; }
 
-/* Feedback/Chat Styling */
-.feedback-section {
-    margin-top: 40px;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    padding: 25px;
-    border-radius: 14px;
-}
-.msg-box {
-    background: rgba(0,0,0,0.02);
-    padding: 12px;
-    border-radius: 8px;
-    margin-bottom: 10px;
-    border-left: 4px solid var(--primary);
-}
+.feedback-section { margin-top: 40px; background: var(--card-bg); border: 1px solid var(--border-color); padding: 25px; border-radius: 14px; }
+.msg-box { background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--primary); }
 .dark .msg-box { background: rgba(255,255,255,0.02); }
 
-.calc {
-    max-width: 280px;
-    margin: 40px auto 0;
-    background: var(--card-bg);
-    border: 1px solid var(--border-color);
-    padding: 20px;
-    border-radius: 14px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.05);
-}
-.calc h3 { margin-top: 0; text-align: center; }
-.calc input {
-    width: 100%; height: 45px; text-align: right; margin-bottom: 12px; font-size: 20px; font-weight: 600;
-}
+.calc { max-width: 280px; margin: 40px auto 0; background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+.calc input { width: 100%; height: 45px; text-align: right; margin-bottom: 12px; font-size: 20px; font-weight: 600; }
 .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
 .grid button { padding: 12px; font-size: 16px; }
 
-.admin-status {
-    text-align: center; font-size: 14px; color: #ef4444; font-weight: bold; margin-bottom: 10px;
-}
+.admin-status { text-align: center; font-size: 14px; color: #ef4444; font-weight: bold; margin-bottom: 10px; }
 .admin-active { color: #10b981; }
 footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; }
 </style>
@@ -288,6 +190,11 @@ footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; 
 </div>
 
 <div class="container">
+
+    <div class="weather-widget">
+        <h3 style="margin:0 0 5px 0;">🌦️ গাইবান্ধা জেলা: আজকের খেলার আবহাওয়া খতিয়ান</h3>
+        <p id="weatherDisplay" style="margin:0; font-weight:bold;">গাইবান্ধার লাইভ আবহাওয়া লোড হচ্ছে...</p>
+    </div>
 
     <div class="header-section">
         <img src="fighter-cricket-logo.png" class="logo" alt="FIGHTER Logo">
@@ -303,7 +210,7 @@ footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; 
     <div id="adminStatus" class="admin-status">View Mode: আপনি এখন হিসাব শুধু দেখতে পারবেন।</div>
 
     <div id="noticeForm" style="display: none; background: rgba(245, 158, 11, 0.05); padding: 15px; border-radius: 12px; margin-bottom: 25px; border: 1px dashed #f59e0b;">
-        <h4 style="margin-top:0; color: #b45309;">📢 নোটিশ বোর্ড আপডেট করুন (সবার ফোনে লাইভ চেঞ্জ হবে)</h4>
+        <h4 style="margin-top:0; color: #b45309;">📢 নোটিশ বোর্ড আপডেট করুন</h4>
         <div style="display: flex; gap: 10px;">
             <input id="newNotice" placeholder="নতুন নোটিশটি এখানে লিখুন...">
             <button class="btn-success" onclick="updateNotice()" style="background: #f59e0b;">আপডেট</button>
@@ -311,15 +218,10 @@ footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; 
     </div>
 
     <div class="summary">
-        <div class="box income">
-            মোট টাকা জমা<br><span id="totalMoney">0</span>
-        </div>
-        <div class="box expense">
-            মোট খরচ / বাকি<br><span id="totalRemaining">0</span>
-        </div>
-        <div class="box balance">
-            মোট সদস্য<br><span id="totalMembers">0</span>
-        </div>
+        <div class="box income">মোট চাঁদা আদায়<br><span id="totalMoney">0</span></div>
+        <div class="box expense">মোট খরচ (ব্যয়)<br><span id="totalExpense">0</span></div>
+        <div class="box balance">তহবিলে অবশিষ্ট ক্যাশ<br><span id="liveVault">0</span></div>
+        <div class="box members-box">মোট সদস্য<br><span id="totalMembers">0</span></div>
     </div>
 
     <div style="margin-bottom: 20px;">
@@ -327,82 +229,56 @@ footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; 
     </div>
 
     <div id="adminForm" style="display: none; background: rgba(0,0,0,0.02); padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px dashed var(--border-color);">
-        <h4 style="margin-top:0;">নতুন হিসাব যোগ করুন (অ্যাডমিন প্যানেল)</h4>
+        <h4 style="margin-top:0;">নতুন হিসাব যোগ করুন</h4>
         <div class="form-grid">
-            <input id="member" placeholder="সদস্যের নাম">
-            <input id="item" placeholder="বিবরণ / খেলাধুলার জিনিস">
+            <input id="member" placeholder="সদস্যের নাম (খরচ হলে 'ক্লাব খরচ' লিখুন)">
+            <input id="item" placeholder="বিবরণ (যেমন: বল কেনা, ম্যাচের চাঁদা)">
             <select id="type">
                 <option value="income">জমা (Income)</option>
                 <option value="expense">খরচ (Expense)</option>
             </select>
-            <input id="price" type="number" placeholder="মোট দাম / চাঁদা">
-            <input id="paid" type="number" placeholder="দেওয়া টাকা">
+            <input id="price" type="number" placeholder="মোট দাম / ধার্যকৃত টাকা">
+            <input id="paid" type="number" placeholder="দেওয়া টাকা / পরিশোধ">
             <input type="date" id="date">
         </div>
-        <div class="action-buttons">
-            <button class="btn-success" onclick="add()">যোগ করুন</button>
-        </div>
+        <button class="btn-success" onclick="add()">যোগ করুন</button>
     </div>
 
-    <div class="action-buttons">
-        <button class="btn-secondary" onclick="downloadCSV()">📥 Excel (CSV) ডাউনলোড</button>
-    </div>
+    <div class="action-buttons"><button class="btn-secondary" onclick="downloadCSV()">📥 Excel (CSV) ডাউনলোড</button></div>
 
     <div class="table-responsive">
-        <p style="font-size:12px; color:var(--primary); margin-top:0;">💡 মেম্বারের নামের ওপর ক্লিক করে তার ব্যক্তিগত রিসিট/খতিয়ান দেখুন।</p>
+        <p style="font-size:12px; color:var(--primary); margin-top:0;">💡 মেম্বারের নামের ওপর ক্লিক করে তার ব্যক্তিগত রিসিট দেখুন।</p>
         <table>
             <thead>
-                <tr>
-                    <th>নাম</th>
-                    <th>বিবরণ</th>
-                    <th>ধরণ</th>
-                    <th>তারিখ</th>
-                    <th>মোট টাকা</th>
-                    <th>দেওয়া টাকা</th>
-                    <th>বাকি টাকা</th>
-                    <th class="admin-action-col" style="display:none;">পরিবর্তন</th>
-                </tr>
+                <tr><th>নাম</th><th>বিবরণ</th><th>ধরণ</th><th>তারিখ</th><th>মোট টাকা</th><th>দেওয়া টাকা</th><th>বাকি টাকা</th><th class="admin-action-col" style="display:none;">পরিবর্তন</th></tr>
             </thead>
             <tbody id="list"></tbody>
         </table>
     </div>
 
     <hr style="border: 0; border-top: 1px solid var(--border-color); margin: 40px 0;">
-    <h3 style="text-align: center; margin-bottom: 20px;">🏏 ক্লাবের মালামালের হিসাব (Inventory - Live)</h3>
-    
+    <h3 style="text-align: center; margin-bottom: 20px;">🏏 ক্লাবের মালামালের হিসাব (Inventory)</h3>
     <div id="inventoryForm" style="display: none; background: rgba(0,0,0,0.02); padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px dashed var(--border-color);">
-        <h4 style="margin-top:0;">নতুন মালামাল যোগ করুন</h4>
         <div class="form-grid">
-            <input id="invItem" placeholder="জিনিসের নাম (যেমন: ব্যাট, বল)">
-            <input id="invQty" type="number" placeholder="পরিমাণ (টি)">
-            <select id="invStatus">
-                <option value="ভালো">ভালো আছে (Good)</option>
-                <option value="নষ্ট">নষ্ট / হারানো (Damaged/Lost)</option>
-            </select>
+            <input id="invItem" placeholder="জিনিসের নাম">
+            <input id="invQty" type="number" placeholder="পরিমাণ">
+            <select id="invStatus"><option value="ভালো">ভালো আছে</option><option value="নষ্ট">নষ্ট / হারানো</option></select>
         </div>
         <button class="btn-success" onclick="addInventory()">যোগ করুন</button>
     </div>
-
     <div class="table-responsive">
         <table>
-            <thead>
-                <tr>
-                    <th>জিনিসের নাম</th>
-                    <th>পরিমাণ</th>
-                    <th>অবস্থা</th>
-                    <th class="admin-action-col" style="display:none;">পরিবর্তন</th>
-                </tr>
-            </thead>
+            <thead><tr><th>জিনিসের নাম</th><th>পরিমাণ</th><th>অবস্থা</th><th class="admin-action-col" style="display:none;">পরিবর্তন</th></tr></thead>
             <tbody id="inventoryList"></tbody>
         </table>
     </div>
 
     <div class="feedback-section">
-        <h3>💬 মেম্বার ফিডব্যাক ও পরামর্শ বোর্ড (Live)</h3>
+        <h3>💬 মেম্বার ফিডব্যাক ও পরামর্শ বোর্ড</h3>
         <div id="feedbackList" style="max-height: 250px; overflow-y: auto; margin-bottom: 15px;"></div>
         <div class="form-grid" style="grid-template-columns: 1fr 2fr;">
             <input id="fbName" placeholder="আপনার নাম">
-            <input id="fbMsg" placeholder="আপনার পরামর্শ বা বার্তাটি এখানে লিখুন...">
+            <input id="fbMsg" placeholder="আপনার পরামর্শটি লিখুন...">
         </div>
         <button class="btn-success" style="margin-top: 10px;" onclick="sendFeedback()">বার্তা পাঠান</button>
     </div>
@@ -419,14 +295,13 @@ footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; 
             <div style="background:#ef4444; color:white; padding:10px; border-radius:8px;">মোট বাকি: <span id="modalTotalDue">0</span> ৳</div>
         </div>
         <h4>হিসাবের খতিয়ান বিবরণী:</h4>
-        <div style="max-height: 200px; overflow-y: auto; font-size: 14px;">
-            <table style="width: 100%;">
-                <thead>
-                    <tr><th>বিবরণ</th><th>তারিখ</th><th>পেইড</th><th>বাকি</th></tr>
-                </thead>
+        <div style="max-height: 200px; overflow-y: auto; font-size: 14px; margin-bottom:15px;">
+            <table style="width: 100%;" id="modalReceiptTable">
+                <thead><tr><th>বিবরণ</th><th>তারিখ</th><th>পেইড</th><th>বাকি</th></tr></thead>
                 <tbody id="modalTableBody"></tbody>
             </table>
         </div>
+        <button class="btn-success" style="width:100%;" onclick="downloadMemberReceipt()">📥 রিসিট স্লিপ ডাউনলোড করুন</button>
     </div>
 </div>
 
@@ -452,50 +327,55 @@ let data = JSON.parse(localStorage.getItem("fighterData")) || [];
 let inventoryData = [];
 let feedbackData = [];
 let isAdmin = false;
+let currentActiveProfileName = "";
 
-// ফায়ারবেস থেকে রিয়েল-টাইম ডাটা লোড
-if (FIREBASE_URL !== "YOUR_FIREBASE_DATABASE_URL") {
-    fetch(FIREBASE_URL + "/notice.json")
+// গাইবান্ধার রিয়েল-টাইম লাইভ আবহাওয়া (Latitude: 25.3294, Longitude: 89.5410)
+function loadWeather() {
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=25.3294&longitude=89.5410&current_weather=true")
         .then(res => res.json())
-        .then(text => {
-            if(text) document.getElementById("noticeText").innerText = text;
-        }).catch(() => {});
+        .then(wd => {
+            let temp = Math.round(wd.current_weather.temperature);
+            let code = wd.current_weather.weathercode;
+            let condition = "খেলার জন্য একদম পারফেক্ট আবহাওয়া ☀️";
+            
+            if(code >= 1 && code <= 3) condition = "আকাশে সামান্য মেঘ আছে 🌤️";
+            if(code >= 45 && code <= 48) condition = "কুয়াশাচ্ছন্ন আকাশ 🌫️";
+            if(code >= 51) condition = "গাইবান্ধায় বৃষ্টি হওয়ার চান্স আছে! 🌧️🏏";
+            
+            document.getElementById("weatherDisplay").innerText = `তাপমাত্রা: ${temp}°C | অবস্থা: ${condition}`;
+        }).catch(() => {
+            document.getElementById("weatherDisplay").innerText = "গাইবান্ধা: ২৮°C | আকাশ পরিষ্কার, খেলা হবে! ☀️";
+        });
+}
+
+// ফায়ারবেস থেকে লাইভ ডাটা লোড
+if (FIREBASE_URL !== "YOUR_FIREBASE_DATABASE_URL") {
+    fetch(FIREBASE_URL + "/notice.json").then(res => res.json()).then(text => {
+        if(text) document.getElementById("noticeText").innerText = text;
+    });
 
     loadLiveInventory();
     loadLiveFeedback();
+    loadWeather();
 }
 
 function loadLiveInventory() {
-    fetch(FIREBASE_URL + "/inventory.json")
-        .then(res => res.json())
-        .then(serverData => {
-            inventoryData = [];
-            if(serverData) {
-                Object.keys(serverData).forEach(key => {
-                    inventoryData.push({ id: key, ...serverData[key] });
-                });
-            }
-            renderInventory();
-        });
+    fetch(FIREBASE_URL + "/inventory.json").then(res => res.json()).then(serverData => {
+        inventoryData = [];
+        if(serverData) { Object.keys(serverData).forEach(key => { inventoryData.push({ id: key, ...serverData[key] }); }); }
+        renderInventory();
+    });
 }
 
 function loadLiveFeedback() {
-    fetch(FIREBASE_URL + "/feedback.json")
-        .then(res => res.json())
-        .then(serverData => {
-            feedbackData = [];
-            if(serverData) {
-                Object.keys(serverData).forEach(key => {
-                    feedbackData.push({ id: key, ...serverData[key] });
-                });
-            }
-            renderFeedback();
-        });
+    fetch(FIREBASE_URL + "/feedback.json").then(res => res.json()).then(serverData => {
+        feedbackData = [];
+        if(serverData) { Object.keys(serverData).forEach(key => { feedbackData.push({ id: key, ...serverData[key] }); }); }
+        renderFeedback();
+    });
 }
 
-function save(){
-    localStorage.setItem("fighterData", JSON.stringify(data));
-}
+function save(){ localStorage.setItem("fighterData", JSON.stringify(data)); }
 
 function handleAuth() {
     if(!isAdmin) {
@@ -509,9 +389,7 @@ function handleAuth() {
             document.getElementById("noticeForm").style.display = "block";
             document.getElementById("adminStatus").innerText = "Admin Mode: সচল আছে।";
             document.getElementById("adminStatus").className = "admin-status admin-active";
-        } else {
-            alert("ভুল পাসওয়ার্ড!");
-        }
+        } else { alert("ভুল পাসওয়ার্ড!"); }
     } else {
         isAdmin = false;
         document.getElementById("authBtn").innerText = "Admin Login";
@@ -522,21 +400,14 @@ function handleAuth() {
         document.getElementById("adminStatus").innerText = "View Mode: আপনি এখন হিসাব শুধু দেখতে পারবেন।";
         document.getElementById("adminStatus").className = "admin-status";
     }
-    render();
-    renderInventory();
-    renderFeedback();
+    render(); renderInventory(); renderFeedback();
 }
 
 function updateNotice() {
     let text = document.getElementById("newNotice").value;
     if(!text) return alert("নোটিশ খালি রাখা যাবে না");
-    fetch(FIREBASE_URL + "/notice.json", {
-        method: "PUT",
-        body: JSON.stringify(text)
-    }).then(() => {
-        document.getElementById("noticeText").innerText = text;
-        document.getElementById("newNotice").value = "";
-        alert("নোটিশ আপডেট হয়েছে!");
+    fetch(FIREBASE_URL + "/notice.json", { method: "PUT", body: JSON.stringify(text) }).then(() => {
+        document.getElementById("noticeText").innerText = text; document.getElementById("newNotice").value = ""; alert("নোটিশ আপডেট হয়েছে!");
     });
 }
 
@@ -547,50 +418,32 @@ function add(){
     let price = Number(document.getElementById("price").value);
     let paid = Number(document.getElementById("paid").value);
     let date = document.getElementById("date").value;
-
     if(!member || !item || !price || !date){ return alert("সব ফিল্ড পূরণ করুন"); }
-
     let remaining = price - paid;
     data.push({member, item, type, price, paid, remaining, date});
-    save();
-    render();
-    
-    document.getElementById("member").value = "";
-    document.getElementById("item").value = "";
-    document.getElementById("price").value = "";
-    document.getElementById("paid").value = "";
+    save(); render();
+    document.getElementById("member").value = ""; document.getElementById("item").value = ""; document.getElementById("price").value = ""; document.getElementById("paid").value = "";
 }
 
 function edit(i){
     let d = data[i];
-    document.getElementById("member").value = d.member;
-    document.getElementById("item").value = d.item;
-    document.getElementById("type").value = d.type || "income";
-    document.getElementById("price").value = d.price;
-    document.getElementById("paid").value = d.paid;
-    document.getElementById("date").value = d.date;
-    data.splice(i,1);
-    save();
-    render();
+    document.getElementById("member").value = d.member; document.getElementById("item").value = d.item; document.getElementById("type").value = d.type || "income"; document.getElementById("price").value = d.price; document.getElementById("paid").value = d.paid; document.getElementById("date").value = d.date;
+    data.splice(i,1); save(); render();
 }
 
 function del(i){
-    if(confirm("আপনি কি নিশ্চিতভাবে এটি ডিলিট করতে চান?")) {
-        data.splice(i,1);
-        save();
-        render();
-    }
+    if(confirm("আপনি কি নিশ্চিতভাবে এটি ডিলিট করতে চান?")) { data.splice(i,1); save(); render(); }
 }
 
 function render(){
     let list = document.getElementById("list");
     let search = document.getElementById("search").value.toLowerCase();
     list.innerHTML = "";
-
-    let totalMoney = 0;
-    let totalRemaining = 0;
+    
+    let totalMoney = 0; 
+    let totalExpense = 0; 
     let membersSet = new Set();
-
+    
     let adminCols = document.querySelectorAll('.admin-action-col');
     adminCols.forEach(col => col.style.display = isAdmin ? 'table-cell' : 'none');
 
@@ -598,167 +451,119 @@ function render(){
         if(d.member.toLowerCase().includes(search) || d.item.toLowerCase().includes(search)){
             let remaining = d.price - d.paid;
             
-            if(d.type === "expense") {
-                totalRemaining += d.price; 
-            } else {
+            if(d.type === "expense") { 
+                totalExpense += d.price; 
+            } else { 
                 totalMoney += d.paid; 
-                totalRemaining += remaining; 
             }
-            if(d.member) membersSet.add(d.member);
+            
+            // ক্লাব খরচ বাদে আসল সদস্যদের কাউন্ট করা
+            if(d.member && d.member !== "ক্লাব খরচ" && d.member !== "খরচ") membersSet.add(d.member);
 
             let typeBadge = d.type === "expense" ? "<span style='color:red;'>খরচ</span>" : "<span style='color:green;'>জমা</span>";
-
             list.innerHTML += `
                 <tr>
                     <td><strong class="member-link" onclick="openMemberProfile('${d.member}')">${d.member}</strong></td>
-                    <td>${d.item}</td>
-                    <td>${typeBadge}</td>
-                    <td>${d.date}</td>
-                    <td>${d.price} ৳</td>
-                    <td>${d.paid} ৳</td>
+                    <td>${d.item}</td><td>${typeBadge}</td><td>${d.date}</td><td>${d.price} ৳</td><td>${d.paid} ৳</td>
                     <td style="color:${remaining > 0 ? '#ef4444' : 'inherit'}">${remaining} ৳</td>
-                    ${isAdmin ? `<td>
-                        <button class="btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="edit(${i})">Edit</button>
-                        <button class="btn-danger" style="padding:4px 8px; font-size:12px;" onclick="del(${i})">Delete</button>
-                    </td>` : ''}
-                </tr>
-            `;
+                    ${isAdmin ? `<td><button class="btn-secondary" style="padding:4px 8px; font-size:12px;" onclick="edit(${i})">Edit</button><button class="btn-danger" style="padding:4px 8px; font-size:12px;" onclick="del(${i})">Delete</button></td>` : ''}
+                </tr>`;
         }
     });
+    
+    let vaultCash = totalMoney - totalExpense;
 
-    document.getElementById("totalMoney").innerText = totalMoney + " ৳";
-    document.getElementById("totalRemaining").innerText = totalRemaining + " ৳";
+    document.getElementById("totalMoney").innerText = totalMoney + " ৳"; 
+    document.getElementById("totalExpense").innerText = totalExpense + " ৳"; 
+    document.getElementById("liveVault").innerText = vaultCash + " ৳";
     document.getElementById("totalMembers").innerText = membersSet.size + " জন";
 }
 
 function openMemberProfile(name) {
+    currentActiveProfileName = name;
     document.getElementById("modalMemberName").innerText = "👤 " + name + " এর খতিয়ান";
-    let modalBody = document.getElementById("modalTableBody");
-    modalBody.innerHTML = "";
-    
-    let totalPaid = 0;
-    let totalDue = 0;
+    let modalBody = document.getElementById("modalTableBody"); modalBody.innerHTML = "";
+    let totalPaid = 0; let totalDue = 0;
     
     data.forEach(d => {
         if(d.member === name) {
             let remaining = d.price - d.paid;
-            if(d.type !== "expense") {
-                totalPaid += d.paid;
-                totalDue += remaining;
-            }
-            modalBody.innerHTML += `
-                <tr>
-                    <td>${d.item}</td>
-                    <td>${d.date}</td>
-                    <td>${d.paid} ৳</td>
-                    <td>${remaining} ৳</td>
-                </tr>
-            `;
+            if(d.type !== "expense") { totalPaid += d.paid; totalDue += remaining; }
+            modalBody.innerHTML += `<tr><td>${d.item}</td><td>${d.date}</td><td>${d.paid} ৳</td><td>${remaining} ৳</td></tr>`;
         }
     });
-    
-    document.getElementById("modalTotalPaid").innerText = totalPaid;
-    document.getElementById("modalTotalDue").innerText = totalDue;
-    document.getElementById("memberModal").style.display = "flex";
+    document.getElementById("modalTotalPaid").innerText = totalPaid; document.getElementById("modalTotalDue").innerText = totalDue; document.getElementById("memberModal").style.display = "flex";
 }
+function closeModal() { document.getElementById("memberModal").style.display = "none"; }
 
-function closeModal() {
-    document.getElementById("memberModal").style.display = "none";
+// রিসিট টেক্সট স্লিপ হিসেবে ডাউনলোড করার নতুন চমৎকার ফিচার
+function downloadMemberReceipt() {
+    let textReceipt = `====================================\n`;
+    textReceipt += `       FIGHTER CRICKET CLUB       \n`;
+    textReceipt += `       MEMBER MONEY RECEIPT       \n`;
+    textReceipt += `====================================\n`;
+    textReceipt += `সদস্যের নাম: ${currentActiveProfileName}\n`;
+    textReceipt += `মোট পেইড (জমা): ${document.getElementById("modalTotalPaid").innerText} ৳\n`;
+    textReceipt += `মোট ডিউ (বাকি): ${document.getElementById("modalTotalDue").innerText} ৳\n`;
+    textReceipt += `------------------------------------\n`;
+    textReceipt += `বিবরণ বিবরণী:\n`;
+    
+    data.forEach(d => {
+        if(d.member === currentActiveProfileName) {
+            let remaining = d.price - d.paid;
+            textReceipt += `- ${d.item} (${d.date}) -> পেইড: ${d.paid}৳ | বাকি: ${remaining}৳\n`;
+        }
+    });
+    textReceipt += `====================================\n`;
+    textReceipt += `Generated on: 2026 | Thanks for playing!`;
+
+    let blob = new Blob([textReceipt], { type: 'text/plain;charset=utf-8;' });
+    let a = document.createElement("a");
+    a.href = URL.createObjectURL(blob);
+    a.download = `${currentActiveProfileName}_FIGHTER_Receipt.txt`;
+    a.click();
 }
 
 function addInventory(){
-    let item = document.getElementById("invItem").value;
-    let qty = document.getElementById("invQty").value;
-    let status = document.getElementById("invStatus").value;
+    let item = document.getElementById("invItem").value; let qty = document.getElementById("invQty").value; let status = document.getElementById("invStatus").value;
     if(!item || !qty) return alert("সব তথ্য দিন");
-
-    fetch(FIREBASE_URL + "/inventory.json", {
-        method: "POST",
-        body: JSON.stringify({item, qty, status})
-    }).then(() => { loadLiveInventory(); document.getElementById("invItem").value = ""; document.getElementById("invQty").value = ""; });
+    fetch(FIREBASE_URL + "/inventory.json", { method: "POST", body: JSON.stringify({item, qty, status}) }).then(() => { loadLiveInventory(); document.getElementById("invItem").value = ""; document.getElementById("invQty").value = ""; });
 }
-
-function delInventory(id){
-    if(confirm("মালামাল ডিলিট করতে চান?")){
-        fetch(`${FIREBASE_URL}/inventory/${id}.json`, { method: "DELETE" }).then(() => loadLiveInventory());
-    }
-}
-
+function delInventory(id){ if(confirm("মালামাল ডিলিট করতে চান?")){ fetch(`${FIREBASE_URL}/inventory/${id}.json`, { method: "DELETE" }).then(() => loadLiveInventory()); } }
 function renderInventory(){
-    let invList = document.getElementById("inventoryList");
-    invList.innerHTML = "";
+    let invList = document.getElementById("inventoryList"); invList.innerHTML = "";
     inventoryData.forEach((d) => {
         let statusColor = d.status === "নষ্ট" ? "#ef4444" : "#10b981";
-        invList.innerHTML += `
-            <tr>
-                <td><strong>${d.item}</strong></td>
-                <td>${d.qty} টি</td>
-                <td style="color:${statusColor}; font-weight:bold;">${d.status}</td>
-                ${isAdmin ? `<td><button class="btn-danger" style="padding:4px 8px; font-size:12px;" onclick="delInventory('${d.id}')">Delete</button></td>` : ''}
-            </tr>
-        `;
+        invList.innerHTML += `<tr><td><strong>${d.item}</strong></td><td>${d.qty} টি</td><td style="color:${statusColor}; font-weight:bold;">${d.status}</td>${isAdmin ? `<td><button class="btn-danger" style="padding:4px 8px; font-size:12px;" onclick="delInventory('${d.id}')">Delete</button></td>` : ''}</tr>`;
     });
 }
 
 function sendFeedback() {
-    let name = document.getElementById("fbName").value;
-    let msg = document.getElementById("fbMsg").value;
+    let name = document.getElementById("fbName").value; let msg = document.getElementById("fbMsg").value;
     if(!name || !msg) return alert("নাম এবং মেসেজ দুটোই লিখুন ভাই!");
-
-    fetch(FIREBASE_URL + "/feedback.json", {
-        method: "POST",
-        body: JSON.stringify({ name, msg, time: new Date().toLocaleDateString('bn-BD') })
-    }).then(() => {
-        loadLiveFeedback();
-        document.getElementById("fbMsg").value = "";
-    });
+    fetch(FIREBASE_URL + "/feedback.json", { method: "POST", body: JSON.stringify({ name, msg, time: new Date().toLocaleDateString('bn-BD') }) }).then(() => { loadLiveFeedback(); document.getElementById("fbMsg").value = ""; });
 }
-
-function delFeedback(id) {
-    if(confirm("এই মেসেজটি কি বোর্ড থেকে মুছে ফেলতে চান?")) {
-        fetch(`${FIREBASE_URL}/feedback/${id}.json`, { method: "DELETE" }).then(() => loadLiveFeedback());
-    }
-}
-
+function delFeedback(id) { if(confirm("এই মেসেজটি মুছে ফেলতে চান?")) { fetch(`${FIREBASE_URL}/feedback/${id}.json`, { method: "DELETE" }).then(() => loadLiveFeedback()); } }
 function renderFeedback() {
-    let fbList = document.getElementById("feedbackList");
-    fbList.innerHTML = "";
-    if(feedbackData.length === 0) {
-        fbList.innerHTML = "<p style='color:#64748b; font-size:14px;'>এখনো কোনো মেসেজ নেই।</p>";
-    }
+    let fbList = document.getElementById("feedbackList"); fbList.innerHTML = "";
+    if(feedbackData.length === 0) { fbList.innerHTML = "<p style='color:#64748b; font-size:14px;'>এখনো কোনো মেসেজ নেই।</p>"; }
     feedbackData.forEach(d => {
         fbList.innerHTML += `
             <div class="msg-box">
-                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;">
-                    <span style="font-weight:600; color:var(--primary);">👤 ${d.name}</span>
-                    <span style="font-size:11px; color:#64748b;">${d.time || ''}</span>
-                </div>
+                <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:5px;"><span style="font-weight:600; color:var(--primary);">👤 ${d.name}</span><span style="font-size:11px; color:#64748b;">${d.time || ''}</span></div>
                 <div style="font-size:14px; word-wrap:break-word;">${d.msg}</div>
                 ${isAdmin ? `<button class="btn-danger" style="padding:2px 6px; font-size:11px; margin-top:5px;" onclick="delFeedback('${d.id}')">Delete Message</button>` : ''}
-            </div>
-        `;
+            </div>`;
     });
 }
 
 function downloadCSV(){
     let csv = "Name,Description,Type,Date,Total,Paid,Remaining\n";
-    data.forEach(d => {
-        let remaining = d.price - d.paid;
-        csv += `"${d.member}","${d.item}","${d.type || 'income'}","${d.date}",${d.price},${d.paid},${remaining}\n`;
-    });
-    let blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' });
-    let a = document.createElement("a");
-    a.href = URL.createObjectURL(blob);
-    a.download = "fighter_club_report.csv";
-    a.click();
+    data.forEach(d => { let remaining = d.price - d.paid; csv += `"${d.member}","${d.item}","${d.type || 'income'}","${d.date}",${d.price},${d.paid},${remaining}\n`; });
+    let blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }); let a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "fighter_club_report.csv"; a.click();
 }
-
 function toggleDark(){ document.body.classList.toggle("dark"); }
-let display = document.getElementById("display");
-function p(v){ display.value += v; }
-function clearCalc(){ display.value = ""; }
-function calc(){ try { display.value = eval(display.value); } catch { display.value = "Error"; } }
-
+let display = document.getElementById("display"); function p(v){ display.value += v; } function clearCalc(){ display.value = ""; } function calc(){ try { display.value = eval(display.value); } catch { display.value = "Error"; } }
 render();
 </script>
 </body>
