@@ -10,7 +10,6 @@
 <title>FIGHTER Cricket Club</title>
 
 <link rel="icon" type="image/png" href="fighter-cricket-logo.png">
-
 <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 
 <style>
@@ -93,7 +92,6 @@ body {
     padding: 5px;
     box-shadow: 0 4px 10px rgba(0,0,0,0.15);
 }
-
 .dark .logo { background: #ffffff !important; }
 
 .top-bar {
@@ -124,7 +122,6 @@ button {
     cursor: pointer;
     box-shadow: 0 2px 5px rgba(37, 99, 235, 0.2);
 }
-
 button:hover { background: var(--primary-hover); }
 .btn-danger { background: #ef4444; }
 .btn-danger:hover { background: #dc2626; }
@@ -145,7 +142,7 @@ button:hover { background: var(--primary-hover); }
 .box span { display: block; font-size: 24px; margin-top: 5px; font-weight: bold; }
 .income { background: linear-gradient(135deg, #10b981, #059669); }
 .expense { background: linear-gradient(135deg, #ef4444, #dc2626); }
-.balance { background: linear-gradient(135deg, #f59e0b, #d97706); } /* ফান্ড সামারি কালার */
+.balance { background: linear-gradient(135deg, #f59e0b, #d97706); }
 .members-box { background: linear-gradient(135deg, #3b82f6, #2563eb); }
 
 .form-grid {
@@ -174,7 +171,88 @@ th { background: var(--primary); color: white; font-weight: 600; }
 .msg-box { background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--primary); }
 .dark .msg-box { background: rgba(255,255,255,0.02); }
 
-.calc { max-width: 280px; margin: 40px auto 0; background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.05); }
+/* কাস্টম গ্যালারি স্টাইল */
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+.gallery-item {
+    position: relative;
+    overflow: hidden;
+    border-radius: 8px;
+    height: 150px;
+    box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+}
+.gallery-item img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: transform 0.5s ease;
+}
+.gallery-item:hover img {
+    transform: scale(1.1);
+}
+.gallery-caption {
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    background: rgba(0, 0, 0, 0.7);
+    color: #fff;
+    font-size: 12px;
+    padding: 5px;
+    text-align: center;
+}
+.del-gal-btn {
+    position: absolute;
+    top: 5px; right: 5px;
+    background: #ef4444;
+    color: white;
+    border: none;
+    padding: 2px 6px;
+    font-size: 10px;
+    border-radius: 4px;
+    cursor: pointer;
+    z-index: 10;
+}
+
+/* ফ্লোটিং উইজেট ও ক্যালকুলেটর স্টাইল */
+.floating-widgets {
+    position: fixed;
+    bottom: 20px;
+    left: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    z-index: 999;
+}
+.circle-btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    background: var(--primary);
+    color: white;
+    border: none;
+    cursor: pointer;
+    font-size: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
+.calc { 
+    display: none; 
+    position: fixed; 
+    bottom: 140px; 
+    left: 20px; 
+    z-index: 1000; 
+    margin: 0 !important; 
+    background: var(--card-bg); 
+    border: 1px solid var(--border-color); 
+    padding: 20px; 
+    border-radius: 14px; 
+    box-shadow: 0 4px 15px rgba(0,0,0,0.1); 
+}
 .calc input { width: 100%; height: 45px; text-align: right; margin-bottom: 12px; font-size: 20px; font-weight: 600; }
 .grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
 .grid button { padding: 12px; font-size: 16px; }
@@ -182,42 +260,42 @@ th { background: var(--primary); color: white; font-weight: 600; }
 .admin-status { text-align: center; font-size: 14px; color: #ef4444; font-weight: bold; margin-bottom: 10px; }
 .admin-active { color: #10b981; }
 footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; }
+
 /* নোটিফিকেশন টোস্ট ডিজাইন */
 .toast-notification {
     position: fixed;
-    bottom: 20px;
+    bottom: -100px;
     right: 20px;
     background: #1e293b;
     color: #ffffff;
-    padding: 15px 20px;
+    padding: 15px 25px;
     border-radius: 10px;
     box-shadow: 0 10px 25px rgba(0,0,0,0.3);
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 12px;
     z-index: 9999;
-    border-left: 5px solid #10b981;
-    transform: translateY(100px);
+    border-left: 5px solid #2563eb;
     opacity: 0;
-    transition: all 0.4s ease;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
 }
-.toast-notification.show {
-    transform: translateY(0);
-    opacity: 1;
-}
+.toast-notification.show { bottom: 20px; opacity: 1; }
+.toast-notification.success { border-left-color: #10b981; }
+.toast-notification.error { border-left-color: #ef4444; }
+.toast-notification.warning { border-left-color: #f59e0b; }
 </style>
 </head>
 <body>
 
 <div class="notice-board">
-    <div class="notice-text" id="noticeText">স্বাগতম! FIGHTER Cricket Club-এর অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম।</div>
+    <div class="notice-text" id="noticeText">স্বাগতম! FIGHTER Cricket Club-এর অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম।</div>
 </div>
 
 <div class="container">
 
     <div class="weather-widget">
-        <h3 style="margin:0 0 5px 0;">🌦️ গাইবান্ধা জেলা: আজকের খেলার আবহাওয়া খতিয়ান</h3>
-        <p id="weatherDisplay" style="margin:0; font-weight:bold;">গাইবান্ধার লাইভ আবহাওয়া লোড হচ্ছে...</p>
+        <h3 style="margin:0 0 5px 0;">🌦️ গাইবান্ধা জেলা: আজকের খেলার আবহাওয়া খতিয়ান</h3>
+        <p id="weatherDisplay" style="margin:0; font-weight:bold;">গাইবান্ধার লাইভ আবহাওয়া লোড হচ্ছে...</p>
     </div>
 
     <div class="header-section">
@@ -233,17 +311,23 @@ footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; 
 
     <div id="adminStatus" class="admin-status">View Mode: আপনি এখন হিসাব শুধু দেখতে পারবেন।</div>
 
+    <!-- অ্যাডমিন নোটিশ ও বার্থডে উইশ এডিটর প্যানেল -->
     <div id="noticeForm" style="display: none; background: rgba(245, 158, 11, 0.05); padding: 15px; border-radius: 12px; margin-bottom: 25px; border: 1px dashed #f59e0b;">
         <h4 style="margin-top:0; color: #b45309;">📢 নোটিশ বোর্ড আপডেট করুন</h4>
-        <div style="display: flex; gap: 10px;">
+        <div style="display: flex; gap: 10px; margin-bottom: 15px;">
             <input id="newNotice" placeholder="নতুন নোটিশটি এখানে লিখুন...">
-            <button class="btn-success" onclick="updateNotice()" style="background: #f59e0b;">আপডেট</button>
+            <button class="btn-success" onclick="updateNotice()" style="background: #f59e0b;">আপডেট নোটিশ</button>
+        </div>
+        <h4 style="margin-top:0; color: #ec4899;">🎂 আজকের বার্থডে উইশ সেট করুন</h4>
+        <div style="display: flex; gap: 10px;">
+            <input id="newBirthdayWish" placeholder="যেমন: আজ আমাদের ফাইটার রাফিনের জন্মদিন! 🎉">
+            <button class="btn-success" onclick="updateBirthdayWish()" style="background: #ec4899;">আপডেট উইশ</button>
         </div>
     </div>
 
     <div class="summary">
-        <div class="box income">মোট চাঁদা আদায়<br><span id="totalMoney">0</span></div>
-        <div class="box expense">মোট খরচ (ব্যয়)<br><span id="totalExpense">0</span></div>
+        <div class="box income">মোট চাঁদা আদায়<br><span id="totalMoney">0</span></div>
+        <div class="box expense">মোট খরচ (ব্যয়)<br><span id="totalExpense">0</span></div>
         <div class="box balance">তহবিলে অবশিষ্ট ক্যাশ<br><span id="liveVault">0</span></div>
         <div class="box members-box">মোট সদস্য<br><span id="totalMembers">0</span></div>
     </div>
@@ -262,7 +346,7 @@ footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; 
                 <option value="expense">খরচ (Expense)</option>
             </select>
             <input id="price" type="number" placeholder="মোট দাম / ধার্যকৃত টাকা">
-            <input id="paid" type="number" placeholder="দেওয়া টাকা / পরিশোধ">
+            <input id="paid" type="number" placeholder="দেওয়া টাকা / পরিশোধ">
             <input type="date" id="date">
         </div>
         <button class="btn-success" onclick="add()">যোগ করুন</button>
@@ -274,7 +358,7 @@ footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; 
         <p style="font-size:12px; color:var(--primary); margin-top:0;">💡 মেম্বারের নামের ওপর ক্লিক করে তার ব্যক্তিগত রিসিট দেখুন।</p>
         <table>
             <thead>
-                <tr><th>নাম</th><th>বিবরণ</th><th>ধরণ</th><th>তারিখ</th><th>মোট টাকা</th><th>দেওয়া টাকা</th><th>বাকি টাকা</th><th class="admin-action-col" style="display:none;">পরিবর্তন</th></tr>
+                <tr><th>নাম</th><th>বিবরণ</th><th>ধরণ</th><th>তারিখ</th><th>মোট টাকা</th><th>দেওয়া টাকা</th><th>বাকি টাকা</th><th class="admin-action-col" style="display:none;">পরিবর্তন</th></tr>
             </thead>
             <tbody id="list"></tbody>
         </table>
@@ -297,6 +381,25 @@ footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; 
         </table>
     </div>
 
+    <!-- 📸 গ্যালারি সেকশন -->
+    <div class="feedback-section">
+        <h3>📸 ফাইটার ক্লাব গ্যালারি</h3>
+        <!-- অ্যাডমিন ফটো আপলোড প্যানেল -->
+        <div id="galleryForm" style="display: none; background: rgba(0,0,0,0.02); padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 1px dashed var(--border-color);">
+            <h4 style="margin-top:0;">নতুন ছবি যুক্ত করুন</h4>
+            <div class="form-grid" style="grid-template-columns: 2fr 1fr;">
+                <input id="galUrl" placeholder="ছবির ডিরেক্ট লিঙ্ক বা URL দিন (যেমন: match1.jpg)">
+                <input id="galCaption" placeholder="ক্যাপশন দিন">
+            </div>
+            <button class="btn-success" onclick="uploadPhoto()">গ্যালারিতে পোস্ট করুন</button>
+        </div>
+        
+        <div class="gallery-grid" id="galleryContainer">
+            <!-- এখানে জাভাস্ক্রিপ্ট দিয়ে ফটো লোড হবে -->
+        </div>
+    </div>
+
+    <!-- 💬 ফিডব্যাক সেকশন -->
     <div class="feedback-section">
         <h3>💬 মেম্বার ফিডব্যাক ও পরামর্শ বোর্ড</h3>
         <div id="feedbackList" style="max-height: 250px; overflow-y: auto; margin-bottom: 15px;"></div>
@@ -309,6 +412,7 @@ footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; 
 
 </div>
 
+<!-- 👤 মেম্বার রিসিট মোডাল -->
 <div id="memberModal" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="closeModal()">&times;</span>
@@ -318,7 +422,7 @@ footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; 
             <div style="background:#10b981; color:white; padding:10px; border-radius:8px;">মোট পেইড: <span id="modalTotalPaid">0</span> ৳</div>
             <div style="background:#ef4444; color:white; padding:10px; border-radius:8px;">মোট বাকি: <span id="modalTotalDue">0</span> ৳</div>
         </div>
-        <h4>হিসাবের খতিয়ান বিবরণী:</h4>
+        <h4>হিসাবের খতিয়ান বিবরণী:</h4>
         <div style="max-height: 200px; overflow-y: auto; font-size: 14px; margin-bottom:15px;">
             <table style="width: 100%;" id="modalReceiptTable">
                 <thead><tr><th>বিবরণ</th><th>তারিখ</th><th>পেইড</th><th>বাকি</th></tr></thead>
@@ -329,6 +433,7 @@ footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; 
     </div>
 </div>
 
+<!-- 🧮 ক্যালকুলেটর উইন্ডো -->
 <div class="calc">
     <h3>Calculator</h3>
     <input id="display" readonly>
@@ -344,27 +449,34 @@ footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; 
     <p>© 2026 FIGHTER Cricket Club | Developed by <a href="about.html" target="_blank" style="color: var(--primary); font-weight: bold; text-decoration: none;">Borno Sarker</a></p>
 </footer>
 
+<!-- 🎂 + 🧮 ফ্লোটিং উইজেট বাটন সমূহ -->
+<div class="floating-widgets">
+    <button class="circle-btn" style="background: #ec4899;" onclick="checkTodayBirthdays()" title="আজ কার जन्मदिन?">🎂</button>
+    <button class="circle-btn" onclick="toggleCalculator()" title="ক্যালকুলেটর">🧮</button>
+</div>
+
 <script>
 const FIREBASE_URL = "https://fighter-club-f5623-default-rtdb.firebaseio.com"; 
 
 let data = JSON.parse(localStorage.getItem("fighterData")) || [];
 let inventoryData = [];
 let feedbackData = [];
+let galleryData = [];
+let activeBirthdayWish = "আজ আমাদের ক্লাবের কোনো মেম্বারের জন্মদিন নেই। 🔔";
 let isAdmin = false;
 let currentActiveProfileName = "";
 
-// গাইবান্ধার রিয়েল-টাইম লাইভ আবহাওয়া (Latitude: 25.3294, Longitude: 89.5410)
 function loadWeather() {
     fetch("https://api.open-meteo.com/v1/forecast?latitude=25.3294&longitude=89.5410&current_weather=true")
         .then(res => res.json())
         .then(wd => {
             let temp = Math.round(wd.current_weather.temperature);
             let code = wd.current_weather.weathercode;
-            let condition = "খেলার জন্য একদম পারফেক্ট আবহাওয়া ☀️";
+            let condition = "খেলার জন্য একদম পারফেক্ট আবহাওয়া ☀️";
             
             if(code >= 1 && code <= 3) condition = "আকাশে সামান্য মেঘ আছে 🌤️";
-            if(code >= 45 && code <= 48) condition = "কুয়াশাচ্ছন্ন আকাশ 🌫️";
-            if(code >= 51) condition = "গাইবান্ধায় বৃষ্টি হওয়ার চান্স আছে! 🌧️🏏";
+            if(code >= 45 && code <= 48) condition = "কুয়াশাচ্ছন্ন আকাশ 🌫️";
+            if(code >= 51) condition = "গাইবান্ধায় বৃষ্টি হওয়ার চান্স আছে! 🌧️🏏";
             
             document.getElementById("weatherDisplay").innerText = `তাপমাত্রা: ${temp}°C | অবস্থা: ${condition}`;
         }).catch(() => {
@@ -372,14 +484,16 @@ function loadWeather() {
         });
 }
 
-// ফায়ারবেস থেকে লাইভ ডাটা লোড
 if (FIREBASE_URL !== "YOUR_FIREBASE_DATABASE_URL") {
     fetch(FIREBASE_URL + "/notice.json").then(res => res.json()).then(text => {
         if(text) document.getElementById("noticeText").innerText = text;
     });
-
+    fetch(FIREBASE_URL + "/birthday.json").then(res => res.json()).then(wish => {
+        if(wish) activeBirthdayWish = wish;
+    });
     loadLiveInventory();
     loadLiveFeedback();
+    loadLiveGallery();
     loadWeather();
 }
 
@@ -399,11 +513,19 @@ function loadLiveFeedback() {
     });
 }
 
+function loadLiveGallery() {
+    fetch(FIREBASE_URL + "/gallery.json").then(res => res.json()).then(serverData => {
+        galleryData = [];
+        if(serverData) { Object.keys(serverData).forEach(key => { galleryData.push({ id: key, ...serverData[key] }); }); }
+        renderGallery();
+    });
+}
+
 function save(){ localStorage.setItem("fighterData", JSON.stringify(data)); }
 
 function handleAuth() {
     if(!isAdmin) {
-        let pass = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
+        let pass = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
         if(pass === "1234") { 
             isAdmin = true;
             document.getElementById("authBtn").innerText = "Logout";
@@ -411,9 +533,13 @@ function handleAuth() {
             document.getElementById("adminForm").style.display = "block";
             document.getElementById("inventoryForm").style.display = "block";
             document.getElementById("noticeForm").style.display = "block";
+            document.getElementById("galleryForm").style.display = "block";
             document.getElementById("adminStatus").innerText = "Admin Mode: সচল আছে।";
             document.getElementById("adminStatus").className = "admin-status admin-active";
-        } else { alert("ভুল পাসওয়ার্ড!"); }
+            showFighterNotification("অ্যাডমিন লগইন সফল হয়েছে!", "success");
+        } else { 
+            showFighterNotification("ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।", "error");
+        }
     } else {
         isAdmin = false;
         document.getElementById("authBtn").innerText = "Admin Login";
@@ -421,17 +547,31 @@ function handleAuth() {
         document.getElementById("adminForm").style.display = "none";
         document.getElementById("inventoryForm").style.display = "none";
         document.getElementById("noticeForm").style.display = "none";
+        document.getElementById("galleryForm").style.display = "none";
         document.getElementById("adminStatus").innerText = "View Mode: আপনি এখন হিসাব শুধু দেখতে পারবেন।";
         document.getElementById("adminStatus").className = "admin-status";
+        showFighterNotification("অ্যাডমিন লগআউট করা হয়েছে।", "warning");
     }
-    render(); renderInventory(); renderFeedback();
+    render(); renderInventory(); renderFeedback(); renderGallery();
 }
 
 function updateNotice() {
     let text = document.getElementById("newNotice").value;
-    if(!text) return alert("নোটিশ খালি রাখা যাবে না");
+    if(!text) return showFighterNotification("নোটিশ খালি রাখা যাবে না!", "error");
     fetch(FIREBASE_URL + "/notice.json", { method: "PUT", body: JSON.stringify(text) }).then(() => {
-        document.getElementById("noticeText").innerText = text; document.getElementById("newNotice").value = ""; alert("নোটিশ আপডেট হয়েছে!");
+        document.getElementById("noticeText").innerText = text; 
+        document.getElementById("newNotice").value = ""; 
+        showFighterNotification("নোটিশ বোর্ড আপডেট করা হয়েছে!", "success");
+    });
+}
+
+function updateBirthdayWish() {
+    let wish = document.getElementById("newBirthdayWish").value;
+    if(!wish) return showFighterNotification("উইশ খালি রাখা যাবে না!", "error");
+    fetch(FIREBASE_URL + "/birthday.json", { method: "PUT", body: JSON.stringify(wish) }).then(() => {
+        activeBirthdayWish = wish;
+        document.getElementById("newBirthdayWish").value = ""; 
+        showFighterNotification("বার্থডে উইশ আপডেট করা হয়েছে!", "success");
     });
 }
 
@@ -442,21 +582,26 @@ function add(){
     let price = Number(document.getElementById("price").value);
     let paid = Number(document.getElementById("paid").value);
     let date = document.getElementById("date").value;
-    if(!member || !item || !price || !date){ return alert("সব ফিল্ড পূরণ করুন"); }
+    if(!member || !item || !price || !date){ return showFighterNotification("সব ফিল্ড দয়া করে পূরণ করুন!", "warning"); }
     let remaining = price - paid;
     data.push({member, item, type, price, paid, remaining, date});
     save(); render();
     document.getElementById("member").value = ""; document.getElementById("item").value = ""; document.getElementById("price").value = ""; document.getElementById("paid").value = "";
+    showFighterNotification("নতুন হিসাব সফলভাবে যোগ হয়েছে!", "success");
 }
 
 function edit(i){
     let d = data[i];
     document.getElementById("member").value = d.member; document.getElementById("item").value = d.item; document.getElementById("type").value = d.type || "income"; document.getElementById("price").value = d.price; document.getElementById("paid").value = d.paid; document.getElementById("date").value = d.date;
     data.splice(i,1); save(); render();
+    showFighterNotification("হিসাব এডিটিং মোডে ওপেন হয়েছে।", "warning");
 }
 
 function del(i){
-    if(confirm("আপনি কি নিশ্চিতভাবে এটি ডিলিট করতে চান?")) { data.splice(i,1); save(); render(); }
+    if(confirm("আপনি কি নিশ্চিতভাবে এটি ডিলিট করতে চান?")) { 
+        data.splice(i,1); save(); render(); 
+        showFighterNotification("হিসাবটি ডিলিট করা হয়েছে!", "error");
+    }
 }
 
 function render(){
@@ -474,14 +619,7 @@ function render(){
     data.forEach((d, i) => {
         if(d.member.toLowerCase().includes(search) || d.item.toLowerCase().includes(search)){
             let remaining = d.price - d.paid;
-            
-            if(d.type === "expense") { 
-                totalExpense += d.price; 
-            } else { 
-                totalMoney += d.paid; 
-            }
-            
-            // ক্লাব খরচ বাদে আসল সদস্যদের কাউন্ট করা
+            if(d.type === "expense") { totalExpense += d.price; } else { totalMoney += d.paid; }
             if(d.member && d.member !== "ক্লাব খরচ" && d.member !== "খরচ") membersSet.add(d.member);
 
             let typeBadge = d.type === "expense" ? "<span style='color:red;'>খরচ</span>" : "<span style='color:green;'>জমা</span>";
@@ -496,7 +634,6 @@ function render(){
     });
     
     let vaultCash = totalMoney - totalExpense;
-
     document.getElementById("totalMoney").innerText = totalMoney + " ৳"; 
     document.getElementById("totalExpense").innerText = totalExpense + " ৳"; 
     document.getElementById("liveVault").innerText = vaultCash + " ৳";
@@ -520,7 +657,6 @@ function openMemberProfile(name) {
 }
 function closeModal() { document.getElementById("memberModal").style.display = "none"; }
 
-// রিসিট টেক্সট স্লিপ হিসেবে ডাউনলোড করার নতুন চমৎকার ফিচার
 function downloadMemberReceipt() {
     let textReceipt = `====================================\n`;
     textReceipt += `       FIGHTER CRICKET CLUB       \n`;
@@ -546,14 +682,27 @@ function downloadMemberReceipt() {
     a.href = URL.createObjectURL(blob);
     a.download = `${currentActiveProfileName}_FIGHTER_Receipt.txt`;
     a.click();
+    showFighterNotification("রিসিট স্লিপ ডাউনলোড শুরু হয়েছে!", "success");
 }
 
 function addInventory(){
     let item = document.getElementById("invItem").value; let qty = document.getElementById("invQty").value; let status = document.getElementById("invStatus").value;
-    if(!item || !qty) return alert("সব তথ্য দিন");
-    fetch(FIREBASE_URL + "/inventory.json", { method: "POST", body: JSON.stringify({item, qty, status}) }).then(() => { loadLiveInventory(); document.getElementById("invItem").value = ""; document.getElementById("invQty").value = ""; });
+    if(!item || !qty) return showFighterNotification("মালামালের সব তথ্য দিন!", "warning");
+    fetch(FIREBASE_URL + "/inventory.json", { method: "POST", body: JSON.stringify({item, qty, status}) }).then(() => { 
+        loadLiveInventory(); 
+        document.getElementById("invItem").value = ""; 
+        document.getElementById("invQty").value = ""; 
+        showFighterNotification("ইনভেন্টরিতে নতুন মালামাল যোগ হয়েছে!", "success");
+    });
 }
-function delInventory(id){ if(confirm("মালামাল ডিলিট করতে চান?")){ fetch(`${FIREBASE_URL}/inventory/${id}.json`, { method: "DELETE" }).then(() => loadLiveInventory()); } }
+function delInventory(id){ 
+    if(confirm("মালামাল ডিলিট করতে চান?")){ 
+        fetch(`${FIREBASE_URL}/inventory/${id}.json`, { method: "DELETE" }).then(() => {
+            loadLiveInventory();
+            showFighterNotification("মালামাল ডিলিট করা হয়েছে!", "error");
+        }); 
+    } 
+}
 function renderInventory(){
     let invList = document.getElementById("inventoryList"); invList.innerHTML = "";
     inventoryData.forEach((d) => {
@@ -562,12 +711,64 @@ function renderInventory(){
     });
 }
 
+/* 📸 গ্যালারি ফাংশনালিটি */
+function uploadPhoto() {
+    let url = document.getElementById("galUrl").value;
+    let caption = document.getElementById("galCaption").value;
+    if(!url || !caption) return showFighterNotification("ছবির লিঙ্ক এবং ক্যাপশন দুটোই দিন!", "warning");
+    
+    fetch(FIREBASE_URL + "/gallery.json", { method: "POST", body: JSON.stringify({ url, caption }) }).then(() => {
+        loadLiveGallery();
+        document.getElementById("galUrl").value = "";
+        document.getElementById("galCaption").value = "";
+        showFighterNotification("গ্যালারিতে নতুন ছবি পোস্ট হয়েছে!", "success");
+    });
+}
+function delPhoto(id) {
+    if(confirm("এই ছবিটি গ্যালারি থেকে মুছে ফেলতে চান?")) {
+        fetch(`${FIREBASE_URL}/gallery/${id}.json`, { method: "DELETE" }).then(() => {
+            loadLiveGallery();
+            showFighterNotification("ছবিটি মুছে ফেলা হয়েছে।", "error");
+        });
+    }
+}
+function renderGallery() {
+    let container = document.getElementById("galleryContainer"); container.innerHTML = "";
+    
+    if(galleryData.length === 0) {
+        container.innerHTML = `
+            <div class="gallery-item"><img src="match1.jpg"><div class="gallery-caption">ডিফল্ট ম্যাচ ১ 🏆</div></div>
+            <div class="gallery-item"><img src="match2.jpg"><div class="gallery-caption">ডিফল্ট ম্যাচ ২ 🏏</div></div>`;
+        return;
+    }
+    
+    galleryData.forEach(p => {
+        container.innerHTML += `
+            <div class="gallery-item">
+                ${isAdmin ? `<button class="del-gal-btn" onclick="delPhoto('${p.id}')">X</button>` : ''}
+                <img src="${p.url}" alt="${p.caption}" onerror="this.src='match1.jpg'">
+                <div class="gallery-caption">${p.caption}</div>
+            </div>`;
+    });
+}
+
 function sendFeedback() {
     let name = document.getElementById("fbName").value; let msg = document.getElementById("fbMsg").value;
-    if(!name || !msg) return alert("নাম এবং মেসেজ দুটোই লিখুন ভাই!");
-    fetch(FIREBASE_URL + "/feedback.json", { method: "POST", body: JSON.stringify({ name, msg, time: new Date().toLocaleDateString('bn-BD') }) }).then(() => { loadLiveFeedback(); document.getElementById("fbMsg").value = ""; });
+    if(!name || !msg) return showFighterNotification("নাম এবং মেসেজ দুটোই লিখুন ভাই!", "warning");
+    fetch(FIREBASE_URL + "/feedback.json", { method: "POST", body: JSON.stringify({ name, msg, time: new Date().toLocaleDateString('bn-BD') }) }).then(() => { 
+        loadLiveFeedback(); 
+        document.getElementById("fbMsg").value = ""; 
+        showFighterNotification("পরামর্শ পাঠানোর জন্য ধন্যবাদ! ❤️", "success");
+    });
 }
-function delFeedback(id) { if(confirm("এই মেসেজটি মুছে ফেলতে চান?")) { fetch(`${FIREBASE_URL}/feedback/${id}.json`, { method: "DELETE" }).then(() => loadLiveFeedback()); } }
+function delFeedback(id) { 
+    if(confirm("এই মেসেজটি মুছে ফেলতে চান?")) { 
+        fetch(`${FIREBASE_URL}/feedback/${id}.json`, { method: "DELETE" }).then(() => {
+            loadLiveFeedback();
+            showFighterNotification("ফিডব্যাক মেসেজটি মুছে ফেলা হয়েছে।", "error");
+        }); 
+    } 
+}
 function renderFeedback() {
     let fbList = document.getElementById("feedbackList"); fbList.innerHTML = "";
     if(feedbackData.length === 0) { fbList.innerHTML = "<p style='color:#64748b; font-size:14px;'>এখনো কোনো মেসেজ নেই।</p>"; }
@@ -585,32 +786,62 @@ function downloadCSV(){
     let csv = "Name,Description,Type,Date,Total,Paid,Remaining\n";
     data.forEach(d => { let remaining = d.price - d.paid; csv += `"${d.member}","${d.item}","${d.type || 'income'}","${d.date}",${d.price},${d.paid},${remaining}\n`; });
     let blob = new Blob([csv], { type: 'text/csv;charset=utf-8;' }); let a = document.createElement("a"); a.href = URL.createObjectURL(blob); a.download = "fighter_club_report.csv"; a.click();
+    showFighterNotification("Excel (CSV) ফাইল ডাউনলোড শুরু হয়েছে!", "success");
 }
-function toggleDark(){ document.body.classList.toggle("dark"); }
-let display = document.getElementById("display"); function p(v){ display.value += v; } function clearCalc(){ display.value = ""; } function calc(){ try { display.value = eval(display.value); } catch { display.value = "Error"; } }
+
+function toggleDark(){ 
+    document.body.classList.toggle("dark"); 
+    let isDark = document.body.classList.contains("dark");
+    showFighterNotification(isDark ? "ডার্ক মোড অন করা হয়েছে 🌙" : "লাইট মোড অন করা হয়েছে ☀️");
+}
+
+let display = document.getElementById("display"); 
+function p(v){ display.value += v; } 
+function clearCalc(){ display.value = ""; } 
+function calc(){ try { display.value = eval(display.value); } catch { display.value = "Error"; } }
+
 render();
-// নোটিফিকেশন দেখানোর ফাংশন
-function showFighterNotification(message) {
-    // আগের কোনো নোটিফিকেশন থাকলে তা রিমুভ করা
+
+// নোটিফিকেশন টোস্ট সিস্টেম
+function showFighterNotification(message, type = "info") {
     let oldToast = document.getElementById("fighterToast");
     if(oldToast) oldToast.remove();
 
-    // নতুন নোটিফিকেশন তৈরি
     let toast = document.createElement("div");
     toast.id = "fighterToast";
-    toast.className = "toast-notification";
-    toast.innerHTML = `🔔 <span style="font-size:14px; font-weight:600;">${message}</span>`;
+    
+    let emoji = "🔔";
+    if(type === "success") emoji = "✅";
+    if(type === "error") emoji = "❌";
+    if(type === "warning") emoji = "⚠️";
+
+    toast.className = `toast-notification ${type}`;
+    toast.innerHTML = `${emoji} <span style="font-size:14px; font-weight:600;">${message}</span>`;
     
     document.body.appendChild(toast);
-    
-    // স্ক্রিনে অ্যানিমেশন সহ দেখানো
     setTimeout(() => toast.classList.add("show"), 100);
     
-    // ৪ সেকেন্ড পর হাওয়া করে দেওয়া
     setTimeout(() => {
         toast.classList.remove("show");
         setTimeout(() => toast.remove(), 400);
     }, 4000);
+}
+
+// ক্যালকুলেটর অন/অফ টগল
+function toggleCalculator() {
+    let calcWindow = document.querySelector(".calc");
+    if(calcWindow.style.display === "block") {
+        calcWindow.style.display = "none";
+        showFighterNotification("ক্যালকুলেটর বন্ধ করা হয়েছে।");
+    } else {
+        calcWindow.style.display = "block";
+        showFighterNotification("ক্যালকুলেটর চালু করা হয়েছে।", "success");
+    }
+}
+
+// বার্থডে ট্র্যাকার প্যানেল
+function checkTodayBirthdays() {
+    showFighterNotification(activeBirthdayWish, "success");
 }
 </script>
 </body>
