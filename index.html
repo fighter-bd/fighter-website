@@ -1013,6 +1013,41 @@ function calc() {
         document.getElementById("display").value = "Error";
     }
 }
+<!-- মেম্বার লিস্টের ডিজাইন (HTML অংশ) -->
+<div class="member-card">
+    <h3>মেম্বার নাম: আবির হাসান</h3>
+    <!-- এখানে আসল নাম্বারের জায়গায় আমরা বাটন রাখব -->
+    <p>মোবাইল নাম্বার: 
+        <span id="phone-field">❌ পাসওয়ার্ড দিয়ে দেখুন</span>
+    </p>
+    <button onclick="showPhoneNumber()">নাম্বার দেখুন</button>
+</div>
+
+<!-- সিকিউরিটি এবং পাসওয়ার্ড চেক করার লজিক (JavaScript অংশ) -->
+<script>
+function showPhoneNumber() {
+    // এখানে আপনার পছন্দমতো পাসওয়ার্ডটি সেট করুন (যেমন: 1234)
+    var correctPassword = "1234"; 
+    
+    // আসল ফোন নাম্বারটি এখানে থাকবে
+    var realPhoneNumber = "017XXXXXXXX"; 
+
+    // ইউজারের কাছ থেকে পাসওয়ার্ড চাওয়া হচ্ছে
+    var userPassword = prompt("মেম্বারের ফোন নাম্বার দেখতে পাসওয়ার্ড দিন:");
+
+    if (userPassword === null) {
+        // ইউজার যদি বাতিল (Cancel) করে দেয়
+        return; 
+    } else if (userPassword === correctPassword) {
+        // পাসওয়ার্ড মিললে নাম্বারটি স্ক্রিনে দেখাবে
+        document.getElementById("phone-field").innerText = realPhoneNumber;
+        alert("পাসওয়ার্ড সঠিক হয়েছে!");
+    } else {
+        // পাসওয়ার্ড ভুল হলে
+        alert("ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।");
+    }
+}
+
 </script>
 </body>
 </html>
