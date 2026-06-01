@@ -1,413 +1,194 @@
 <!DOCTYPE html>
-<html lang="bn">
+<html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="FIGHTER Cricket Club - Official expense tracker, member directory, and gallery.">
-<title>FIGHTER Cricket Club</title>
-
-<link rel="icon" type="image/png" href="fighter-cricket-logo.png">
-<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
-
+<title>FIGHTER Cricket Club - Dashboard</title>
+<link href="https://fonts.googleapis.com/css2family=Poppins:wght@300;400;600&display=swap" rel="stylesheet">
 <style>
 :root {
     --bg-color: #f4f6f9;
     --card-bg: #ffffff;
     --text-color: #333333;
     --primary: #2563eb;
-    --primary-hover: #1d4ed8;
     --border-color: #e5e7eb;
+    --sub-text: #64748b;
+    --error-color: #ef4444;
+    --success-color: #10b981;
 }
 
-.dark {
-    --bg-color: #0f172a;
-    --card-bg: #1e293b;
-    --text-color: #f8fafc;
-    --primary: #3b82f6;
-    --primary-hover: #60a5fa;
-    --border-color: #334155;
+@media (prefers-color-scheme: dark) {
+    body {
+        --bg-color: #0f172a;
+        --card-bg: #1e293b;
+        --text-color: #f8fafc;
+        --border-color: #334155;
+        --sub-text: #94a3b8;
+    }
 }
 
-* { box-sizing: border-box; font-family: 'Poppins', Arial, sans-serif; transition: background 0.3s, color 0.3s; }
-body { margin: 0; padding: 0; background: var(--bg-color); color: var(--text-color); }
-
-/* 🔒 মেইন গেটওয়ে লগইন স্ক্রিন */
-#siteLoginScreen {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: #0f172a; display: flex; justify-content: center; align-items: center; z-index: 99999;
-}
-.login-box {
-    background: #1e293b; padding: 40px 30px; border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; max-width: 360px; width: 90%;
-    border: 1px solid #334155;
-}
-.login-logo { width: 100px; height: 100px; border-radius: 50%; background: #fff; padding: 5px; margin-bottom: 20px; box-shadow: 0 0 15px rgba(37, 99, 235, 0.5); }
-.login-box h2 { color: #ffffff; margin: 0 0 10px 0; font-size: 24px; }
-.login-box p { color: #94a3b8; font-size: 14px; margin: 0 0 25px 0; }
-.login-box input {
-    width: 100%; padding: 14px; border: 1px solid #334155; background: #0f172a;
-    color: #ffffff; border-radius: 8px; text-align: center; font-size: 18px;
-    letter-spacing: 5px; outline: none; margin-bottom: 20px;
-}
-.login-box input:focus { border-color: #3b82f6; }
-.login-box button { width: 100%; padding: 14px; font-size: 16px; }
-
-/* 📱 মেইন কন্টেন্ট */
-#mainContent { display: none; padding-bottom: 20px; }
-
-/* Notice Board */
-.notice-board {
-    background: #f59e0b; color: #ffffff; padding: 10px; font-weight: 600; font-size: 14px;
-    overflow: hidden; position: relative; white-space: nowrap; box-shadow: 0 2px 5px rgba(0,0,0,0.1); width: 100%;
-}
-.dark .notice-board { background: #b45309; }
-.notice-text { display: inline-block; padding-left: 100%; animation: marquee 20s linear infinite; }
-@keyframes marquee { 0% { transform: translate3d(0, 0, 0); } 100% { transform: translate3d(-100%, 0, 0); } }
-
-.container { max-width: 1000px; margin: 20px auto; background: var(--card-bg); padding: 30px; border-radius: 16px; box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
-.header-section { text-align: center; margin-bottom: 30px; }
-.logo { width: 130px; display: block; margin: 0 auto 15px; border-radius: 12px; background: #ffffff; padding: 5px; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
-
-.top-bar { display: flex; justify-content: center; gap: 10px; margin-bottom: 25px; flex-wrap: wrap; }
-
-.weather-widget {
-    background: linear-gradient(135deg, #0284c7, #0369a1); color: white; padding: 15px;
-    border-radius: 12px; text-align: center; margin-bottom: 25px; box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+* {
+    box-sizing: border-box;
+    font-family: 'Poppins', Arial, sans-serif;
 }
 
-button {
-    padding: 10px 18px; border: none; background: var(--primary); color: white; border-radius: 8px;
-    font-weight: 600; cursor: pointer; box-shadow: 0 2px 5px rgba(37, 99, 235, 0.2);
+body {
+    margin: 0;
+    padding: 0;
+    background: var(--bg-color);
+    color: var(--text-color);
+    min-height: 100vh;
 }
-button:hover { background: var(--primary-hover); }
-.btn-danger { background: #ef4444; }
-.btn-danger:hover { background: #dc2626; }
-.btn-success { background: #10b981; }
-.btn-success:hover { background: #059669; }
-.btn-secondary { background: #64748b; }
 
-.summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 15px; margin-bottom: 30px; }
-.box { padding: 20px; color: white; border-radius: 12px; text-align: center; font-weight: 600; box-shadow: 0 4px 10px rgba(0,0,0,0.1); }
-.box span { display: block; font-size: 24px; margin-top: 5px; font-weight: bold; }
-.income { background: linear-gradient(135deg, #10b981, #059669); }
-.expense { background: linear-gradient(135deg, #ef4444, #dc2626); }
-.balance { background: linear-gradient(135deg, #f59e0b, #d97706); }
-.members-box { background: linear-gradient(135deg, #3b82f6, #2563eb); }
+/* 🔒 Login Screen Styles */
+.login-screen {
+    position: fixed;
+    top: 0; left: 0; width: 100%; height: 100%;
+    background: var(--bg-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 9999;
+}
 
-.form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
-input, select { padding: 12px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); border-radius: 8px; outline: none; width: 100%; }
+.login-card {
+    background: var(--card-bg);
+    padding: 40px 30px;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
+    border: 1px solid var(--border-color);
+    text-align: center;
+    max-width: 400px;
+    width: 100%;
+}
 
-/* 📂 ফাইল আপলোড বাটন ডিজাইন */
-input[type="file"] { padding: 8px; background: transparent; cursor: pointer; }
+.login-card h2 {
+    margin-top: 0;
+    color: var(--primary);
+}
 
-.table-responsive { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 30px; }
-table { width: 100%; border-collapse: collapse; background: var(--card-bg); }
-th, td { padding: 14px; text-align: center; border-bottom: 1px solid var(--border-color); vertical-align: middle; }
-th { background: var(--primary); color: white; font-weight: 600; }
-.dark th { background: #334155; }
-.member-link { color: var(--primary); cursor: pointer; text-decoration: underline; }
+.login-card input {
+    width: 100%;
+    padding: 12px;
+    margin: 20px 0;
+    border: 1px solid var(--border-color);
+    border-radius: 8px;
+    background: var(--bg-color);
+    color: var(--text-color);
+    font-size: 16px;
+    text-align: center;
+    letter-spacing: 2px;
+}
 
-/* 👤 মেম্বার প্রোফাইল ইমেজ */
-.member-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); background: #eee; }
+.login-card button {
+    background: var(--primary);
+    color: white;
+    border: none;
+    padding: 12px 30px;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    width: 100%;
+    font-size: 16px;
+}
 
-/* 📸 অ্যালবাম গ্যালারি */
-.gallery-filter { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
-.filter-btn { background: #e5e7eb; color: #333; padding: 6px 14px; font-size: 13px; border-radius: 6px; border: none; cursor: pointer;}
-.filter-btn.active { background: var(--primary); color: white; }
-.gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 15px; margin-top: 15px; }
-.gallery-item { position: relative; overflow: hidden; border-radius: 8px; height: 165px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); cursor: pointer; }
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
-.gallery-item:hover img { transform: scale(1.1); }
-.gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.7); color: #fff; font-size: 12px; padding: 5px; text-align: center; }
-.del-gal-btn { position: absolute; top: 5px; right: 5px; background: #ef4444; color: white; border: none; padding: 2px 6px; font-size: 10px; border-radius: 4px; z-index: 10; }
+/* 📱 Main Content Dashboard Styles */
+#mainContent {
+    display: none;
+    padding: 20px;
+}
 
-/* লাইটবক্স পপআপ */
-.lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; }
-.lightbox img { max-width: 90%; max-height: 80%; border-radius: 8px; box-shadow: 0 0 20px rgba(255,255,255,0.2); }
-.lightbox-caption { position: absolute; bottom: 40px; color: white; font-size: 18px; text-align: center; width: 100%; }
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: var(--card-bg);
+    padding: 15px 25px;
+    border-radius: 12px;
+    border: 1px solid var(--border-color);
+    margin-bottom: 20px;
+}
 
-/* মোডাল */
-.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; }
-.modal-content { background: var(--card-bg); color: var(--text-color); padding: 25px; border-radius: 16px; max-width: 500px; width: 90%; box-shadow: 0 4px 25px rgba(0,0,0,0.2); position: relative; }
-.close-modal { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #ef4444; }
+.logout-btn {
+    background: var(--error-color);
+    color: white;
+    border: none;
+    padding: 8px 16px;
+    border-radius: 6px;
+    cursor: pointer;
+    font-weight: 600;
+}
 
-.feedback-section { margin-top: 40px; background: var(--card-bg); border: 1px solid var(--border-color); padding: 25px; border-radius: 14px; }
-.msg-box { background: rgba(0,0,0,0.02); padding: 12px; border-radius: 8px; margin-bottom: 10px; border-left: 4px solid var(--primary); }
+.nav-link {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 600;
+}
 
-.floating-widgets { position: fixed; bottom: 20px; left: 20px; display: flex; flex-direction: column; gap: 10px; z-index: 999; }
-.circle-btn { width: 50px; height: 50px; border-radius: 50%; background: var(--primary); color: white; border: none; cursor: pointer; font-size: 20px; display: flex; align-items: center; justify-content: center; box-shadow: 0 4px 10px rgba(0,0,0,0.3); }
-.calc { display: none; position: fixed; bottom: 140px; left: 20px; z-index: 1000; background: var(--card-bg); border: 1px solid var(--border-color); padding: 20px; border-radius: 14px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-.calc input { width: 100%; height: 45px; text-align: right; margin-bottom: 12px; font-size: 20px; font-weight: 600; }
-.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; }
-
-.admin-status { text-align: center; font-size: 14px; color: #ef4444; font-weight: bold; margin-bottom: 10px; }
-.admin-active { color: #10b981; }
-footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; }
-
-.toast-notification { position: fixed; bottom: -100px; right: 20px; background: #1e293b; color: #ffffff; padding: 15px 25px; border-radius: 10px; box-shadow: 0 10px 25px rgba(0,0,0,0.3); display: flex; align-items: center; gap: 12px; z-index: 99999; border-left: 5px solid #2563eb; opacity: 0; transition: all 0.4s ease; }
-.toast-notification.show { bottom: 20px; opacity: 1; }
-.toast-notification.success { border-left-color: #10b981; }
-.toast-notification.error { border-left-color: #ef4444; }
-.toast-notification.warning { border-left-color: #f59e0b; }
+/* Notification Toast */
+.notification {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    padding: 15px 25px;
+    border-radius: 8px;
+    color: white;
+    font-weight: 600;
+    z-index: 10000;
+    display: none;
+    box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+}
 </style>
 </head>
 <body>
 
-<!-- 🔒 মেইন গেটওয়ে লগইন স্ক্রিন (পাসওয়ার্ড: 2026) -->
-<div id="siteLoginScreen">
-    <div class="login-box">
-        <img src="fighter-cricket-logo.png" class="login-logo" alt="FIGHTER Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png'">
-        <h2>FIGHTER Club</h2>
-        <p>ওয়েবসাইটে প্রবেশ করতে সিক্রেট পাসওয়ার্ড দিন</p>
-        <input type="password" id="sitePasswordInput" placeholder="••••" maxlength="8" onkeypress="handleLoginKeyPress(event)">
-        <button class="btn-success" onclick="verifySiteLogin()">ওয়েবসাইটে প্রবেশ করুন 🚀</button>
+<div id="siteLoginScreen" class="login-screen">
+    <div class="login-card">
+        <h2>🏏 FIGHTER Club</h2>
+        <p style="color: var(--sub-text);">ওয়েবসাইটে প্রবেশ করতে সিকিউরিটি পাসওয়ার্ড দিন</p>
+        <input type="password" id="sitePasswordInput" placeholder="Enter Password" onkeypress="if(event.key === 'Enter') verifySiteLogin()">
+        <button onclick="verifySiteLogin()">Login Dashboard</button>
     </div>
 </div>
 
-<!-- 📱 মূল ড্যাশবোর্ড কন্টেন্ট এরিয়া -->
 <div id="mainContent">
-    <div class="notice-board">
-        <div class="notice-text" id="noticeText">স্বাগতম! FIGHTER Cricket Club-এর অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম।</div>
+    <div class="header">
+        <h2>FIGHTER Cricket Club Dashboard</h2>
+        <div>
+            <a href="about.html" class="nav-link" style="margin-right: 20px;">About Developer ➔</a>
+            <button class="logout-btn" onclick="logoutFromSite()">Log Out Website</button>
+        </div>
     </div>
-
-    <div class="container">
-        <div class="weather-widget">
-            <h3 style="margin:0 0 5px 0;">🌦️ গাইবান্ধা জেলা: আজকের খেলার আবহাওয়া খতিয়ান</h3>
-            <p id="weatherDisplay" style="margin:0; font-weight:bold;">গাইবান্ধার লাইভ আবহাওয়া লোড হচ্ছে...</p>
-        </div>
-
-        <div class="header-section">
-            <img src="fighter-cricket-logo.png" class="logo" alt="FIGHTER Logo">
-            <h2>FIGHTER Cricket Club ড্যাশবোর্ড</h2>
-            <p>📧 Email: <a href="mailto:fighterbd.com123@gmail.com" style="color: var(--primary);">fighterbd.com123@gmail.com</a></p>
-        </div>
-
-        <div class="top-bar">
-            <button onclick="toggleDark()">Dark Mode</button>
-            <button id="authBtn" class="btn-success" onclick="handleAuth()">Admin Login</button>
-            <button class="btn-danger" onclick="logoutFromSite()">Log Out Website</button>
-        </div>
-
-        <div id="adminStatus" class="admin-status">View Mode: আপনি এখন হিসাব শুধু দেখতে পারবেন।</div>
-
-        <!-- অ্যাডমিন নোটিশ কন্ট্রোল প্যানেল -->
-        <div id="noticeForm" style="display: none; background: rgba(245, 158, 11, 0.05); padding: 15px; border-radius: 12px; margin-bottom: 25px; border: 1px dashed #f59e0b;">
-            <h4 style="margin-top:0; color: #b45309;">📢 নোটিশ বোর্ড ও উইশ আপডেট</h4>
-            <div class="form-grid">
-                <input id="newNotice" placeholder="নতুন নোটিশ...">
-                <button class="btn-success" onclick="updateNotice()" style="background: #f59e0b;">নোটিশ আপডেট</button>
-            </div>
-            <div class="form-grid" style="margin-top:10px;">
-                <input id="newBirthdayWish" placeholder="বার্থডে উইশ...">
-                <button class="btn-success" onclick="updateBirthdayWish()" style="background: #ec4899;">উইশ আপডেট</button>
-            </div>
-        </div>
-
-        <!-- মোট হিসাব বক্সসমূহ -->
-        <div class="summary">
-            <div class="box income">মোট চাঁদা আদায়<br><span id="totalMoney">0</span></div>
-            <div class="box expense">মোট খরচ (ব্যয়)<br><span id="totalExpense">0</span></div>
-            <div class="box balance">তহбиলে অবশিষ্ট ক্যাশ<br><span id="liveVault">0</span></div>
-            <div class="box members-box">মোট সদস্য<br><span id="totalMembers">0</span></div>
-        </div>
-
-        <!-- 📊 মূল লাইভ হিসাব সেকশন -->
-        <h3>💰 ক্লাবের জমার খতিয়ান ও হিসাবপাতি</h3>
-        <div style="margin-bottom: 20px;">
-            <input id="search" placeholder="🔍 সার্চ করুন (নাম বা বিবরণ)..." onkeyup="render()">
-        </div>
-
-        <div id="adminForm" style="display: none; background: rgba(0,0,0,0.02); padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px dashed var(--border-color);">
-            <h4 style="margin-top:0;">নতুন হিসাব যোগ করুন (Live)</h4>
-            <div class="form-grid">
-                <input id="member" placeholder="নাম / ক্লাব খরচ">
-                <input id="item" placeholder="বিবরণ">
-                <select id="type">
-                    <option value="income">জমা (Income)</option>
-                    <option value="expense">খরচ (Expense)</option>
-                </select>
-                <input id="price" type="number" placeholder="মোট টাকা">
-                <input id="paid" type="number" placeholder="পেইড টাকা">
-                <input type="date" id="date">
-            </div>
-            <button class="btn-success" onclick="addAccount()">যোগ করুন</button>
-        </div>
-
-        <div class="table-responsive">
-            <table>
-                <thead>
-                    <tr><th>নাম</th><th>বিবরণ</th><th>ধরণ</th><th>তারিখ</th><th>মোট</th><th>পেইড</th><th>বাকি</th><th class="admin-action-col" style="display:none;">অ্যাকশন</th></tr>
-                </thead>
-                <tbody id="list"></tbody>
-            </table>
-        </div>
-
-        <!-- 📞 মেম্বার ডিরেক্টরি, ছবি ও ব্লাড গ্রুপ সেকশন (গ্যালারি আপলোড যুক্ত) -->
-        <div class="feedback-section">
-            <h3>📞 ফাইটার মেম্বার ডিরেক্টরি, ছবি ও ব্লাড গ্রুপ</h3>
-            
-            <div id="directoryForm" style="display: none; background: rgba(0,0,0,0.02); padding: 15px; border-radius: 10px; margin-bottom: 15px; border: 1px dashed var(--border-color);">
-                <h4 style="margin-top:0;">নতুন মেম্বার প্রোফাইল তৈরি করুন</h4>
-                <div class="form-grid">
-                    <input id="dirName" placeholder="মেম্বারের নাম">
-                    <input id="dirPhone" placeholder="ফোন নাম্বার">
-                    <select id="dirBlood">
-                        <option value="A+">A+</option><option value="A-">A-</option>
-                        <option value="B+">B+</option><option value="B-">B-</option>
-                        <option value="O+">O+</option><option value="O-">O-</option>
-                        <option value="AB+">AB+</option><option value="AB-">AB-</option>
-                    </select>
-                    <div>
-                        <label style="font-size:12px; font-weight:600; display:block; margin-bottom:2px;">প্রোফাইল ছবি সিলেক্ট করুন:</label>
-                        <input type="file" id="dirFile" accept="image/*">
-                    </div>
-                </div>
-                <button class="btn-success" onclick="addDirectory()">মেম্বার প্রোফাইল যুক্ত করুন</button>
-            </div>
-            
-            <div class="table-responsive">
-                <table>
-                    <thead><tr><th>প্রোফাইল ছবি</th><th>নাম</th><th>ফোন নাম্বার</th><th>রক্তের গ্রুপ</th><th class="admin-action-col" style="display:none;">মুছে ফেলুন</th></tr></thead>
-                    <tbody id="directoryList"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- 🏏 মালামাল ইনভেন্টরি -->
-        <div class="feedback-section">
-            <h3>🏏 ক্লাবের মালামালের হিসাব (Inventory)</h3>
-            <div id="inventoryForm" style="display: none; background: rgba(0,0,0,0.02); padding: 20px; border-radius: 12px; margin-bottom: 25px; border: 1px dashed var(--border-color);">
-                <div class="form-grid">
-                    <input id="invItem" placeholder="জিনিসের নাম">
-                    <input id="invQty" type="number" placeholder="পরিমাণ">
-                    <select id="invStatus"><option value="ভালো">ভালো আছে</option><option value="নষ্ট">নষ্ট / হারানো</option></select>
-                </div>
-                <button class="btn-success" onclick="addInventory()">যোগ করুন</button>
-            </div>
-            <div class="table-responsive">
-                <table>
-                    <thead><tr><th>জিনিসের নাম</th><th>পরিমাণ</th><th>অবস্থা</th><th class="admin-action-col" style="display:none;">পরিবর্তন</th></tr></thead>
-                    <tbody id="inventoryList"></tbody>
-                </table>
-            </div>
-        </div>
-
-        <!-- 📸 অ্যালবাম গ্যালারি সেকশন (গ্যালারি থেকে সরাসরি ছবি আপলোড) -->
-        <div class="feedback-section">
-            <h3>📸 ফাইটার ক্লাব গ্যালারি (সরাসরি গ্যালারি থেকে আপলোড)</h3>
-            <div class="gallery-filter" id="galleryFilterBox">
-                <button class="filter-btn active" onclick="filterGallery('All')">সব ছবি</button>
-                <button class="filter-btn" onclick="filterGallery('Tournament')">টুর্নামেন্ট 🏆</button>
-                <button class="filter-btn" onclick="filterGallery('Practice')">প্র্যাকটিস 🏏</button>
-                <button class="filter-btn" onclick="filterGallery('Tour')">ট্যুর/ভ্রমণ 🚌</button>
-            </div>
-
-            <div id="galleryForm" style="display: none; background: rgba(0,0,0,0.02); padding: 15px; border-radius: 10px; margin-bottom: 20px; border: 1px dashed var(--border-color);">
-                <h4 style="margin-top:0;">গ্যালারি/ফাইল থেকে ছবি পোস্ট করুন</h4>
-                <div class="form-grid">
-                    <div>
-                        <label style="font-size:12px; font-weight:600; display:block; margin-bottom:2px;">ছবি সিলেক্ট করুন:</label>
-                        <input type="file" id="galFile" accept="image/*">
-                    </div>
-                    <input id="galCaption" placeholder="ছবির ক্যাপশন লিখুন...">
-                    <select id="galAlbum">
-                        <option value="Tournament">Tournament</option>
-                        <option value="Practice">Practice</option>
-                        <option value="Tour">Tour</option>
-                    </select>
-                </div>
-                <button class="btn-success" onclick="uploadPhoto()">গ্যালারিতে পোস্ট করুন</button>
-            </div>
-            <div class="gallery-grid" id="galleryContainer"></div>
-        </div>
-
-        <!-- 💬 ফিডব্যাক সেকশন -->
-        <div class="feedback-section">
-            <h3>💬 মেম্বার পরামর্শ বোর্ড</h3>
-            <div id="feedbackList" style="max-height: 250px; overflow-y: auto; margin-bottom: 15px;"></div>
-            <div class="form-grid" style="grid-template-columns: 1fr 2fr;">
-                <input id="fbName" placeholder="আপনার নাম">
-                <input id="fbMsg" placeholder="পরামর্শটি লিখুন...">
-            </div>
-            <button class="btn-success" style="margin-top: 10px;" onclick="sendFeedback()">বার্তা পাঠান</button>
-        </div>
+    
+    <div style="background: var(--card-bg); padding: 30px; border-radius: 12px; border: 1px solid var(--border-color); text-align: center;">
+        <h3>স্বাগতম, ফাইটার ক্রিকেট ক্লাব ড্যাশবোর্ডে!</h3>
+        <p style="color: var(--sub-text);">এখানে আপনার ক্লাবের সকল হিসাব-নিকাশ এবং ম্যানেজমেন্ট সিস্টেম লাইভ কাজ করছে।</p>
     </div>
 </div>
 
-<!-- 👤 মেম্বার ইন্ডিভিজুয়াল জমার খতিয়ান মোডাল -->
-<div id="memberModal" class="modal">
-    <div class="modal-content">
-        <span class="close-modal" onclick="closeModal()">&times;</span>
-        <h3 id="modalMemberName" style="color: var(--primary); margin-top:0;"></h3>
-        <hr style="border:0; border-top: 1px solid var(--border-color);">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin-bottom: 15px; font-weight: bold; text-align: center;">
-            <div style="background:#10b981; color:white; padding:10px; border-radius:8px;">মোট পেইড: <span id="modalTotalPaid">0</span> ৳</div>
-            <div style="background:#ef4444; color:white; padding:10px; border-radius:8px;">মোট বাকি: <span id="modalTotalDue">0</span> ৳</div>
-        </div>
-        <div style="max-height: 200px; overflow-y: auto;">
-            <table style="width: 100%; font-size:13px;">
-                <thead><tr><th>বিবরণ</th><th>তারিখ</th><th>পেইড</th><th>বাকি</th></tr></thead>
-                <tbody id="modalTableBody"></tbody>
-            </table>
-        </div>
-    </div>
-</div>
-
-<!-- 🖼️ লাইটবক্স উইন্ডো -->
-<div id="lightbox" class="lightbox" onclick="closeLightbox()">
-    <img id="lightboxImg" src="">
-    <div class="lightbox-caption" id="lightboxCaption"></div>
-</div>
-
-<!-- 🧮 ক্যালকুলেটর -->
-<div class="calc">
-    <input id="display" readonly>
-    <div class="grid">
-        <button onclick="p('7')">7</button><button onclick="p('8')">8</button><button onclick="p('9')">9</button><button class="btn-secondary" onclick="p('/')">÷</button>
-        <button onclick="p('4')">4</button><button onclick="p('5')">5</button><button onclick="p('6')">6</button><button class="btn-secondary" onclick="p('*')">×</button>
-        <button onclick="p('1')">1</button><button onclick="p('2')">2</button><button onclick="p('3')">3</button><button class="btn-secondary" onclick="p('-')">-</button>
-        <button onclick="p('0')">0</button><button class="btn-danger" onclick="clearCalc()">C</button><button class="btn-success" onclick="calc()">=</button><button class="btn-secondary" onclick="p('+')">+</button>
-    </div>
-</div>
-
-<div class="floating-widgets">
-    <button class="circle-btn" style="background: #ec4899;" onclick="checkTodayBirthdays()">🎂</button>
-    <button class="circle-btn" onclick="toggleCalculator()">🧮</button>
-</div>
-
-<footer>
-    <p>© 2026 FIGHTER Cricket Club | Developed by <a href="about.html" target="_blank" style="color: var(--primary); font-weight: bold;">Borno Sarker</a></p>
-</footer>
+<div id="fighterNotification" class="notification"></div>
 
 <script>
-const FIREBASE_URL = "https://fighter-club-f5623-default-rtdb.firebaseio.com"; 
-
-let accountsData = [];
-let inventoryData = [];
-let feedbackData = [];
-let galleryData = [];
-let directoryData = [];
-let activeBirthdayWish = "আজ আমাদের ক্লাবের কোনো মেম্বারের জন্মদিন নেই। 🎉";
-let isAdmin = false;
-let currentFilter = 'All';
-
-// 🔒 প্রধান ওয়েবসাইট লগইন চেকার ফাংশন
+// 🔒 ওয়েবসাইট লগইন চেকার ফাংশন (localStorage ব্যবহার করে)
 function checkSiteAccess() {
-    let accessGranted = sessionStorage.getItem("fighter_site_access");
+    let accessGranted = localStorage.getItem("fighter_site_access");
     if (accessGranted === "true") {
         document.getElementById("siteLoginScreen").style.display = "none";
         document.getElementById("mainContent").style.display = "block";
-        initDashboard();
+        if (typeof initDashboard === "function") {
+            initDashboard(); // আপনার ড্যাশবোর্ডের ডেটা লোড করার মেইন ফাংশন
+        }
     } else {
         document.getElementById("siteLoginScreen").style.display = "flex";
         document.getElementById("mainContent").style.display = "none";
     }
 }
 
+// 🔑 পাসওয়ার্ড ভেরিফাই করার ফাংশন
 function verifySiteLogin() {
     let pinInput = document.getElementById("sitePasswordInput").value;
     if (pinInput === "2026") {
-        sessionStorage.setItem("fighter_site_access", "true");
+        localStorage.setItem("fighter_site_access", "true"); // ব্রাউজারে পার্মানেন্ট সেভ হলো
         showFighterNotification("লগইন সফল! ড্যাশবোর্ডে আপনাকে স্বাগতম।", "success");
         setTimeout(() => { checkSiteAccess(); }, 500);
     } else {
@@ -416,319 +197,33 @@ function verifySiteLogin() {
     }
 }
 
-function handleLoginKeyPress(event) {
-    if (event.key === "Enter") { verifySiteLogin(); }
-}
-
+// 🚪 লগআউট ফাংশন
 function logoutFromSite() {
     if (confirm("আপনি কি ওয়েবসাইট থেকে লগআউট করতে চান?")) {
-        sessionStorage.removeItem("fighter_site_access");
-        isAdmin = false;
-        location.reload();
+        localStorage.removeItem("fighter_site_access"); // ব্রাউজার থেকে ডেটা ডিলিট
+        if (typeof isAdmin !== 'undefined') isAdmin = false;
+        location.reload(); // পেজ রিফ্রেশ করে লগইন স্ক্রিনে ব্যাক করবে
     }
 }
 
-function initDashboard() {
-    loadAccounts();
-    loadInventory();
-    loadFeedback();
-    loadGallery();
-    loadDirectory();
-    loadWeather();
-    
-    fetch(FIREBASE_URL + "/notice.json").then(res => res.json()).then(text => { if(text) document.getElementById("noticeText").innerText = text; });
-    fetch(FIREBASE_URL + "/birthday.json").then(res => res.json()).then(wish => { if(wish) activeBirthdayWish = wish; });
-}
-
-// 💰 লাইভ অ্যাকাউন্ট ডেটাবেজ ম্যানেজমেন্ট
-function loadAccounts() {
-    fetch(FIREBASE_URL + "/accounts.json").then(res => res.json()).then(serverData => {
-        accountsData = [];
-        if(serverData) { Object.keys(serverData).forEach(key => { accountsData.push({ id: key, ...serverData[key] }); }); }
-        render();
-    });
-}
-
-function addAccount() {
-    let member = document.getElementById("member").value;
-    let item = document.getElementById("item").value;
-    let type = document.getElementById("type").value;
-    let price = Number(document.getElementById("price").value);
-    let paid = Number(document.getElementById("paid").value);
-    let date = document.getElementById("date").value;
-    
-    if(!member || !item || !price || !date) return showFighterNotification("সব তথ্য দিন!", "warning");
-    
-    let newData = { member, item, type, price, paid, date };
-    fetch(FIREBASE_URL + "/accounts.json", { method: "POST", body: JSON.stringify(newData) }).then(() => {
-        loadAccounts();
-        document.getElementById("member").value = ""; document.getElementById("item").value = "";
-        document.getElementById("price").value = ""; document.getElementById("paid").value = "";
-        showFighterNotification("হিসাব সরাসরি ডেটাবেজে যুক্ত হয়েছে!", "success");
-    });
-}
-
-function delAccount(id) {
-    if(confirm("হিসাবটি ডিলিট করতে চান?")) {
-        fetch(`${FIREBASE_URL}/accounts/${id}.json`, { method: "DELETE" }).then(() => { loadAccounts(); });
-    }
-}
-
-// 📞 মেম্বার ডিরেক্টরি ছবি আপলোড উইথ গ্যালারি ফাইল
-function loadDirectory() {
-    fetch(FIREBASE_URL + "/directory.json").then(res => res.json()).then(serverData => {
-        directoryData = [];
-        if(serverData) { Object.keys(serverData).forEach(key => { directoryData.push({ id: key, ...serverData[key] }); }); }
-        renderDirectory();
-    });
-}
-
-function addDirectory() {
-    let name = document.getElementById("dirName").value;
-    let phone = document.getElementById("dirPhone").value;
-    let blood = document.getElementById("dirBlood").value;
-    let fileInput = document.getElementById("dirFile").files[0];
-    
-    if(!name || !phone) return showFighterNotification("নাম ও ফোন নাম্বার দিন!", "warning");
-
-    if (fileInput) {
-        let reader = new FileReader();
-        reader.onload = function(e) {
-            let base64Img = e.target.result;
-            saveDirectoryToFirebase(name, phone, base64Img, blood);
-        };
-        reader.readAsDataURL(fileInput);
+// 📢 নোটিফিকেশন দেখানোর কাস্টম ফাংশন
+function showFighterNotification(message, type) {
+    let notif = document.getElementById("fighterNotification");
+    notif.innerText = message;
+    notif.style.display = "block";
+    if (type === "success") {
+        notif.style.background = "var(--success-color)";
     } else {
-        saveDirectoryToFirebase(name, phone, "https://cdn-icons-png.flaticon.com/512/149/149071.png", blood);
+        notif.style.background = "var(--error-color)";
     }
+    setTimeout(() => { notif.style.display = "none"; }, 2500);
 }
 
-function saveDirectoryToFirebase(name, phone, imgData, blood) {
-    fetch(FIREBASE_URL + "/directory.json", { method: "POST", body: JSON.stringify({ name, phone, img: imgData, blood }) }).then(() => {
-        loadDirectory();
-        document.getElementById("dirName").value = ""; document.getElementById("dirPhone").value = "";
-        document.getElementById("dirFile").value = "";
-        showFighterNotification("মেম্বার প্রোফাইল লাইভ সেভ হয়েছে!", "success");
-    });
-}
-
-function delDirectory(id) {
-    if(confirm("ডিরেক্টরি থেকে এই মেম্বার সরাতে চান?")) {
-        fetch(`${FIREBASE_URL}/directory/${id}.json`, { method: "DELETE" }).then(() => { loadDirectory(); });
-    }
-}
-
-function renderDirectory() {
-    let list = document.getElementById("directoryList"); list.innerHTML = "";
-    directoryData.forEach(d => {
-        list.innerHTML += `
-            <tr>
-                <td><img src="${d.img}" class="member-avatar" onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png'"></td>
-                <td><strong>${d.name}</strong></td>
-                <td><a href="tel:${d.phone}">${d.phone}</a></td>
-                <td style="color:#ef4444; font-weight:bold;"><span>🩸 ${d.blood}</span></td>
-                ${isAdmin ? `<td><button class="btn-danger" style="padding:4px 8px; font-size:12px;" onclick="delDirectory('${d.id}')">Delete</button></td>` : ''}
-            </tr>`;
-    });
-}
-
-// 📸 অ্যালবাম গ্যালারি ফাংশন (গ্যালারি ফাইল আপলোড ফিচার)
-function loadGallery() {
-    fetch(FIREBASE_URL + "/gallery.json").then(res => res.json()).then(serverData => {
-        galleryData = [];
-        if(serverData) { Object.keys(serverData).forEach(key => { galleryData.push({ id: key, ...serverData[key] }); }); }
-        renderGallery();
-    });
-}
-
-function uploadPhoto() {
-    let fileInput = document.getElementById("galFile").files[0];
-    let caption = document.getElementById("galCaption").value;
-    let album = document.getElementById("galAlbum").value;
-    
-    if(!fileInput || !caption) return showFighterNotification("ছবি এবং ক্যাপশন দুটোই দিন!", "warning");
-    
-    let reader = new FileReader();
-    reader.onload = function(e) {
-        let base64Img = e.target.result;
-        
-        fetch(FIREBASE_URL + "/gallery.json", { method: "POST", body: JSON.stringify({ url: base64Img, caption, album }) }).then(() => {
-            loadGallery();
-            document.getElementById("galFile").value = ""; document.getElementById("galCaption").value = "";
-            showFighterNotification("গ্যালারিতে সরাসরি মোবাইল থেকে ফটো পোস্ট সফল হয়েছে!", "success");
-        });
-    };
-    reader.readAsDataURL(fileInput);
-}
-
-function delPhoto(id) {
-    event.stopPropagation();
-    if(confirm("ছবিটি মুছে ফেলতে চান?")) {
-        fetch(`${FIREBASE_URL}/gallery/${id}.json`, { method: "DELETE" }).then(() => { loadGallery(); });
-    }
-}
-
-function filterGallery(albumName) {
-    currentFilter = albumName;
-    let btns = document.querySelectorAll('.filter-btn');
-    btns.forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
-    renderGallery();
-}
-
-function renderGallery() {
-    let container = document.getElementById("galleryContainer"); container.innerHTML = "";
-    let filtered = galleryData.filter(p => currentFilter === 'All' || p.album === currentFilter);
-    
-    if(filtered.length === 0) {
-        container.innerHTML = "<p style='padding:20px; color:#64748b;'>এই অ্যালবামে কোনো ছবি নেই।</p>";
-        return;
-    }
-    
-    filtered.forEach(p => {
-        container.innerHTML += `
-            <div class="gallery-item" onclick="openLightbox('${p.url}', '${p.caption}')">
-                ${isAdmin ? `<button class="del-gal-btn" onclick="delPhoto('${p.id}')">X</button>` : ''}
-                <img src="${p.url}" alt="${p.caption}">
-                <div class="gallery-caption">[${p.album || 'All'}] ${p.caption}</div>
-            </div>`;
-    });
-}
-
-function openLightbox(url, caption) {
-    document.getElementById("lightboxImg").src = url;
-    document.getElementById("lightboxCaption").innerText = caption;
-    document.getElementById("lightbox").style.display = "flex";
-}
-function closeLightbox() { document.getElementById("lightbox").style.display = "none"; }
-
-// অন্যান্য সাপোর্ট ফাংশন
-function loadInventory() {
-    fetch(FIREBASE_URL + "/inventory.json").then(res => res.json()).then(serverData => {
-        inventoryData = []; if(serverData) { Object.keys(serverData).forEach(key => { inventoryData.push({ id: key, ...serverData[key] }); }); }
-        renderInventory();
-    });
-}
-function addInventory() {
-    let item = document.getElementById("invItem").value; let qty = document.getElementById("invQty").value; let status = document.getElementById("invStatus").value;
-    if(!item || !qty) return;
-    fetch(FIREBASE_URL + "/inventory.json", { method: "POST", body: JSON.stringify({item, qty, status}) }).then(() => { loadInventory(); });
-}
-function renderInventory(){
-    let invList = document.getElementById("inventoryList"); invList.innerHTML = "";
-    inventoryData.forEach((d) => {
-        invList.innerHTML += `<tr><td><strong>${d.item}</strong></td><td>${d.qty} টি</td><td style="color:${d.status==="নষ্ট"?'#ef4444':'#10b981'}; font-weight:bold;">${d.status}</td>${isAdmin ? `<td><button class="btn-danger" style="padding:4px 8px; font-size:12px;" onclick="fetch('${FIREBASE_URL}/inventory/${d.id}.json',{method:'DELETE'}).then(()=>loadInventory())">Delete</button></td>` : ''}</tr>`;
-    });
-}
-
-function loadFeedback() {
-    fetch(FIREBASE_URL + "/feedback.json").then(res => res.json()).then(serverData => {
-        feedbackData = []; if(serverData) { Object.keys(serverData).forEach(key => { feedbackData.push({ id: key, ...serverData[key] }); }); }
-        renderFeedback();
-    });
-}
-function sendFeedback() {
-    let name = document.getElementById("fbName").value; let msg = document.getElementById("fbMsg").value;
-    if(!name || !msg) return;
-    fetch(FIREBASE_URL + "/feedback.json", { method: "POST", body: JSON.stringify({ name, msg, time: new Date().toLocaleDateString('bn-BD') }) }).then(() => { loadFeedback(); document.getElementById("fbMsg").value=""; });
-}
-function renderFeedback() {
-    let fbList = document.getElementById("feedbackList"); fbList.innerHTML = "";
-    feedbackData.forEach(d => {
-        fbList.innerHTML += `<div class="msg-box"><span style="font-weight:600; color:var(--primary);">👤 ${d.name}</span><p style="margin:5px 0;">${d.msg}</p></div>`;
-    });
-}
-
-function handleAuth() {
-    if(!isAdmin) {
-        let pass = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
-        if(pass === "1234") { 
-            isAdmin = true;
-            document.getElementById("authBtn").innerText = "Logout Admin";
-            document.getElementById("adminForm").style.display = "block";
-            document.getElementById("inventoryForm").style.display = "block";
-            document.getElementById("noticeForm").style.display = "block";
-            document.getElementById("galleryForm").style.display = "block";
-            document.getElementById("directoryForm").style.display = "block";
-            document.getElementById("adminStatus").innerText = "Admin Mode: সচল আছে।";
-            document.getElementById("adminStatus").className = "admin-status admin-active";
-        }
-    } else {
-        isAdmin = false;
-        document.getElementById("authBtn").innerText = "Admin Login";
-        document.getElementById("adminForm").style.display = "none";
-        document.getElementById("inventoryForm").style.display = "none";
-        document.getElementById("noticeForm").style.display = "none";
-        document.getElementById("galleryForm").style.display = "none";
-        document.getElementById("directoryForm").style.display = "none";
-        document.getElementById("adminStatus").innerText = "View Mode: আপনি এখন হিসাব শুধু দেখতে পারবেন।";
-        document.getElementById("adminStatus").className = "admin-status";
-    }
-    render(); renderInventory(); renderGallery(); renderDirectory();
-}
-
-function render() {
-    let list = document.getElementById("list"); list.innerHTML = "";
-    let search = document.getElementById("search").value.toLowerCase();
-    let tMoney = 0, tExpense = 0; let mSet = new Set();
-    
-    let adminCols = document.querySelectorAll('.admin-action-col');
-    adminCols.forEach(col => col.style.display = isAdmin ? 'table-cell' : 'none');
-
-    accountsData.forEach(d => {
-        if(d.member.toLowerCase().includes(search) || d.item.toLowerCase().includes(search)) {
-            let rem = d.price - d.paid;
-            if(d.type === "expense") tExpense += d.price; else tMoney += d.paid;
-            if(d.member !== "ক্লাব খরচ" && d.member !== "খরচ") mSet.add(d.member);
-            
-            list.innerHTML += `
-                <tr>
-                    <td><strong class="member-link" onclick="openMemberProfile('${d.member}')">${d.member}</strong></td>
-                    <td>${d.item}</td><td>${d.type==='expense'?'খরচ':'জমা'}</td><td>${d.date}</td><td>${d.price}৳</td><td>${d.paid}৳</td><td>${rem}৳</td>
-                    ${isAdmin ? `<td><button class="btn-danger" style="padding:4px 8px; font-size:12px;" onclick="delAccount('${d.id}')">Delete</button></td>` : ''}
-                </tr>`;
-        }
-    });
-    document.getElementById("totalMoney").innerText = tMoney + " ৳";
-    document.getElementById("totalExpense").innerText = tExpense + " ৳";
-    document.getElementById("liveVault").innerText = (tMoney - tExpense) + " ৳";
-    document.getElementById("totalMembers").innerText = mSet.size + " জন";
-}
-
-function openMemberProfile(name) {
-    document.getElementById("modalMemberName").innerText = "👤 " + name;
-    let tBody = document.getElementById("modalTableBody"); tBody.innerHTML = "";
-    let p=0, d=0;
-    accountsData.forEach(x => {
-        if(x.member === name) {
-            let r = x.price - x.paid; p+=x.paid; d+=r;
-            tBody.innerHTML += `<tr><td>${x.item}</td><td>${x.date}</td><td>${x.paid}৳</td><td>${r}৳</td></tr>`;
-        }
-    });
-    document.getElementById("modalTotalPaid").innerText = p;
-    document.getElementById("modalTotalDue").innerText = d;
-    document.getElementById("memberModal").style.display = "flex";
-}
-function closeModal() { document.getElementById("memberModal").style.display = "none"; }
-
-function toggleDark() { document.body.classList.toggle("dark"); }
-function toggleCalculator() { let c = document.querySelector(".calc"); c.style.display = c.style.display === "block" ? "none" : "block"; }
-function p(v){ document.getElementById("display").value += v; }
-function clearCalc(){ document.getElementById("display").value = ""; }
-function calc(){ document.getElementById("display").value = eval(document.getElementById("display").value); }
-function checkTodayBirthdays() { showFighterNotification(activeBirthdayWish, "success"); }
-
-function showFighterNotification(m, t="info") {
-    let toast = document.createElement("div"); toast.className = `toast-notification ${t} show`;
-    toast.innerHTML = `🔔 <span>${m}</span>`; document.body.appendChild(toast);
-    setTimeout(() => { toast.remove(); }, 3500);
-}
-
-function loadWeather() {
-    document.getElementById("weatherDisplay").innerText = "গাইবান্ধা: ২৮°C | আকাশ পরিষ্কার, খেলার জন্য উপযুক্ত দিন! ☀️🏏";
-}
-
-window.onload = checkSiteAccess;
+// 🔄 পেজ রান হওয়ার সাথে সাথেই মেমোরি চেক করবে
+window.onload = function() {
+    checkSiteAccess();
+};
 </script>
+
 </body>
 </html>
