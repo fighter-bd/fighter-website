@@ -31,29 +31,8 @@
 * { box-sizing: border-box; font-family: 'Poppins', Arial, sans-serif; transition: background 0.3s, color 0.3s; }
 body { margin: 0; padding: 0; background: var(--bg-color); color: var(--text-color); }
 
-/* 🔒 মেইন গেটওয়ে লগইন স্ক্রিন */
-#siteLoginScreen {
-    position: fixed; top: 0; left: 0; width: 100%; height: 100%;
-    background: #0f172a; display: flex; justify-content: center; align-items: center; z-index: 99999;
-}
-.login-box {
-    background: #1e293b; padding: 40px 30px; border-radius: 16px;
-    box-shadow: 0 10px 30px rgba(0,0,0,0.5); text-align: center; max-width: 360px; width: 90%;
-    border: 1px solid #334155;
-}
-.login-logo { width: 100px; height: 100px; border-radius: 50%; background: #fff; padding: 5px; margin-bottom: 20px; box-shadow: 0 0 15px rgba(37, 99, 235, 0.5); }
-.login-box h2 { color: #ffffff; margin: 0 0 10px 0; font-size: 24px; }
-.login-box p { color: #94a3b8; font-size: 14px; margin: 0 0 25px 0; }
-.login-box input {
-    width: 100%; padding: 14px; border: 1px solid #334155; background: #0f172a;
-    color: #ffffff; border-radius: 8px; text-align: center; font-size: 18px;
-    letter-spacing: 5px; outline: none; margin-bottom: 20px;
-}
-.login-box input:focus { border-color: #3b82f6; }
-.login-box button { width: 100%; padding: 14px; font-size: 16px; }
-
-/* 📱 মেইন কন্টেন্ট */
-#mainContent { display: none; padding-bottom: 20px; }
+/* 📱 মেইন কন্টেন্ট সরাসরি ওপেন থাকবে */
+#mainContent { display: block; padding-bottom: 20px; }
 
 /* Notice Board */
 .notice-board {
@@ -97,7 +76,6 @@ button:hover { background: var(--primary-hover); }
 .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 12px; margin-bottom: 20px; }
 input, select { padding: 12px; border: 1px solid var(--border-color); background: var(--card-bg); color: var(--text-color); border-radius: 8px; outline: none; width: 100%; }
 
-/* 📂 ফাইল আপলোড বাটন ডিজাইন */
 input[type="file"] { padding: 8px; background: transparent; cursor: pointer; }
 
 .table-responsive { overflow-x: auto; border-radius: 8px; border: 1px solid var(--border-color); margin-bottom: 30px; }
@@ -107,10 +85,8 @@ th { background: var(--primary); color: white; font-weight: 600; }
 .dark th { background: #334155; }
 .member-link { color: var(--primary); cursor: pointer; text-decoration: underline; }
 
-/* 👤 মেম্বার প্রোফাইল ইমেজ */
 .member-avatar { width: 50px; height: 50px; border-radius: 50%; object-fit: cover; border: 2px solid var(--primary); background: #eee; }
 
-/* 📸 অ্যালবাম গ্যালারি */
 .gallery-filter { display: flex; justify-content: center; gap: 10px; margin-bottom: 15px; flex-wrap: wrap; }
 .filter-btn { background: #e5e7eb; color: #333; padding: 6px 14px; font-size: 13px; border-radius: 6px; border: none; cursor: pointer;}
 .filter-btn.active { background: var(--primary); color: white; }
@@ -121,12 +97,10 @@ th { background: var(--primary); color: white; font-weight: 600; }
 .gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; background: rgba(0, 0, 0, 0.7); color: #fff; font-size: 12px; padding: 5px; text-align: center; }
 .del-gal-btn { position: absolute; top: 5px; right: 5px; background: #ef4444; color: white; border: none; padding: 2px 6px; font-size: 10px; border-radius: 4px; z-index: 10; }
 
-/* লাইটবক্স পপআপ */
 .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; justify-content: center; align-items: center; }
 .lightbox img { max-width: 90%; max-height: 80%; border-radius: 8px; box-shadow: 0 0 20px rgba(255,255,255,0.2); }
 .lightbox-caption { position: absolute; bottom: 40px; color: white; font-size: 18px; text-align: center; width: 100%; }
 
-/* মোডাল */
 .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.6); z-index: 1000; justify-content: center; align-items: center; }
 .modal-content { background: var(--card-bg); color: var(--text-color); padding: 25px; border-radius: 16px; max-width: 500px; width: 90%; box-shadow: 0 4px 25px rgba(0,0,0,0.2); position: relative; }
 .close-modal { position: absolute; top: 15px; right: 20px; font-size: 24px; cursor: pointer; color: #ef4444; }
@@ -153,18 +127,7 @@ footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; 
 </head>
 <body>
 
-<!-- 🔒 মেইন গেটওয়ে লগইন স্ক্রিন (পাসওয়ার্ড: 2026) -->
-<div id="siteLoginScreen">
-    <div class="login-box">
-        <img src="fighter-cricket-logo.png" class="login-logo" alt="FIGHTER Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png'">
-        <h2>FIGHTER Club</h2>
-        <p>ওয়েবসাইটে প্রবেশ করতে সিক্রেট পাসওয়ার্ড দিন</p>
-        <input type="password" id="sitePasswordInput" placeholder="••••" maxlength="8" onkeypress="handleLoginKeyPress(event)">
-        <button class="btn-success" onclick="verifySiteLogin()">ওয়েবসাইটে প্রবেশ করুন 🚀</button>
-    </div>
-</div>
-
-<!-- 📱 মূল ড্যাশবোর্ড কন্টেন্ট এরিয়া -->
+<!-- 📱 মূল ড্যাশবোর্ড কন্টেন্ট এরিয়া (লগইন স্ক্রিন ছাড়া সরাসরি ওপেন হবে) -->
 <div id="mainContent">
     <div class="notice-board">
         <div class="notice-text" id="noticeText">স্বাগতম! FIGHTER Cricket Club-এর অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম।</div>
@@ -185,7 +148,6 @@ footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; 
         <div class="top-bar">
             <button onclick="toggleDark()">Dark Mode</button>
             <button id="authBtn" class="btn-success" onclick="handleAuth()">Admin Login</button>
-            <button class="btn-danger" onclick="logoutFromSite()">Log Out Website</button>
         </div>
 
         <div id="adminStatus" class="admin-status">View Mode: আপনি এখন হিসাব শুধু দেখতে পারবেন।</div>
@@ -242,7 +204,7 @@ footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; 
             </table>
         </div>
 
-        <!-- 📞 মেম্বার ডিরেক্টরি, ছবি ও ব্লাড গ্রুপ সেকশন (গ্যালারি আপলোড যুক্ত) -->
+        <!-- 📞 মেম্বার ডিরেক্টরি -->
         <div class="feedback-section">
             <h3>📞 ফাইটার মেম্বার ডিরেক্টরি, ছবি ও ব্লাড গ্রুপ</h3>
             
@@ -292,7 +254,7 @@ footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; 
             </div>
         </div>
 
-        <!-- 📸 অ্যালবাম গ্যালারি সেকশন (গ্যালারি থেকে সরাসরি ছবি আপলোড) -->
+        <!-- 📸 অ্যালবাম গ্যালারি সেকশন -->
         <div class="feedback-section">
             <h3>📸 ফাইটার ক্লাব গ্যালারি (সরাসরি গ্যালারি থেকে আপলোড)</h3>
             <div class="gallery-filter" id="galleryFilterBox">
@@ -334,7 +296,7 @@ footer { text-align: center; margin-top: 40px; font-size: 14px; color: #64748b; 
     </div>
 </div>
 
-<!-- 👤 মেম্বার ইন্ডিভিজুয়াল জমার খতিয়ান মোডাল -->
+<!-- 👤 মেম্বার ইন্ডিভিজুয়াল জমার খতিয়ান মোডাল -->
 <div id="memberModal" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="closeModal()">&times;</span>
@@ -391,41 +353,10 @@ let activeBirthdayWish = "আজ আমাদের ক্লাবের কো
 let isAdmin = false;
 let currentFilter = 'All';
 
-// 🔒 প্রধান ওয়েবসাইট লগইন চেকার ফাংশন
+// 📱 অটোমেটিকভাবে ড্যাশবোর্ড লোড হওয়ার চেকার ফাংশন
 function checkSiteAccess() {
-    let accessGranted = sessionStorage.getItem("fighter_site_access");
-    if (accessGranted === "true") {
-        document.getElementById("siteLoginScreen").style.display = "none";
-        document.getElementById("mainContent").style.display = "block";
-        initDashboard();
-    } else {
-        document.getElementById("siteLoginScreen").style.display = "flex";
-        document.getElementById("mainContent").style.display = "none";
-    }
-}
-
-function verifySiteLogin() {
-    let pinInput = document.getElementById("sitePasswordInput").value;
-    if (pinInput === "2026") {
-        sessionStorage.setItem("fighter_site_access", "true");
-        showFighterNotification("লগইন সফল! ড্যাশবোর্ডে আপনাকে স্বাগতম।", "success");
-        setTimeout(() => { checkSiteAccess(); }, 500);
-    } else {
-        showFighterNotification("ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।", "error");
-        document.getElementById("sitePasswordInput").value = "";
-    }
-}
-
-function handleLoginKeyPress(event) {
-    if (event.key === "Enter") { verifySiteLogin(); }
-}
-
-function logoutFromSite() {
-    if (confirm("আপনি কি ওয়েবসাইট থেকে লগআউট করতে চান?")) {
-        sessionStorage.removeItem("fighter_site_access");
-        isAdmin = false;
-        location.reload();
-    }
+    // এখন আর কোনো কন্ডিশন ছাড়া সরাসরি ড্যাশবোর্ড ইনিশিয়ালাইজ হবে
+    initDashboard();
 }
 
 function initDashboard() {
@@ -464,7 +395,7 @@ function addAccount() {
         loadAccounts();
         document.getElementById("member").value = ""; document.getElementById("item").value = "";
         document.getElementById("price").value = ""; document.getElementById("paid").value = "";
-        showFighterNotification("হিসাব সরাসরি ডেটাবেজে যুক্ত হয়েছে!", "success");
+        showFighterNotification("হিসাব সরাসরি ডেটাবেজে যুক্ত হয়েছে!", "success");
     });
 }
 
@@ -474,7 +405,7 @@ function delAccount(id) {
     }
 }
 
-// 📞 মেম্বার ডিরেক্টরি ছবি আপলোড উইথ গ্যালারি ফাইল
+// 📞 মেম্বার ডিরেক্টরি
 function loadDirectory() {
     fetch(FIREBASE_URL + "/directory.json").then(res => res.json()).then(serverData => {
         directoryData = [];
@@ -508,7 +439,7 @@ function saveDirectoryToFirebase(name, phone, imgData, blood) {
         loadDirectory();
         document.getElementById("dirName").value = ""; document.getElementById("dirPhone").value = "";
         document.getElementById("dirFile").value = "";
-        showFighterNotification("মেম্বার প্রোফাইল লাইভ সেভ হয়েছে!", "success");
+        showFighterNotification("মেম্বার প্রোফাইল লাইভ সেভ হয়েছে!", "success");
     });
 }
 
@@ -532,7 +463,7 @@ function renderDirectory() {
     });
 }
 
-// 📸 অ্যালবাম গ্যালারি ফাংশন (গ্যালারি ফাইল আপলোড ফিচার)
+// 📸 অ্যালবাম গ্যালারি ফাংশন
 function loadGallery() {
     fetch(FIREBASE_URL + "/gallery.json").then(res => res.json()).then(serverData => {
         galleryData = [];
@@ -555,7 +486,7 @@ function uploadPhoto() {
         fetch(FIREBASE_URL + "/gallery.json", { method: "POST", body: JSON.stringify({ url: base64Img, caption, album }) }).then(() => {
             loadGallery();
             document.getElementById("galFile").value = ""; document.getElementById("galCaption").value = "";
-            showFighterNotification("গ্যালারিতে সরাসরি মোবাইল থেকে ফটো পোস্ট সফল হয়েছে!", "success");
+            showFighterNotification("গ্যালারিতে সরাসরি মোবাইল থেকে ফটো পোস্ট সফল হয়েছে!", "success");
         });
     };
     reader.readAsDataURL(fileInput);
@@ -617,118 +548,158 @@ function addInventory() {
 function renderInventory(){
     let invList = document.getElementById("inventoryList"); invList.innerHTML = "";
     inventoryData.forEach((d) => {
-        invList.innerHTML += `<tr><td><strong>${d.item}</strong></td><td>${d.qty} টি</td><td style="color:${d.status==="নষ্ট"?'#ef4444':'#10b981'}; font-weight:bold;">${d.status}</td>${isAdmin ? `<td><button class="btn-danger" style="padding:4px 8px; font-size:12px;" onclick="fetch('${FIREBASE_URL}/inventory/${d.id}.json',{method:'DELETE'}).then(()=>loadInventory())">Delete</button></td>` : ''}</tr>`;
+        invList.innerHTML += `<tr><td><strong>${d.item}</strong></td><td>${d.qty} টি</td><td style="color:${d.status==="নষ্ট"?'#ef4444':'#10b981'}; font-weight:bold;">${d.status}</td></tr>`;
     });
 }
 
 function loadFeedback() {
     fetch(FIREBASE_URL + "/feedback.json").then(res => res.json()).then(serverData => {
         feedbackData = []; if(serverData) { Object.keys(serverData).forEach(key => { feedbackData.push({ id: key, ...serverData[key] }); }); }
-        renderFeedback();
+        let fbList = document.getElementById("feedbackList"); fbList.innerHTML = "";
+        feedbackData.forEach(f => { fbList.innerHTML += `<div class="msg-box"><strong>${f.name}:</strong> ${f.msg}</div>`; });
     });
 }
 function sendFeedback() {
     let name = document.getElementById("fbName").value; let msg = document.getElementById("fbMsg").value;
     if(!name || !msg) return;
-    fetch(FIREBASE_URL + "/feedback.json", { method: "POST", body: JSON.stringify({ name, msg, time: new Date().toLocaleDateString('bn-BD') }) }).then(() => { loadFeedback(); document.getElementById("fbMsg").value=""; });
-}
-function renderFeedback() {
-    let fbList = document.getElementById("feedbackList"); fbList.innerHTML = "";
-    feedbackData.forEach(d => {
-        fbList.innerHTML += `<div class="msg-box"><span style="font-weight:600; color:var(--primary);">👤 ${d.name}</span><p style="margin:5px 0;">${d.msg}</p></div>`;
+    fetch(FIREBASE_URL + "/feedback.json", { method: "POST", body: JSON.stringify({name, msg}) }).then(() => {
+        loadFeedback(); document.getElementById("fbName").value = ""; document.getElementById("fbMsg").value = "";
     });
 }
 
+function loadWeather() {
+    // গাইবান্ধার ডেমো আবহাওয়া লোড ফাংশন (আপনার আগের সিস্টেম অনুযায়ী রাখা হয়েছে)
+    document.getElementById("weatherDisplay").innerText = "🌡️ তাপমাত্রা: ২৮°সে | ☀️ আকাশ পরিষ্কার | খেলার জন্য চমৎকার আবহাওয়া!";
+}
+
+function toggleDark() { document.body.classList.toggle("dark"); }
+
 function handleAuth() {
-    if(!isAdmin) {
-        let pass = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
-        if(pass === "1234") { 
-            isAdmin = true;
-            document.getElementById("authBtn").innerText = "Logout Admin";
-            document.getElementById("adminForm").style.display = "block";
-            document.getElementById("inventoryForm").style.display = "block";
-            document.getElementById("noticeForm").style.display = "block";
-            document.getElementById("galleryForm").style.display = "block";
-            document.getElementById("directoryForm").style.display = "block";
-            document.getElementById("adminStatus").innerText = "Admin Mode: সচল আছে।";
-            document.getElementById("adminStatus").className = "admin-status admin-active";
-        }
+    let pass = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
+    if(pass === "admin123") { // ডেমো অ্যাডমিন পাসওয়ার্ড
+        isAdmin = true;
+        document.getElementById("adminStatus").innerText = "Admin Mode: আপনি এখন হিসাব পরিবর্তন করতে পারবেন।";
+        document.getElementById("adminStatus").classList.add("admin-active");
+        document.getElementById("adminForm").style.display = "block";
+        document.getElementById("directoryForm").style.display = "block";
+        document.getElementById("inventoryForm").style.display = "block";
+        document.getElementById("galleryForm").style.display = "block";
+        document.getElementById("noticeForm").style.display = "block";
+        render(); renderDirectory(); renderGallery();
     } else {
-        isAdmin = false;
-        document.getElementById("authBtn").innerText = "Admin Login";
-        document.getElementById("adminForm").style.display = "none";
-        document.getElementById("inventoryForm").style.display = "none";
-        document.getElementById("noticeForm").style.display = "none";
-        document.getElementById("galleryForm").style.display = "none";
-        document.getElementById("directoryForm").style.display = "none";
-        document.getElementById("adminStatus").innerText = "View Mode: আপনি এখন হিসাব শুধু দেখতে পারবেন।";
-        document.getElementById("adminStatus").className = "admin-status";
+        alert("ভুল পাসওয়ার্ড!");
     }
-    render(); renderInventory(); renderGallery(); renderDirectory();
 }
 
 function render() {
     let list = document.getElementById("list"); list.innerHTML = "";
-    let search = document.getElementById("search").value.toLowerCase();
-    let tMoney = 0, tExpense = 0; let mSet = new Set();
+    let searchVal = document.getElementById("search").value.toLowerCase();
+    let tMoney = 0, tExpense = 0;
     
-    let adminCols = document.querySelectorAll('.admin-action-col');
-    adminCols.forEach(col => col.style.display = isAdmin ? 'table-cell' : 'none');
+    let filtered = accountsData.filter(a => a.member.toLowerCase().includes(searchVal) || a.item.toLowerCase().includes(searchVal));
+    
+    // ইউনিক মেম্বার কাউন্ট করার জন্য সেট
+    let uniqueMembers = new Set();
 
-    accountsData.forEach(d => {
-        if(d.member.toLowerCase().includes(search) || d.item.toLowerCase().includes(search)) {
-            let rem = d.price - d.paid;
-            if(d.type === "expense") tExpense += d.price; else tMoney += d.paid;
-            if(d.member !== "ক্লাব খরচ" && d.member !== "খরচ") mSet.add(d.member);
-            
-            list.innerHTML += `
-                <tr>
-                    <td><strong class="member-link" onclick="openMemberProfile('${d.member}')">${d.member}</strong></td>
-                    <td>${d.item}</td><td>${d.type==='expense'?'খরচ':'জমা'}</td><td>${d.date}</td><td>${d.price}৳</td><td>${d.paid}৳</td><td>${rem}৳</td>
-                    ${isAdmin ? `<td><button class="btn-danger" style="padding:4px 8px; font-size:12px;" onclick="delAccount('${d.id}')">Delete</button></td>` : ''}
-                </tr>`;
+    accountsData.forEach(a => {
+        if(a.type === "income") {
+            tMoney += Number(a.paid || 0);
+            uniqueMembers.add(a.member);
+        } else {
+            tExpense += Number(a.price || 0);
         }
     });
+
     document.getElementById("totalMoney").innerText = tMoney + " ৳";
     document.getElementById("totalExpense").innerText = tExpense + " ৳";
     document.getElementById("liveVault").innerText = (tMoney - tExpense) + " ৳";
-    document.getElementById("totalMembers").innerText = mSet.size + " জন";
+    document.getElementById("totalMembers").innerText = uniqueMembers.size + " জন";
+
+    filtered.forEach(a => {
+        let due = (a.price || 0) - (a.paid || 0);
+        list.innerHTML += `
+            <tr>
+                <td><span class="member-link" onclick="openMemberModal('${a.member}')">${a.member}</span></td>
+                <td>${a.item}</td>
+                <td style="color:${a.type==='income'?'#10b981':'#ef4444'}; font-weight:bold;">${a.type==='income'?'জমা':'খরচ'}</td>
+                <td>${a.date}</td>
+                <td>${a.price} ৳</td>
+                <td>${a.paid || 0} ৳</td>
+                <td style="color:${due>0?'#ef4444':'#10b981'}; font-weight:bold;">${due} ৳</td>
+                ${isAdmin ? `<td><button class="btn-danger" style="padding:4px 8px; font-size:12px;" onclick="delAccount('${a.id}')">Delete</button></td>` : ''}
+            </tr>`;
+    });
+    
+    // অ্যাডমিন কলাম কন্ট্রোল
+    let cols = document.querySelectorAll(".admin-action-col");
+    cols.forEach(c => c.style.display = isAdmin ? "table-cell" : "none");
 }
 
-function openMemberProfile(name) {
-    document.getElementById("modalMemberName").innerText = "👤 " + name;
-    let tBody = document.getElementById("modalTableBody"); tBody.innerHTML = "";
-    let p=0, d=0;
-    accountsData.forEach(x => {
-        if(x.member === name) {
-            let r = x.price - x.paid; p+=x.paid; d+=r;
-            tBody.innerHTML += `<tr><td>${x.item}</td><td>${x.date}</td><td>${x.paid}৳</td><td>${r}৳</td></tr>`;
-        }
+function openMemberModal(name) {
+    document.getElementById("modalMemberName").innerText = "👤 " + name + " - এর খতিয়ান";
+    let body = document.getElementById("modalTableBody"); body.innerHTML = "";
+    let totalPaid = 0, totalDue = 0;
+
+    accountsData.filter(a => a.member === name).forEach(a => {
+        let due = (a.price || 0) - (a.paid || 0);
+        totalPaid += Number(a.paid || 0);
+        totalDue += due;
+        body.innerHTML += `<tr><td>${a.item}</td><td>${a.date}</td><td>${a.paid} ৳</td><td>${due} ৳</td></tr>`;
     });
-    document.getElementById("modalTotalPaid").innerText = p;
-    document.getElementById("modalTotalDue").innerText = d;
+
+    document.getElementById("modalTotalPaid").innerText = totalPaid;
+    document.getElementById("modalTotalDue").innerText = totalDue;
     document.getElementById("memberModal").style.display = "flex";
 }
 function closeModal() { document.getElementById("memberModal").style.display = "none"; }
 
-function toggleDark() { document.body.classList.toggle("dark"); }
-function toggleCalculator() { let c = document.querySelector(".calc"); c.style.display = c.style.display === "block" ? "none" : "block"; }
-function p(v){ document.getElementById("display").value += v; }
-function clearCalc(){ document.getElementById("display").value = ""; }
-function calc(){ document.getElementById("display").value = eval(document.getElementById("display").value); }
-function checkTodayBirthdays() { showFighterNotification(activeBirthdayWish, "success"); }
-
-function showFighterNotification(m, t="info") {
-    let toast = document.createElement("div"); toast.className = `toast-notification ${t} show`;
-    toast.innerHTML = `🔔 <span>${m}</span>`; document.body.appendChild(toast);
-    setTimeout(() => { toast.remove(); }, 3500);
+function checkTodayBirthdays() { alert(activeBirthdayWish); }
+function updateNotice() {
+    let text = document.getElementById("newNotice").value;
+    if(!text) return;
+    fetch(FIREBASE_URL + "/notice.json", { method: "PUT", body: JSON.stringify(text) }).then(() => {
+        document.getElementById("noticeText").innerText = text;
+        document.getElementById("newNotice").value = "";
+        showFighterNotification("নোটিশ লাইভ আপডেট হয়েছে!", "success");
+    });
+}
+function updateBirthdayWish() {
+    let wish = document.getElementById("newBirthdayWish").value;
+    if(!wish) return;
+    fetch(FIREBASE_URL + "/birthday.json", { method: "PUT", body: JSON.stringify(wish) }).then(() => {
+        activeBirthdayWish = wish;
+        document.getElementById("newBirthdayWish").value = "";
+        showFighterNotification("বার্থডে উইশ আপডেট হয়েছে!", "success");
+    });
 }
 
-function loadWeather() {
-    document.getElementById("weatherDisplay").innerText = "গাইবান্ধা: ২৮°C | আকাশ পরিষ্কার, খেলার জন্য উপযুক্ত দিন! ☀️🏏";
+// ক্যালকুলেটর ফাংশনসমূহ
+function toggleCalculator() {
+    let c = document.querySelector(".calc");
+    c.style.display = c.style.display === "block" ? "none" : "block";
+}
+function p(v) { document.getElementById("display").value += v; }
+function clearCalc() { document.getElementById("display").value = ""; }
+function calc() {
+    try { document.getElementById("display").value = eval(document.getElementById("display").value); }
+    catch(e) { document.getElementById("display").value = "Error"; }
 }
 
+// কাস্টম নোটিফিকেশন টোস্ট সিস্টেম
+function showFighterNotification(msg, type) {
+    let toast = document.createElement("div");
+    toast.className = `toast-notification show ${type}`;
+    toast.innerText = msg;
+    document.body.appendChild(toast);
+    setTimeout(() => { toast.classList.remove("show"); setTimeout(() => toast.remove(), 400); }, 3000);
+}
+
+// পেজ লোড হওয়ার সাথে সাথে ড্যাশবোর্ড সরাসরি চালু হবে
 window.onload = checkSiteAccess;
 </script>
+
+<!-- কাস্টম টোস্ট নোটিফিকেশন কন্টেইনার (যদি প্রয়োজন হয়) -->
+<div id="fighterToast" class="toast-notification"></div>
+
 </body>
 </html>
