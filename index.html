@@ -1,11 +1,18 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+<link rel="icon" href="fighter-cricket-logo.png">
+<link rel="shortcut icon" href="fighter-cricket-logo.png">
+<link rel="apple-touch-icon" href="fighter-cricket-logo.png">
+
+<meta property="og:title" content="FIGHTER Cricket Club">
+<meta property="og:image" content="https://yourdomain.com/fighter-cricket-logo.png">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://yourdomain.com">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="FIGHTER Cricket Club - Official expense tracker, member directory, and gallery.">
 <title>FIGHTER Cricket Club</title>
-<meta name="google-site-verification" content="erWE5KhzCGzL-dl4Mo9CVFrRUhlbxCDjP9BeKibsN8w" />
 
 <link rel="icon" type="image/png" href="fighter-cricket-logo.png">
 <!-- Google Fonts -->
@@ -619,7 +626,7 @@ function toggleDark() {
 function handleAuth() {
     if(!isAdmin) {
         let pass = prompt("অ্যাডমিন পাসওয়ার্ড দিন:");
-        if(pass === "1234") { 
+        if(pass === "fighter123") { 
             isAdmin = true;
             document.getElementById("authBtn").innerText = "🔓 Logout";
             document.getElementById("authBtn").className = "btn-danger";
@@ -774,7 +781,9 @@ function renderDirectory() {
             <div class="member-card">
                 <img src="${d.img}" class="avatar" onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png'">
                 <h4>${d.name}</h4>
-                <a class="phone" href="tel:${d.phone}">📞 ${d.phone}</a>
+                <a class="phone" href="javascript:void(0)" onclick="showPhone('${d.phone}')">
+📞 ফোন নম্বর দেখুন
+</a>
                 <span class="blood-badge">🩸 Group: ${d.blood}</span>
                 ${isAdmin ? `<br><button class="btn-danger" style="padding:6px 12px; font-size:11px; margin-top:18px; width:100%; justify-content:center; border-radius:8px;" onclick="delDirectory('${d.id}')">Delete Profile</button>` : ''}
             </div>`;
@@ -1013,41 +1022,31 @@ function calc() {
         document.getElementById("display").value = "Error";
     }
 }
-<!-- মেম্বার লিস্টের ডিজাইন (HTML অংশ) -->
-<div class="member-card">
-    <h3>মেম্বার নাম: আবির হাসান</h3>
-    <!-- এখানে আসল নাম্বারের জায়গায় আমরা বাটন রাখব -->
-    <p>মোবাইল নাম্বার: 
-        <span id="phone-field">❌ পাসওয়ার্ড দিয়ে দেখুন</span>
-    </p>
-    <button onclick="showPhoneNumber()">নাম্বার দেখুন</button>
-</div>
+/* ==========================
+   PHONE NUMBER PROTECTION
+========================== */
 
-<!-- সিকিউরিটি এবং পাসওয়ার্ড চেক করার লজিক (JavaScript অংশ) -->
-<script>
-function showPhoneNumber() {
-    // এখানে আপনার পছন্দমতো পাসওয়ার্ডটি সেট করুন (যেমন: 1234)
-    var correctPassword = "1234"; 
-    
-    // আসল ফোন নাম্বারটি এখানে থাকবে
-    var realPhoneNumber = "017XXXXXXXX"; 
+const PHONE_PASSWORD = "fightermember2026";
 
-    // ইউজারের কাছ থেকে পাসওয়ার্ড চাওয়া হচ্ছে
-    var userPassword = prompt("মেম্বারের ফোন নাম্বার দেখতে পাসওয়ার্ড দিন:");
+function showPhone(phone) {
 
-    if (userPassword === null) {
-        // ইউজার যদি বাতিল (Cancel) করে দেয়
-        return; 
-    } else if (userPassword === correctPassword) {
-        // পাসওয়ার্ড মিললে নাম্বারটি স্ক্রিনে দেখাবে
-        document.getElementById("phone-field").innerText = realPhoneNumber;
-        alert("পাসওয়ার্ড সঠিক হয়েছে!");
+    const pass = prompt("📞 ফোন নম্বর দেখতে পাসওয়ার্ড দিন:");
+
+    if (pass === null) return;
+
+    if (pass === PHONE_PASSWORD) {
+
+        alert("📞 ফোন নম্বর: " + phone);
+
     } else {
-        // পাসওয়ার্ড ভুল হলে
-        alert("ভুল পাসওয়ার্ড! আবার চেষ্টা করুন।");
+
+        showFighterNotification(
+            "❌ ভুল পাসওয়ার্ড!",
+            "error"
+        );
+
     }
 }
-
 </script>
 </body>
 </html>
