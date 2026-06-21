@@ -1,0 +1,21 @@
+{
+  "name": "FIGHTER Cricket Club",
+  "short_name": "Fighter Club",
+  "start_url": "./index.html",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#3b82f6",
+  "orientation": "portrait",
+  "icons": [
+    {
+      "src": "fighter-cricket-logo.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "fighter-cricket-logo.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
