@@ -1,7 +1,10 @@
 
+
 <!DOCTYPE html>
 <html lang="bn">
 <head>
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#3b82f6">
 <link rel="icon" href="fighter-cricket-logo.png">
 <link rel="shortcut icon" href="fighter-cricket-logo.png">
 <link rel="apple-touch-icon" href="fighter-cricket-logo.png">
@@ -401,24 +404,6 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; font-size: 14px;
 
         <!-- 📊 ড্যাশবোর্ড কার্ডস -->
         <div class="summary">
-            <!-- ⚽ FIFA LIVE MATCH SYSTEM -->
-<div class="pro-card">
-    <h3 style="margin-top:0;">⚽ FIFA Live Match System</h3>
-
-    <div class="table-responsive">
-        <table>
-            <thead>
-                <tr>
-                    <th>ম্যাচ</th>
-                    <th>সময়</th>
-                    <th>স্কোর</th>
-                    <th>স্ট্যাটাস</th>
-                </tr>
-            </thead>
-            <tbody id="matchList"></tbody>
-        </table>
-    </div>
-</div>
             <div class="box income">মোট চাঁদা আদায়<br><span id="totalMoney">0</span></div>
             <div class="box expense">মোট খরচ (ব্যয়)<br><span id="totalExpense">0</span></div>
             <div class="box balance">তহবিলে অবশিষ্ট ক্যাশ<br><span id="liveVault">0</span></div>
@@ -619,7 +604,6 @@ let isAdmin = false;
 let currentFilter = 'All';
 
 function initDashboard() {
-    renderMatches();
     loadAccounts();
     loadInventory();
     loadFeedback();
@@ -1067,25 +1051,10 @@ function showPhone(phone) {
 
     }
 }
-let matches = [
-    { team1: "Brazil", team2: "Argentina", time: "7:00 PM", score1: 2, score2: 1, status: "Live" },
-    { team1: "France", team2: "Germany", time: "10:00 PM", score1: 0, score2: 0, status: "Upcoming" }
-];
-function renderMatches() {
-    let list = document.getElementById("matchList");
-    list.innerHTML = "";
-
-    matches.forEach(m => {
-        list.innerHTML += `
-        <tr>
-            <td>${m.team1} 🆚 ${m.team2}</td>
-            <td>${m.time}</td>
-            <td><b>${m.score1} - ${m.score2}</b></td>
-            <td style="color:${m.status==='Live'?'#4ade80':'#f59e0b'};">
-                ${m.status}
-            </td>
-        </tr>`;
-    });
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js")
+    .then(() => console.log("Service Worker Registered"))
+    .catch(err => console.log("SW Error", err));
 }
 </script>
 </body>
