@@ -1,11 +1,9 @@
-
-
 <!DOCTYPE html>
 <html lang="bn">
 <head>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#3b82f6">
-<link rel="icon" href="fighter-cricket-logo.png">
+<link class="icon" href="fighter-cricket-logo.png">
 <link rel="shortcut icon" href="fighter-cricket-logo.png">
 <link rel="apple-touch-icon" href="fighter-cricket-logo.png">
 
@@ -16,10 +14,9 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="FIGHTER Cricket Club - Official expense tracker, member directory, and gallery.">
-<title>FIGHTER Cricket Club</title>
+<title>FIGHTER Cricket Club - Dashboard</title>
 
 <link rel="icon" type="image/png" href="fighter-cricket-logo.png">
-<!-- Google Fonts -->
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -38,7 +35,6 @@
 }
 
 .dark {
-    /* ডার্ক থিম অলরেডি ডিফল্ট হিসেবে প্রিমিয়াম লুক দিচ্ছে, তবুও কালার টিউনিং */
     --bg-color: #050b18;
     --card-bg: rgba(13, 22, 44, 0.7);
     --border-color: rgba(59, 130, 246, 0.15);
@@ -59,7 +55,27 @@ body {
     overflow-x: hidden;
 }
 
-#mainContent { display: block; padding-bottom: 40px; }
+#mainContent { display: block; padding-top: 70px; padding-bottom: 40px; }
+
+/* 🌟 প্রিমিয়াম স্টিকি নেভিগেশন বার */
+.navbar {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    height: 70px;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-bottom: 1px solid var(--border-color);
+    z-index: 1000;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 24px;
+}
+.nav-brand { font-weight: 700; font-size: 20px; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px;}
+.nav-links { display: flex; gap: 16px; align-items: center; }
+.nav-links a { color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500; }
+.nav-links a:hover { color: var(--primary); }
 
 /* 📢 আল্ট্রা-মডার্ন নোটিশ বোর্ড */
 .notice-board {
@@ -104,7 +120,7 @@ body {
     border-radius: 50%; 
     background: #1e293b; 
     padding: 6px; 
-    box-shadow: 0 0 25px rgba(5b, 130, 246, 0.5); 
+    box-shadow: 0 0 25px rgba(59, 130, 246, 0.5); 
     object-fit: cover;
     border: 2px solid var(--primary);
 }
@@ -120,7 +136,7 @@ body {
 
 .top-bar { display: flex; justify-content: center; gap: 14px; margin-bottom: 35px; flex-wrap: wrap; }
 
-/* 🔘 প্রিমিয়াম স্কয়ার বাটন ডিজাইন */
+/* 🔘 প্রিমিয়াম বাটন ডিজাইন */
 button {
     padding: 12px 26px; 
     border: 1px solid rgba(255,255,255,0.1); 
@@ -144,9 +160,9 @@ button:active { transform: translateY(0); }
 .btn-danger:hover { box-shadow: 0 8px 25px rgba(239, 68, 68, 0.45); }
 .btn-success { background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
 .btn-success:hover { box-shadow: 0 8px 25px rgba(16, 185, 129, 0.45); }
-.btn-secondary { background: #475569; }
+.btn-secondary { background: #475569; box-shadow: none;}
 
-/* 📊 নিয়ন গ্লাস ড্যাশবোর্ড কার্ড */
+/* 📊 ড্যাশবোর্ড কার্ড */
 .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 45px; }
 .box { 
     padding: 28px 20px; 
@@ -162,9 +178,7 @@ button:active { transform: translateY(0); }
     backdrop-filter: var(--glass-blur);
     -webkit-backdrop-filter: var(--glass-blur);
 }
-.box::before {
-    content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px;
-}
+.box::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; }
 .income::before { background: #10b981; }
 .expense::before { background: #ef4444; }
 .balance::before { background: #f59e0b; }
@@ -176,7 +190,7 @@ button:active { transform: translateY(0); }
 .balance span { color: #f59e0b; text-shadow: 0 0 15px rgba(245,158,11,0.3); }
 .members-box span { color: #3b82f6; text-shadow: 0 0 15px rgba(59,130,246,0.3); }
 
-/* 📑 গ্লাস মরফিজম মডার্ন কার্ড */
+/* 📑 কার্ড মরফিজম */
 .pro-card { 
     background: var(--card-bg); 
     padding: 35px; 
@@ -204,7 +218,7 @@ input:focus, select:focus {
     background: rgba(15, 23, 42, 0.8);
 }
 
-/* 👤 প্রিমিয়াম মেম্বার ডিরেক্টরি কার্ড গ্রিড */
+/* 👤 মেম্বার ডিরেক্টরি */
 .member-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px; margin-top: 25px; }
 .member-card { 
     background: rgba(30, 41, 59, 0.4); 
@@ -253,14 +267,14 @@ input:focus, select:focus {
     border: 1px solid rgba(239, 68, 68, 0.25);
 }
 
-/* 📊 আল্ট্রা রেসপনসিভ টেবিল ডিজাইন */
+/* 📊 টেবিল ডিজাইন */
 .table-responsive { overflow-x: auto; border-radius: 16px; border: 1px solid var(--border-color); margin-bottom: 10px; box-shadow: var(--shadow); }
 table { width: 100%; border-collapse: collapse; background: rgba(22, 32, 51, 0.5); }
 th, td { padding: 18px; text-align: center; border-bottom: 1px solid var(--border-color); font-size: 14px; color: #e2e8f0; }
 th { background: rgba(59, 130, 246, 0.1); color: #60a5fa; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; font-size: 13px; }
 tr:hover { background: rgba(255, 255, 255, 0.03); }
 
-/* 📸 লাক্সারি অ্যালবাম গ্যালারি */
+/* 📸 অ্যালবাম গ্যালারি */
 .gallery-filter { display: flex; justify-content: center; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
 .filter-btn { 
     background: rgba(255,255,255,0.05); 
@@ -293,7 +307,7 @@ tr:hover { background: rgba(255, 255, 255, 0.03); }
     display: flex; align-items: center; justify-content: center; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
 }
 
-/* 📥 মডার্ন মেসেজ বক্স */
+/* 📥 মেসেজ BOX */
 .msg-box { 
     background: rgba(15, 23, 42, 0.4); 
     padding: 18px 22px; 
@@ -325,8 +339,8 @@ tr:hover { background: rgba(255, 255, 255, 0.03); }
 .lightbox img { max-width: 90%; max-height: 75%; border-radius: 16px; box-shadow: 0 0 40px rgba(59,130,246,0.2); border: 1px solid rgba(255,255,255,0.1); }
 .lightbox-caption { color: #f8fafc; margin-top: 20px; font-size: 16px; font-weight: 500; text-align: center; }
 
-/* ਫਲੋਟਿੰਗ ਵਿਜੇਟਸ - Floating Widgets */
-.floating-widgets { position: fixed; bottom: 30px; left: 30px; display: flex; flex-direction: column; gap: 14px; z-index: 999; }
+/* ਫਲোਟিং ਵਿਜੇটস - Floating Widgets */
+.floating-widgets { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 14px; z-index: 999; }
 .circle-btn { 
     width: 58px; height: 58px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); 
     color: white; border: none; cursor: pointer; font-size: 24px; display: flex; align-items: center; justify-content: center; 
@@ -334,9 +348,9 @@ tr:hover { background: rgba(255, 255, 255, 0.03); }
 }
 .circle-btn:hover { transform: scale(1.1) translateY(-2px); }
 
-/* 🧮 নিয়ন গ্লাস ক্যালকুলেটর */
+/* 🧮 ক্যালকুলেটর */
 .calc { 
-    display: none; position: fixed; bottom: 170px; left: 30px; z-index: 1000; 
+    display: none; position: fixed; bottom: 170px; right: 30px; z-index: 1000; 
     background: rgba(30, 41, 59, 0.85); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
     border: 1px solid var(--border-color); padding: 24px; border-radius: 24px; box-shadow: var(--shadow); width: 280px;
 }
@@ -351,7 +365,7 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; font-size: 14px;
 
 /* 🔔 প্রিমিয়াম টোস্ট নোটিফিকেশন */
 .toast-notification { 
-    position: fixed; bottom: -100px; right: 30px; background: #1e293b; color: #ffffff; padding: 16px 28px; 
+    position: fixed; bottom: -100px; left: 30px; background: #1e293b; color: #ffffff; padding: 16px 28px; 
     border-radius: 16px; box-shadow: 0 20px 30px rgba(0,0,0,0.4); display: flex; align-items: center; gap: 12px; 
     z-index: 99999; border-left: 6px solid #3b82f6; opacity: 0; font-weight: 600; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
 }
@@ -363,19 +377,27 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; font-size: 14px;
 </head>
 <body onload="initDashboard()">
 
+<nav class="navbar">
+    <a href="#" class="nav-brand">🏏 FIGHTER Club</a>
+    <div class="nav-links">
+        <a href="#accountsSection">হিসাবপাতি</a>
+        <a href="#directorySection">মেম্বার্স</a>
+        <a href="#gallerySection">গ্যালারি</a>
+        <button id="authBtn" class="btn-success" onclick="handleAuth()" style="padding: 8px 16px; font-size: 13px;">🔐 Admin Login</button>
+    </div>
+</nav>
+
 <div id="mainContent">
     <div class="notice-board">
         <div class="notice-text" id="noticeText">স্বাগতম! FIGHTER Cricket Club-এর অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম।</div>
     </div>
 
     <div class="container">
-        <!-- 🌦️ আবহাওয়া খতিয়ান -->
         <div class="weather-widget">
             <h3 style="margin:0 0 8px 0; font-weight: 600; letter-spacing: 0.3px;">🌦️ গাইবান্ধা জেলা: আজকের খেলার আবহাওয়া খতিয়ান</h3>
             <p id="weatherDisplay" style="margin:0; font-weight:500; color: #e2e8f0;">গাইবান্ধার লাইভ আবহাওয়া লোড হচ্ছে...</p>
         </div>
 
-        <!-- 🎭 ব্র্যান্ডিং হেডার -->
         <div class="header-section">
             <img src="fighter-cricket-logo.png" class="logo" alt="FIGHTER Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/5351/5351401.png'">
             <h2>FIGHTER Cricket Club ড্যাশবোর্ড</h2>
@@ -384,14 +406,12 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; font-size: 14px;
 
         <div class="top-bar">
             <button onclick="toggleDark()" style="background: rgba(255,255,255,0.05);">✨ Dark / Light</button>
-            <button id="authBtn" class="btn-success" onclick="handleAuth()">🔐 Admin Login</button>
         </div>
 
         <div id="adminStatus" class="admin-status">View Mode: আপনি এখন হিসাব শুধু দেখতে পারবেন।</div>
 
-        <!-- নোটিশ কন্ট্রোল (অ্যাডমিন অনলি) -->
         <div id="noticeForm" class="pro-card" style="display: none; border-color: rgba(245, 158, 11, 0.3); background: rgba(245, 158, 11, 0.03);">
-            <h4 style="margin-top:0; color: #f59e0b; font-size: 18px; font-weight: 600;">📢 নোটিশ বোর্ড ও উইশ আপডেট</h4>
+            <h4 style="margin-top:0; color: #f59e0b; font-size: 18px; font-weight: 600;">📢 নোটিশ বোর্ড, উইশ ও লাইভ পুশ নোটিফিকেশন</h4>
             <div class="form-grid">
                 <input id="newNotice" placeholder="নতুন নোটিশ...">
                 <button class="btn-success" onclick="updateNotice()" style="background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow:0 4px 14px rgba(245,158,11,0.2);">নোটিশ আপডেট</button>
@@ -400,9 +420,12 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; font-size: 14px;
                 <input id="newBirthdayWish" placeholder="বার্থডে উইশ...">
                 <button class="btn-success" onclick="updateBirthdayWish()" style="background: linear-gradient(135deg, #ec4899, #be185d); box-shadow:0 4px 14px rgba(236,72,153,0.2);">উইশ আপডেট</button>
             </div>
+            <div class="form-grid" style="margin-top:10px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 15px;">
+                <input id="pushMessage" placeholder="মেম্বারদের ব্রাউজারে পুশ নোটিফিকেশন পাঠান...">
+                <button class="btn-success" onclick="sendPushNotification()" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow:0 4px 14px rgba(59,130,246,0.3);">🔔 পুশ নোটিফিকেশন পাঠান</button>
+            </div>
         </div>
 
-        <!-- 📊 ড্যাশবোর্ড কার্ডস -->
         <div class="summary">
             <div class="box income">মোট চাঁদা আদায়<br><span id="totalMoney">0</span></div>
             <div class="box expense">মোট খরচ (ব্যয়)<br><span id="totalExpense">0</span></div>
@@ -410,8 +433,7 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; font-size: 14px;
             <div class="box members-box">মোট সদস্য<br><span id="totalMembers">0</span></div>
         </div>
 
-        <!-- 💰 হিসাব খতিয়ান -->
-        <div class="pro-card">
+        <div class="pro-card" id="accountsSection">
             <h3 style="margin-top:0; font-size:22px; font-weight:700; letter-spacing: 0.3px;">💰 জমার খতিয়ান ও হিসাবপাতি</h3>
             <div style="margin-bottom: 25px;">
                 <input id="search" placeholder="🔍 সার্চ করুন (নাম বা বিবরণ)..." onkeyup="render()" style="padding: 16px 20px;">
@@ -443,7 +465,6 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; font-size: 14px;
             </div>
         </div>
 
-        <!-- 👤 মেম্বার ডিরেক্টরি সেকশন -->
         <div class="pro-card" id="directorySection">
             <h3 style="margin-top:0; font-size:22px; font-weight:700; letter-spacing: 0.3px;">👤 ফাইটার মেম্বার ডিরেক্টরি ও ব্লাড গ্রুপ</h3>
             
@@ -469,7 +490,6 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; font-size: 14px;
             <div class="member-grid" id="directoryCardContainer"></div>
         </div>
 
-        <!-- 🏏 মালামাল ইনভেন্টরি -->
         <div class="pro-card">
             <h3 style="margin-top:0; font-size:22px; font-weight:700; letter-spacing: 0.3px;">🏏 ক্লাবের মালামালের হিসাব (Inventory)</h3>
             <div id="inventoryForm" style="display: none; background: rgba(15,23,42,0.4); padding: 25px; border-radius: 16px; margin-bottom: 30px; border: 1px dashed rgba(255,255,255,0.15);">
@@ -488,8 +508,7 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; font-size: 14px;
             </div>
         </div>
 
-        <!-- 📸 অ্যালবাম গ্যালারি -->
-        <div class="pro-card">
+        <div class="pro-card" id="gallerySection">
             <h3 style="margin-top:0; font-size:22px; font-weight:700; letter-spacing: 0.3px;">📸 ফাইটার ক্লাব গ্যালারি</h3>
             <div class="gallery-filter" id="galleryFilterBox">
                 <button class="filter-btn active" onclick="filterGallery('All')">সব ছবি</button>
@@ -517,7 +536,6 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; font-size: 14px;
             <div class="gallery-grid" id="galleryContainer"></div>
         </div>
 
-        <!-- 💬 পরামর্শ বোর্ড -->
         <div class="pro-card">
             <h3 style="margin-top:0; font-size:22px; font-weight:700; letter-spacing: 0.3px;">💬 মেম্বার পরামর্শ বোর্ড</h3>
             <div id="feedbackList" style="max-height: 280px; overflow-y: auto; margin-bottom: 25px; padding-right: 5px;"></div>
@@ -530,7 +548,6 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; font-size: 14px;
     </div>
 </div>
 
-<!-- 📋 মোডাল ব্যক্তিগত খতিয়ান -->
 <div id="memberModal" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="closeModal()">&times;</span>
@@ -549,13 +566,11 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; font-size: 14px;
     </div>
 </div>
 
-<!-- 📸 লাইটবক্স ইমেজ ভিউয়ার -->
 <div id="lightbox" class="lightbox" onclick="closeLightbox()">
     <img id="lightboxImg" src="">
     <div class="lightbox-caption" id="lightboxCaption"></div>
 </div>
 
-<!-- 🧮 ক্যালকুলেটর উইজেট -->
 <div class="calc" id="calculatorWidget">
     <input id="display" readonly>
     <div class="grid">
@@ -578,13 +593,11 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; font-size: 14px;
     </div>
 </div>
 
-<!-- 🎈 ফ্লোটিং অ্যাকশন বাটনস -->
 <div class="floating-widgets">
     <button class="circle-btn" style="background: linear-gradient(135deg, #ec4899, #be185d); box-shadow:0 8px 25px rgba(236,72,153,0.4);" onclick="checkTodayBirthdays()">🎂</button>
     <button class="circle-btn" onclick="toggleCalculator()">🧮</button>
 </div>
 
-<!-- 🔔 গ্লোবাল টোস্ট নোটিফিকেশন -->
 <div id="fighterToast" class="toast-notification">💡 মেসেজ এখানে দেখাবে</div>
 
 <footer>
@@ -610,9 +623,85 @@ function initDashboard() {
     loadGallery();
     loadDirectory();
     loadWeather();
+    requestNotificationPermission(); // নোটিফিকেশন পারমিশন রিকোয়েস্ট
+    listenToPushNotifications();    // পুশ নোটিফিকেশনের জন্য লাইভ লিসেনার রান করা
+    
+    // অটোমেটিক আজকের তারিখ সেট করা
+    document.getElementById('date').valueAsDate = new Date();
     
     fetch(FIREBASE_URL + "/notice.json").then(res => res.json()).then(text => { if(text) document.getElementById("noticeText").innerText = text; });
     fetch(FIREBASE_URL + "/birthday.json").then(res => res.json()).then(wish => { if(wish) activeBirthdayWish = wish; });
+}
+
+// 🔔 নোটিফিকেশন পারমিশন রিকোয়েস্ট লজিক
+function requestNotificationPermission() {
+    if ("Notification" in window) {
+        if (Notification.permission === "default") {
+            Notification.requestPermission().then(permission => {
+                if (permission === "granted") {
+                    console.log("Notification permission granted!");
+                }
+            });
+        }
+    }
+}
+
+// 🔔 Firebase থেকে লাইভ পুশ নোটিফিকেশন লিসেন করার লজিক (Long-polling bypass using EventSource or interval)
+function listenToPushNotifications() {
+    // প্রতি ৫ সেকেন্ড পর পর ব্যাকগ্রাউন্ডে চেক করবে নতুন কোনো নোটিফিকেশন এসেছে কিনা
+    setInterval(() => {
+        fetch(FIREBASE_URL + "/push_notification.json")
+        .then(res => res.json())
+        .then(data => {
+            if (data && data.text) {
+                let lastNotifId = localStorage.getItem("last_fighter_notif_id");
+                // যদি নোটিফিকেশন আইডি নতুন হয়, তবেই ব্রাউজারে পপ-আপ করবে
+                if (lastNotifId !== data.id) {
+                    localStorage.setItem("last_fighter_notif_id", data.id);
+                    triggerSystemNotification(data.text);
+                }
+            }
+        }).catch(err => console.log("Notification check failed", err));
+    }, 5000);
+}
+
+// 🔔 রিয়েল ব্রাউজার সিস্টেম নোটিফিকেশন পপ-আপ ট্রিগার
+function triggerSystemNotification(message) {
+    if ("Notification" in window && Notification.permission === "granted") {
+        navigator.serviceWorker.ready.then(registration => {
+            registration.showNotification("🏏 FIGHTER Cricket Club", {
+                body: message,
+                icon: "fighter-cricket-logo.png",
+                badge: "fighter-cricket-logo.png",
+                vibrate: [200, 100, 200],
+                tag: "fighter-notice"
+            });
+        });
+    } else {
+        // পারমিশন না থাকলে ইন-অ্যাপ টোস্ট নোটিফিকেশন দেখাবে
+        showFighterNotification("📢 নতুন ঘোষণা: " + message, "info");
+    }
+}
+
+// 🔔 অ্যাডমিন প্যানেল থেকে মেম্বারদের কাছে পুশ নোটিফিকেশন পাঠানো
+function sendPushNotification() {
+    let msgText = document.getElementById("pushMessage").value;
+    if (!msgText) return showFighterNotification("নোটিফিকেশনের টেক্সট লিখুন!", "warning");
+    
+    let notificationPayload = {
+        id: new Date().getTime().toString(), // ইউনিক আইডি জেনারেট করা হলো
+        text: msgText
+    };
+
+    fetch(FIREBASE_URL + "/push_notification.json", { 
+        method: "PUT", 
+        body: JSON.stringify(notificationPayload) 
+    }).then(() => {
+        document.getElementById("pushMessage").value = "";
+        showFighterNotification("🚀 সব মেম্বারের ফোনে নোটিফিকেশন চলে গেছে!", "success");
+    }).catch(() => {
+        showFighterNotification("❌ নোটিফিকেশন পাঠাতে ব্যর্থ হয়েছে।", "error");
+    });
 }
 
 function showFighterNotification(msg, type = "success") {
@@ -686,13 +775,13 @@ function render() {
             let due = Number(acc.price) - Number(acc.paid);
             list.innerHTML += `
                 <tr>
-                    <td style="color:#60a5fa; font-weight:600; cursor:pointer;" onclick="openMemberModal('${acc.member}')">👤 ${acc.member}</td>
+                    <td style="color:#3b82f6; font-weight:600; cursor:pointer;" onclick="openMemberModal('${acc.member}')">👤 ${acc.member}</td>
                     <td>${acc.item}</td>
-                    <td><span style="color:${acc.type==='income'?'#4ade80':'#f87171'}; font-weight:bold;">${acc.type==='income'?'জমা (In)':'খরচ (Out)'}</span></td>
+                    <td><span style="color:${acc.type==='income'?'#10b981':'#ef4444'}; font-weight:bold;">${acc.type==='income'?'জমা (In)':'খরচ (Out)'}</span></td>
                     <td>${acc.date}</td>
                     <td style="font-weight:600;">${acc.price} ৳</td>
-                    <td style="color:#4ade80; font-weight:600;">${acc.paid} ৳</td>
-                    <td style="color:${due>0?'#f87171':'#4ade80'}; font-weight:bold;">${due} ৳</td>
+                    <td style="color:#10b981; font-weight:600;">${acc.paid} ৳</td>
+                    <td style="color:${due>0?'#ef4444':'#10b981'}; font-weight:bold;">${due} ৳</td>
                     ${isAdmin ? `<td><button class="btn-danger" style="padding:6px 12px; font-size:12px; border-radius:8px;" onclick="delAccount('${acc.id}')">Delete</button></td>` : ''}
                 </tr>`;
         }
@@ -770,7 +859,7 @@ function saveDirectoryToFirebase(name, phone, imgData, blood) {
 }
 
 function delDirectory(id) {
-    if(confirm("ডিরেক্টরি থেকে এই মেম্বার সরাতে চান?")) {
+    if(confirm("ডিরেক্টরি থেকে এই মেম্বার সнять চান?")) {
         fetch(`${FIREBASE_URL}/directory/${id}.json`, { method: "DELETE" }).then(() => { 
             loadDirectory(); 
             showFighterNotification("মেম্বার প্রোফাইল রিমুভ করা হয়েছে।", "warning");
@@ -785,9 +874,7 @@ function renderDirectory() {
             <div class="member-card">
                 <img src="${d.img}" class="avatar" onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png'">
                 <h4>${d.name}</h4>
-                <a class="phone" href="javascript:void(0)" onclick="showPhone('${d.phone}')">
-📞 ফোন নম্বর দেখুন
-</a>
+                <a class="phone" href="javascript:void(0)" onclick="showPhone('${d.phone}')">📞 ফোন নম্বর দেখুন</a>
                 <span class="blood-badge">🩸 Group: ${d.blood}</span>
                 ${isAdmin ? `<br><button class="btn-danger" style="padding:6px 12px; font-size:11px; margin-top:18px; width:100%; justify-content:center; border-radius:8px;" onclick="delDirectory('${d.id}')">Delete Profile</button>` : ''}
             </div>`;
@@ -824,7 +911,7 @@ function renderInventory(){
         <tr>
             <td><strong>🏏 ${d.item}</strong></td>
             <td style="font-weight:600;">${d.qty} টি</td>
-            <td><span style="background:${d.status==='নষ্ট'?'rgba(239,68,68,0.15)':'rgba(16,185,129,0.15)'}; color:${d.status==='নষ্ট'?'#f87171':'#4ade80'}; padding:4px 12px; border-radius:50px; font-size:12px; font-weight:bold;">${d.status}</span></td>
+            <td><span style="background:${d.status==='নষ্ট'?'rgba(239,68,68,0.15)':'rgba(16,185,129,0.15)'}; color:${d.status==='নষ্ট'?'#ef4444':'#10b981'}; padding:4px 12px; border-radius:50px; font-size:12px; font-weight:bold;">${d.status}</span></td>
             ${isAdmin ? `<td><button class="btn-danger" style="padding:6px 12px; font-size:12px; border-radius:8px;" onclick="delInventory('${d.id}')">Delete</button></td>` : ''}
         </tr>`;
     });
@@ -986,8 +1073,8 @@ function openMemberModal(memberName) {
                 <tr>
                     <td>${acc.item}</td>
                     <td>${acc.date}</td>
-                    <td style="color:#4ade80;">${acc.paid} ৳</td>
-                    <td style="color:${due>0?'#f87171':'#4ade80'}; font-weight:bold;">${due} ৳</td>
+                    <td style="color:#10b981;">${acc.paid} ৳</td>
+                    <td style="color:${due>0?'#ef4444':'#10b981'}; font-weight:bold;">${due} ৳</td>
                 </tr>`;
         }
     });
@@ -1026,31 +1113,19 @@ function calc() {
         document.getElementById("display").value = "Error";
     }
 }
-/* ==========================
-   PHONE NUMBER PROTECTION
-========================== */
 
 const PHONE_PASSWORD = "fightermember2026";
 
 function showPhone(phone) {
-
     const pass = prompt("📞 ফোন নম্বর দেখতে পাসওয়ার্ড দিন:");
-
     if (pass === null) return;
-
     if (pass === PHONE_PASSWORD) {
-
         alert("📞 ফোন নম্বর: " + phone);
-
     } else {
-
-        showFighterNotification(
-            "❌ ভুল পাসওয়ার্ড!",
-            "error"
-        );
-
+        showFighterNotification("❌ ভুল পাসওয়ার্ড!", "error");
     }
 }
+
 if ("serviceWorker" in navigator) {
     navigator.serviceWorker.register("sw.js")
     .then(() => console.log("Service Worker Registered"))
