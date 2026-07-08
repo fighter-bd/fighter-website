@@ -1,0 +1,500 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Fighter Chat</title>
+    <!-- Tailwind CSS CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        'wa-bg': '#0b141a', // WhatsApp dark bg
+                        'wa-panel': '#111b21', // WhatsApp side panel
+                        'wa-incoming': '#202c33', // Received message bg
+                        'wa-outgoing': '#005c4b', // Sent message bg
+                        'wa-header': '#202c33', // Header bg
+                        'wa-input': '#2a3942', // Input box bg
+                        'wa-accent': '#00a884' // WhatsApp Green
+                    }
+                }
+            }
+        }
+    </script>
+    <!-- FontAwesome & Google Fonts -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Segoe+UI:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="icon" type="image/svg+xml" href="https://api.dicebear.com/7.x/bottts/svg?seed=fighter">
+    
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #111b21;
+            /* Mobile browser overflow stretch fix */
+            height: 100dvh; 
+        }
+        ::-webkit-scrollbar {
+            width: 4px;
+        }
+        ::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #374248;
+            border-radius: 2px;
+        }
+        .fade-in {
+            animation: fadeIn 0.2s ease-out forwards;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: scale(0.99); }
+            to { opacity: 1; transform: scale(1); }
+        }
+        .wa-wallpaper {
+            background-color: #0b141a;
+            background-image: url('https://user-images.githubusercontent.com/15075759/28719144-86dc0f70-73b1-11e7-911d-60d70fcded21.png');
+            background-blend-mode: overlay;
+            opacity: 0.35;
+        }
+    </style>
+</head>
+<body class="text-gray-200 overflow-hidden flex items-center justify-center bg-[#0b141a]">
+
+    <!-- =========================================================================
+         1. AUTHENTICATION SCREEN (Mobile Responsive)
+         ========================================================================= -->
+    <div id="auth-screen" class="w-full max-w-md p-6 sm:p-8 bg-wa-panel rounded-lg shadow-2xl border border-gray-800/50 m-4 fade-in">
+        <div class="text-center mb-6">
+            <div class="inline-flex items-center justify-center w-14 h-14 bg-wa-accent rounded-full text-white text-2xl mb-3 shadow-lg">
+                <i class="fa-brands fa-whatsapp animate-pulse"></i>
+            </div>
+            <h1 class="text-xl font-bold text-white tracking-wide" id="auth-title">Fighter WhatsApp</h1>
+            <p class="text-gray-400 text-xs mt-1" id="auth-subtitle">Sign in to start chatting instantly</p>
+        </div>
+
+        <div id="auth-alert" class="hidden mb-4 p-3 rounded text-xs font-medium transition-all duration-300"></div>
+
+        <form id="auth-form" onsubmit="handleAuthSubmit(event)">
+            <div id="username-group" class="hidden mb-4">
+                <label class="block text-xs font-bold text-wa-accent uppercase tracking-wider mb-1.5">Username</label>
+                <input type="text" id="auth-username" class="w-full bg-wa-input border border-transparent focus:border-wa-accent rounded-lg p-2.5 text-sm text-white focus:outline-none transition" placeholder="Your Name">
+            </div>
+
+            <div class="mb-4">
+                <label class="block text-xs font-bold text-wa-accent uppercase tracking-wider mb-1.5">Email Address</label>
+                <input type="email" id="auth-email" required class="w-full bg-wa-input border border-transparent focus:border-wa-accent rounded-lg p-2.5 text-sm text-white focus:outline-none transition" placeholder="email@example.com">
+            </div>
+
+            <div id="password-group" class="mb-4">
+                <div class="flex justify-between items-center mb-1.5">
+                    <label class="text-xs font-bold text-wa-accent uppercase tracking-wider">Password</label>
+                    <button type="button" onclick="switchAuthMode('forgot')" id="btn-forgot-link" class="text-xs text-wa-accent hover:underline focus:outline-none">Forgot password?</button>
+                </div>
+                <input type="password" id="auth-password" class="w-full bg-wa-input border border-transparent focus:border-wa-accent rounded-lg p-2.5 text-sm text-white focus:outline-none transition" placeholder="••••••••">
+            </div>
+
+            <button type="submit" id="auth-submit-btn" class="w-full bg-wa-accent hover:bg-[#008f70] text-wa-panel font-bold p-2.5 rounded-lg transition shadow-md flex justify-center items-center gap-2 text-sm">
+                <span>Log In</span>
+                <i class="fa-solid fa-arrow-right-to-bracket"></i>
+            </button>
+        </form>
+
+        <div class="mt-5 text-xs text-gray-400 text-center" id="auth-footer">
+            New to Fighter? <button onclick="switchAuthMode('signup')" class="text-wa-accent hover:underline focus:outline-none">Create Account</button>
+        </div>
+    </div>
+
+
+    <!-- =========================================================================
+         2. MAIN CHAT APPLICATION INTERFACE (Perfect Mobile + Desktop Dual Mode)
+         ========================================================================= -->
+    <div id="chat-screen" class="hidden w-full h-full lg:max-w-[1600px] lg:max-h-[95vh] lg:rounded-md shadow-2xl overflow-hidden flex border border-gray-800/20">
+        
+        <!-- Left Sidebar: Chat History / Rooms List -->
+        <!-- "mobile-active" state handled through dynamic utility switches -->
+        <div id="sidebar-panel" class="w-full md:w-80 lg:w-96 bg-wa-panel flex flex-col border-r border-[#222e35] h-full flex-shrink-0">
+            <!-- Sidebar Profile Header -->
+            <div class="h-16 bg-wa-header px-4 flex items-center justify-between flex-shrink-0">
+                <div class="flex items-center gap-3">
+                    <img id="user-avatar" src="" alt="Me" class="w-9 h-9 rounded-full bg-gray-800 border border-gray-600">
+                    <span id="user-display-name" class="font-semibold text-sm text-white max-w-[120px] truncate">Fighter</span>
+                </div>
+                <div class="flex items-center gap-4 text-gray-400 text-base">
+                    <button onclick="openCreateRoomModal()" title="Create New Group/Room" class="hover:text-wa-accent transition">
+                        <i class="fa-solid fa-message"></i>
+                    </button>
+                    <button onclick="handleLogout()" title="Log Out" class="hover:text-red-400 transition">
+                        <i class="fa-solid fa-right-from-bracket"></i>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Search/Filter Groups -->
+            <div class="p-2 bg-wa-bg border-b border-[#222e35] flex-shrink-0">
+                <div class="bg-wa-input rounded-lg flex items-center px-3 py-1.5 text-gray-400">
+                    <i class="fa-solid fa-search text-xs mr-3"></i>
+                    <input type="text" placeholder="Search or start a new chat" class="w-full bg-transparent text-xs focus:outline-none text-white placeholder-gray-500">
+                </div>
+            </div>
+
+            <!-- Rooms list -->
+            <div id="rooms-list" class="flex-1 overflow-y-auto divide-y divide-[#222e35]/60">
+                <div class="text-xs text-gray-500 p-4 text-center">Loading your chats...</div>
+            </div>
+        </div>
+
+        <!-- Right Main Panel: Active Chat Room -->
+        <div id="chat-panel" class="hidden md:flex flex-1 bg-wa-bg flex-col h-full relative">
+            <div class="absolute inset-0 wa-wallpaper pointer-events-none"></div>
+
+            <!-- Inside Chat Header -->
+            <div class="h-16 bg-wa-header px-3 sm:px-4 flex items-center justify-between z-10 border-b border-[#222e35] flex-shrink-0">
+                <div class="flex items-center gap-2 sm:gap-3 min-w-0">
+                    <!-- Mobile Back Action Arrow -->
+                    <button onclick="backToSidebar()" class="md:hidden text-gray-400 hover:text-white mr-1 text-lg active:scale-95 transition focus:outline-none">
+                        <i class="fa-solid fa-arrow-left"></i>
+                    </button>
+                    <div class="w-9 h-9 bg-wa-accent/20 text-wa-accent rounded-full flex-shrink-0 flex items-center justify-center text-sm font-bold">
+                        <i class="fa-solid fa-users"></i>
+                    </div>
+                    <div class="min-w-0">
+                        <h3 id="active-room-title" class="font-semibold text-white text-sm leading-tight truncate">Select a Chat</h3>
+                        <span class="text-[11px] text-gray-400 block truncate">Tap to open communication channel</span>
+                    </div>
+                </div>
+                <div class="text-gray-400 text-base flex items-center gap-4 flex-shrink-0 ml-2">
+                    <i class="fa-solid fa-search cursor-pointer hover:text-white hidden sm:block"></i>
+                    <i class="fa-solid fa-ellipsis-vertical cursor-pointer hover:text-white"></i>
+                </div>
+            </div>
+
+            <!-- Scrollable Message Bubble Area -->
+            <div id="messages-feed" class="flex-1 overflow-y-auto p-4 sm:p-6 space-y-3 z-10 relative flex flex-col">
+                <div class="m-auto text-center max-w-sm p-6 rounded-lg bg-wa-panel/90 backdrop-blur-sm shadow border border-gray-800 text-gray-400 text-sm">
+                    <i class="fa-brands fa-whatsapp text-5xl text-gray-600 mb-2 block"></i>
+                    <h4 class="text-white font-semibold mb-1">Fighter WhatsApp Web</h4>
+                    <p class="text-xs text-gray-400/80">Select a group room from the left sidebar panel to initialize real-time fighting chat stream.</p>
+                </div>
+            </div>
+
+            <!-- Bottom Message Input Field Footer Container -->
+            <div class="p-2 bg-wa-header flex items-center gap-2 z-10 flex-shrink-0">
+                <button type="button" class="text-gray-400 hover:text-white text-lg px-1"><i class="fa-regular fa-face-smile"></i></button>
+                
+                <form id="message-form" onsubmit="handleSendMessage(event)" class="flex-1 flex items-center gap-2 min-w-0">
+                    <input type="text" id="message-input" required disabled class="w-full bg-wa-input text-white placeholder-gray-500 rounded-lg px-3 sm:px-4 py-2 text-sm focus:outline-none min-w-0" placeholder="Type a message">
+                    <button type="submit" class="bg-wa-accent text-wa-panel hover:bg-[#008f70] rounded-full w-9 h-9 flex items-center justify-center flex-shrink-0 transition shadow-md"><i class="fa-solid fa-paper-plane text-sm"></i></button>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <!-- =========================================================================
+         3. DIALOG MODAL LAYERS (Create Group / Channel Overlay)
+         ========================================================================= -->
+    <div id="create-room-modal" class="hidden fixed inset-0 bg-black/80 flex items-center justify-center z-50 p-4">
+        <div class="bg-wa-panel border border-gray-800 rounded-lg max-w-md w-full overflow-hidden shadow-2xl">
+            <div class="p-5">
+                <div class="flex justify-between items-center mb-4">
+                    <h3 class="text-base font-bold text-white">Create New Chat Group</h3>
+                    <button onclick="closeCreateRoomModal()" class="text-gray-400 hover:text-white"><i class="fa-solid fa-xmark"></i></button>
+                </div>
+                <div class="mb-4">
+                    <label class="block text-xs font-bold uppercase text-wa-accent mb-2">Group Name</label>
+                    <input type="text" id="new-room-name" required class="w-full bg-wa-input border border-transparent focus:border-wa-accent rounded-lg p-2.5 text-sm text-white focus:outline-none transition" placeholder="e.g. Friends Arena">
+                </div>
+            </div>
+            <div class="bg-wa-header px-5 py-3 flex justify-end gap-2 text-xs">
+                <button type="button" onclick="closeCreateRoomModal()" class="text-white hover:underline px-3 py-2">Cancel</button>
+                <button type="button" onclick="handleCreateRoomSubmit()" class="bg-wa-accent text-wa-panel font-bold px-4 py-2 rounded-md transition shadow-md">Create</button>
+            </div>
+        </div>
+    </div>
+
+
+    <!-- =========================================================================
+         4. FIREBASE SDK IMPORTS & CORE SYSTEM JAVASCRIPT
+         ========================================================================= -->
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore-compat.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyCvTIQzwht0L65C2tk0MF6u05ckadwoRV8",
+            authDomain: "fighter-chatroom.firebaseapp.com",
+            projectId: "fighter-chatroom",
+            storageBucket: "fighter-chatroom.firebasestorage.app",
+            messagingSenderId: "1022521157335",
+            appId: "1:1022521157335:web:7997fafa3061dfcb053292",
+            measurementId: "G-E2J6X81JBH"
+        };
+
+        // Initialize Ecosystem
+        firebase.initializeApp(firebaseConfig);
+        const auth = firebase.auth();
+        const db = firebase.firestore();
+
+        let currentAuthMode = 'login'; 
+        let activeRoomId = null;
+        let unsubscribeMessages = null;
+        let initialLoadDone = false; // To prevent auto-opening first chat on mobile layout instantly
+
+        // Auth state listener
+        auth.onAuthStateChanged((user) => {
+            if (user) {
+                document.getElementById('auth-screen').classList.add('hidden');
+                document.getElementById('chat-screen').classList.remove('hidden');
+                document.getElementById('user-display-name').innerText = user.displayName || user.email.split('@')[0];
+                document.getElementById('user-avatar').src = `https://api.dicebear.com/7.x/bottts/svg?seed=${user.uid}`;
+                
+                // On login, reset to showing the sidebar first on mobile viewports
+                backToSidebar();
+                listenToChannelsList();
+            } else {
+                if(unsubscribeMessages) { unsubscribeMessages(); unsubscribeMessages = null; }
+                document.getElementById('chat-screen').classList.add('hidden');
+                document.getElementById('auth-screen').classList.remove('hidden');
+                switchAuthMode('login');
+            }
+        });
+
+        // Mobile Interface Switch View Functions
+        function backToSidebar() {
+            document.getElementById('chat-panel').classList.add('hidden');
+            document.getElementById('chat-panel').classList.remove('flex');
+            document.getElementById('sidebar-panel').classList.remove('hidden');
+        }
+
+        function openChatPanelOnMobile() {
+            if (window.innerWidth < 768) { // Target Tailwind 'md' threshold boundary breaking point
+                document.getElementById('sidebar-panel').classList.add('hidden');
+                document.getElementById('chat-panel').classList.remove('hidden');
+                document.getElementById('chat-panel').classList.add('flex');
+            }
+        }
+
+        // Handle viewport adjustments dynamically on resize events
+        window.addEventListener('resize', () => {
+            if (window.innerWidth >= 768) {
+                document.getElementById('sidebar-panel').classList.remove('hidden');
+                document.getElementById('chat-panel').classList.remove('hidden');
+                document.getElementById('chat-panel').classList.add('flex');
+            } else if (activeRoomId === null) {
+                backToSidebar();
+            }
+        });
+
+        function switchAuthMode(mode) {
+            currentAuthMode = mode;
+            const title = document.getElementById('auth-title');
+            const uGroup = document.getElementById('username-group');
+            const pGroup = document.getElementById('password-group');
+            const submitBtn = document.getElementById('auth-submit-btn');
+            const footer = document.getElementById('auth-footer');
+            const forgotLink = document.getElementById('btn-forgot-link');
+            document.getElementById('auth-alert').classList.add('hidden');
+
+            if (mode === 'login') {
+                title.innerText = "Fighter WhatsApp";
+                uGroup.classList.add('hidden');
+                pGroup.classList.remove('hidden');
+                forgotLink.classList.remove('hidden');
+                submitBtn.innerHTML = `<span>Log In</span><i class="fa-solid fa-arrow-right-to-bracket"></i>`;
+                footer.innerHTML = `New to Fighter? <button type="button" onclick="switchAuthMode('signup')" class="text-wa-accent hover:underline focus:outline-none">Create Account</button>`;
+            } else if (mode === 'signup') {
+                title.innerText = "Create Account";
+                uGroup.classList.remove('hidden');
+                pGroup.classList.remove('hidden');
+                forgotLink.classList.add('hidden');
+                submitBtn.innerHTML = `<span>Sign Up</span><i class="fa-solid fa-user-plus"></i>`;
+                footer.innerHTML = `Already have an account? <button type="button" onclick="switchAuthMode('login')" class="text-wa-accent hover:underline focus:outline-none">Log In</button>`;
+            } else if (mode === 'forgot') {
+                title.innerText = "Reset Password";
+                uGroup.classList.add('hidden');
+                pGroup.classList.add('hidden');
+                submitBtn.innerHTML = `<span>Send Reset Email</span><i class="fa-solid fa-paper-plane"></i>`;
+                footer.innerHTML = `Back to <button type="button" onclick="switchAuthMode('login')" class="text-wa-accent hover:underline focus:outline-none">Log In</button>`;
+            }
+        }
+
+        function showAlert(msg, isSuccess = false) {
+            const alertBox = document.getElementById('auth-alert');
+            alertBox.innerText = msg;
+            alertBox.className = `p-3 mb-4 rounded text-xs font-medium fade-in ${isSuccess ? 'bg-wa-accent/20 text-wa-accent' : 'bg-red-500/20 text-red-400'}`;
+        }
+
+        async function handleAuthSubmit(e) {
+            e.preventDefault();
+            const email = document.getElementById('auth-email').value.trim();
+            const password = document.getElementById('auth-password').value;
+            const username = document.getElementById('auth-username').value.trim();
+
+            if (currentAuthMode === 'signup') {
+                if(username.length < 3) return showAlert("Name must be at least 3 characters.");
+                try {
+                    const res = await auth.createUserWithEmailAndPassword(email, password);
+                    await res.user.updateProfile({ displayName: username });
+                    await db.collection('users').doc(res.user.uid).set({
+                        uid: res.user.uid, username, email, createdAt: firebase.firestore.FieldValue.serverTimestamp()
+                    });
+                } catch(err) { showAlert(err.message); }
+            } else if (currentAuthMode === 'login') {
+                try { await auth.signInWithEmailAndPassword(email, password); } catch(err) { showAlert(err.message); }
+            } else if (currentAuthMode === 'forgot') {
+                try {
+                    await auth.sendPasswordResetEmail(email);
+                    showAlert("Reset link sent! Check your inbox.", true);
+                } catch(err) { showAlert(err.message); }
+            }
+        }
+
+        function handleLogout() { 
+            initialLoadDone = false;
+            activeRoomId = null;
+            auth.signOut(); 
+        }
+
+        // WhatsApp Sidebar Rooms Rendering
+        function listenToChannelsList() {
+            db.collection('rooms').orderBy('createdAt', 'desc').onSnapshot((snapshot) => {
+                const listContainer = document.getElementById('rooms-list');
+                listContainer.innerHTML = '';
+                
+                if(snapshot.empty) {
+                    listContainer.innerHTML = `<div class="text-xs text-gray-500 p-4 text-center">No groups available. Click the icon above to create one.</div>`;
+                    return;
+                }
+
+                snapshot.forEach((doc) => {
+                    const data = doc.data();
+                    const isSelected = doc.id === activeRoomId;
+                    const item = document.createElement('div');
+                    item.className = `flex items-center gap-3 px-4 py-3 cursor-pointer transition ${isSelected ? 'bg-[#2a3942]' : 'hover:bg-[#202c33]'}`;
+                    item.setAttribute('onclick', `switchActiveChannel('${doc.id}', '${data.name}', true)`);
+                    
+                    item.innerHTML = `
+                        <div class="w-10 h-10 bg-wa-accent/10 text-wa-accent rounded-full flex-shrink-0 flex items-center justify-center font-bold text-sm border border-[#222e35]">
+                            ${data.name.substring(0,2).toUpperCase()}
+                        </div>
+                        <div class="flex-1 min-w-0 pb-1">
+                            <div class="flex justify-between items-baseline">
+                                <h4 class="text-sm font-semibold text-white truncate">${data.name}</h4>
+                                <span class="text-[9px] text-gray-400">Group</span>
+                            </div>
+                            <p class="text-xs text-gray-400 truncate mt-0.5">Tap to join room arena discussion...</p>
+                        </div>
+                    `;
+                    listContainer.appendChild(item);
+                });
+
+                // Auto-load first channel ONLY if desktop viewport profile configuration layout pattern detected
+                if(!activeRoomId && snapshot.docs.length > 0 && window.innerWidth >= 768 && !initialLoadDone) {
+                    const first = snapshot.docs[0];
+                    switchActiveChannel(first.id, first.data().name, false);
+                    initialLoadDone = true;
+                }
+            });
+        }
+
+        function openCreateRoomModal() { document.getElementById('create-room-modal').classList.remove('hidden'); }
+        function closeCreateRoomModal() { 
+            document.getElementById('create-room-modal').classList.add('hidden');
+            document.getElementById('new-room-name').value = '';
+        }
+
+        async function handleCreateRoomSubmit() {
+            const name = document.getElementById('new-room-name').value.trim();
+            if(!name) return;
+            try {
+                const docRef = await db.collection('rooms').add({
+                    name, createdAt: firebase.firestore.FieldValue.serverTimestamp(), createdBy: auth.currentUser.uid
+                });
+                closeCreateRoomModal();
+                switchActiveChannel(docRef.id, name, true);
+            } catch(err) { console.error(err); }
+        }
+
+        function switchActiveChannel(roomId, roomName, userClicked = false) {
+            activeRoomId = roomId;
+            document.getElementById('active-room-title').innerText = roomName;
+            
+            const msgInput = document.getElementById('message-input');
+            msgInput.disabled = false;
+            msgInput.placeholder = "Type a message";
+
+            if (userClicked) {
+                openChatPanelOnMobile();
+            }
+
+            if (unsubscribeMessages) unsubscribeMessages();
+            listenToMessagesFeed(roomId);
+        }
+
+        // WhatsApp Chat Bubble Styling Render Pipeline
+        function listenToMessagesFeed(roomId) {
+            const feed = document.getElementById('messages-feed');
+            feed.innerHTML = `<div class="m-auto text-sm text-gray-400"><i class="fa-solid fa-circle-notch animate-spin mr-2"></i> Loading messages...</div>`;
+
+            unsubscribeMessages = db.collection('rooms').doc(roomId).collection('messages')
+                .orderBy('timestamp', 'asc')
+                .onSnapshot((snapshot) => {
+                    feed.innerHTML = '';
+                    if (snapshot.empty) {
+                        feed.innerHTML = `<div class="m-auto text-xs text-gray-400 bg-wa-panel px-3 py-1.5 rounded-md shadow border border-gray-800">🔒 Messages are saved on Firestore database securely.</div>`;
+                        return;
+                    }
+
+                    snapshot.forEach((doc) => {
+                        const msg = doc.data();
+                        const isMe = msg.userId === auth.currentUser.uid;
+                        
+                        const bubbleWrapper = document.createElement('div');
+                        bubbleWrapper.className = `flex w-full mb-1 fade-in ${isMe ? 'justify-end' : 'justify-start'}`;
+
+                        let timeString = "12:00";
+                        if(msg.timestamp) {
+                            timeString = msg.timestamp.toDate().toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        }
+
+                        bubbleWrapper.innerHTML = `
+                            <div class="max-w-[85%] sm:max-w-[70%] rounded-lg px-3 py-1.5 shadow-md relative min-w-[80px] ${isMe ? 'bg-wa-outgoing text-white rounded-tr-none' : 'bg-wa-incoming text-gray-100 rounded-tl-none'}">
+                                ${!isMe ? `<span class="block text-[11px] font-bold text-wa-accent mb-0.5">${msg.userName}</span>` : ''}
+                                <p class="text-sm pb-2 break-all pr-8 select-text">${escapeHTML(msg.content)}</p>
+                                <span class="absolute bottom-1 right-2 text-[9px] text-gray-400 font-medium select-none flex items-center gap-1">
+                                    ${timeString}
+                                    ${isMe ? '<i class="fa-solid fa-check-double text-blue-400"></i>' : ''}
+                                </span>
+                            </div>
+                        `;
+                        feed.appendChild(bubbleWrapper);
+                    });
+                    feed.scrollTop = feed.scrollHeight;
+                });
+        }
+
+        async function handleSendMessage(e) {
+            e.preventDefault();
+            const inputField = document.getElementById('message-input');
+            const content = inputField.value.trim();
+            if(!content || !activeRoomId) return;
+            inputField.value = '';
+
+            try {
+                await db.collection('rooms').doc(activeRoomId).collection('messages').add({
+                    content,
+                    userId: auth.currentUser.uid,
+                    userName: auth.currentUser.displayName || auth.currentUser.email.split('@')[0],
+                    timestamp: firebase.firestore.FieldValue.serverTimestamp()
+                });
+            } catch(err) { console.error(err); }
+        }
+
+        function escapeHTML(str) {
+            return str.replace(/[&<>'"]/g, t => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', "'": '&#39;', '"': '&quot;' }[t] || t));
+        }
+    </script>
+</body>
+</html>

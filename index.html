@@ -3,10 +3,9 @@
 <head>
 <link rel="manifest" href="manifest.json">
 <meta name="theme-color" content="#3b82f6">
-<link rel="icon" href="fighter-cricket-logo.png">
+<link class="icon" href="fighter-cricket-logo.png">
 <link rel="shortcut icon" href="fighter-cricket-logo.png">
 <link rel="apple-touch-icon" href="fighter-cricket-logo.png">
-
 <meta property="og:title" content="FIGHTER Cricket Club">
 <meta property="og:image" content="https://yourdomain.com/fighter-cricket-logo.png">
 <meta property="og:type" content="website">
@@ -16,6 +15,7 @@
 <meta name="description" content="FIGHTER Cricket Club - Official expense tracker, member directory, and gallery.">
 <title>FIGHTER Cricket Club - Dashboard</title>
 
+<link rel="icon" type="image/png" href="fighter-cricket-logo.png">
 <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
 
 <style>
@@ -54,93 +54,29 @@ body {
     overflow-x: hidden;
 }
 
-#mainContent { display: block; padding-top: 85px; padding-bottom: 40px; }
+#mainContent { display: block; padding-top: 70px; padding-bottom: 40px; }
 
-/* 🌟 আল্ট্রা-মডার্ন নেভিগেশন বার */
+/* 🌟 프리미엄 스틱키 네비게이션 바 */
 .navbar {
     position: fixed;
     top: 0; left: 0; right: 0;
-    height: 75px;
-    background: rgba(15, 23, 42, 0.7);
-    backdrop-filter: blur(25px);
-    -webkit-backdrop-filter: blur(25px);
-    border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+    height: 70px;
+    background: rgba(15, 23, 42, 0.75);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
+    border-bottom: 1px solid var(--border-color);
     z-index: 1000;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 40px;
-    box-shadow: 0 10px 30px -10px rgba(0,0,0,0.4);
-    transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), background 0.3s;
+    padding: 0 24px;
 }
+.nav-brand { font-weight: 700; font-size: 20px; color: #fff; text-decoration: none; display: flex; align-items: center; gap: 8px;}
+.nav-links { display: flex; gap: 16px; align-items: center; }
+.nav-links a { color: var(--text-muted); text-decoration: none; font-size: 14px; font-weight: 500; }
+.nav-links a:hover { color: var(--primary); }
 
-.navbar.nav-hidden {
-    transform: translateY(-100%);
-}
-
-.nav-brand { 
-    font-weight: 700; 
-    font-size: 22px; 
-    color: #fff; 
-    text-decoration: none; 
-    display: flex; 
-    align-items: center; 
-    gap: 10px;
-    letter-spacing: 0.5px;
-    background: linear-gradient(to right, #ffffff, #94a3b8);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-.nav-links { display: flex; gap: 28px; align-items: center; }
-.nav-links a { 
-    color: var(--text-muted); 
-    text-decoration: none; 
-    font-size: 14px; 
-    font-weight: 500; 
-    position: relative;
-    padding: 8px 0;
-    transition: color 0.3s;
-}
-.nav-links a:hover, .nav-links a.active { color: #fff; }
-
-.nav-links a::after {
-    content: '';
-    position: absolute;
-    width: 0; height: 2px;
-    bottom: 0; left: 0;
-    background: linear-gradient(90deg, var(--primary), #60a5fa);
-    box-shadow: 0 0 8px var(--primary);
-    transition: width 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-.nav-links a:hover::after, .nav-links a.active::after { width: 100%; }
-
-/* হ্যামবার্গার মেনু */
-.menu-toggle {
-    display: none;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    gap: 6px;
-    cursor: pointer;
-    background: none;
-    border: none;
-    padding: 10px;
-    box-shadow: none;
-    z-index: 1001;
-}
-.menu-toggle span {
-    width: 24px;
-    height: 2px;
-    background-color: var(--text-color);
-    border-radius: 2px;
-    transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-}
-
-.menu-toggle.active span:nth-child(1) { transform: translateY(8px) rotate(45deg); }
-.menu-toggle.active span:nth-child(2) { opacity: 0; transform: translateX(-10px); }
-.menu-toggle.active span:nth-child(3) { transform: translateY(-8px) rotate(-45deg); }
-
-/* 📢 নোটিশ বোর্ড */
+/* 📢 알파-모던 노티스 보드 */
 .notice-board {
     background: linear-gradient(90deg, #1e3a8a, #3b82f6); 
     color: #ffffff; 
@@ -159,7 +95,7 @@ body {
 
 .container { max-width: 1140px; margin: 30px auto; padding: 0 24px; }
 
-/* 🌦️ ওয়েদার উইজেট */
+/* 🌦️ 프리미엄 웨더 카드 */
 .weather-widget {
     background: linear-gradient(135deg, rgba(14, 165, 233, 0.15), rgba(3, 105, 161, 0.15));
     backdrop-filter: var(--glass-blur);
@@ -173,38 +109,76 @@ body {
     box-shadow: var(--shadow);
 }
 
+/* 🎭 헤더 오 브랜딩 */
 .header-section { text-align: center; margin-bottom: 45px; position: relative;}
 .logo { 
-    width: 130px; height: 130px; display: block; margin: 0 auto 20px; border-radius: 50%; 
-    background: #1e293b; padding: 6px; box-shadow: 0 0 25px rgba(59, 130, 246, 0.5); 
-    object-fit: cover; border: 2px solid var(--primary);
+    width: 130px; 
+    height: 130px; 
+    display: block; 
+    margin: 0 auto 20px; 
+    border-radius: 50%; 
+    background: #1e293b; 
+    padding: 6px; 
+    box-shadow: 0 0 25px rgba(59, 130, 246, 0.5); 
+    object-fit: cover;
+    border: 2px solid var(--primary);
 }
 .header-section h2 { 
-    font-size: 36px; font-weight: 700; margin: 0 0 10px; 
+    font-size: 36px; 
+    font-weight: 700; 
+    margin: 0 0 10px; 
     background: linear-gradient(to right, #3b82f6, #60a5fa, #f59e0b); 
-    -webkit-background-clip: text; -webkit-text-fill-color: transparent; 
+    -webkit-background-clip: text; 
+    -webkit-text-fill-color: transparent; 
+    letter-spacing: 0.5px;
 }
 
 .top-bar { display: flex; justify-content: center; gap: 14px; margin-bottom: 35px; flex-wrap: wrap; }
 
-button {
-    padding: 12px 26px; border: 1px solid rgba(255,255,255,0.1); 
+/* 🔘 프리미엄 버튼 디자인 */
+button, .btn-link {
+    padding: 12px 26px; 
+    border: 1px solid rgba(255,255,255,0.1); 
     background: linear-gradient(135deg, var(--primary), var(--primary-hover)); 
-    color: white; border-radius: 12px; font-weight: 600; font-size: 14px; 
-    cursor: pointer; box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); 
-    display: inline-flex; align-items: center; gap: 8px;
+    color: white; 
+    border-radius: 12px;
+    font-weight: 600; 
+    font-size: 14px; 
+    cursor: pointer; 
+    box-shadow: 0 4px 15px rgba(37, 99, 235, 0.3); 
+    display: inline-flex; 
+    align-items: center; 
+    gap: 8px;
+    text-decoration: none;
 }
-button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37, 99, 235, 0.45); }
+button:hover, .btn-link:hover { 
+    transform: translateY(-2px); 
+    box-shadow: 0 8px 25px rgba(37, 99, 235, 0.45); 
+}
+button:active, .btn-link:active { transform: translateY(0); }
 .btn-danger { background: linear-gradient(135deg, #ef4444, #dc2626); box-shadow: 0 4px 15px rgba(239, 68, 68, 0.3); }
+.btn-danger:hover { box-shadow: 0 8px 25px rgba(239, 68, 68, 0.45); }
 .btn-success { background: linear-gradient(135deg, #10b981, #059669); box-shadow: 0 4px 15px rgba(16, 185, 129, 0.3); }
+.btn-success:hover { box-shadow: 0 8px 25px rgba(16, 185, 129, 0.45); }
+.btn-chat { background: linear-gradient(135deg, #a855f7, #7e22ce); box-shadow: 0 4px 15px rgba(168, 85, 247, 0.3); }
+.btn-chat:hover { box-shadow: 0 8px 25px rgba(168, 85, 247, 0.45); }
 .btn-secondary { background: #475569; box-shadow: none;}
 
-/* 📊 কার্ডসমূহ */
+/* 📊 대시보드 카드 */
 .summary { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 24px; margin-bottom: 45px; }
 .box { 
-    padding: 28px 20px; color: white; border-radius: 24px; text-align: center; font-weight: 500; 
-    box-shadow: var(--shadow); position: relative; overflow: hidden; background: rgba(30, 41, 59, 0.4);
-    border: 1px solid var(--border-color); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    padding: 28px 20px; 
+    color: white; 
+    border-radius: 24px; 
+    text-align: center; 
+    font-weight: 500; 
+    box-shadow: var(--shadow); 
+    position: relative; 
+    overflow: hidden;
+    background: rgba(30, 41, 59, 0.4);
+    border: 1px solid var(--border-color);
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
 }
 .box::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 4px; }
 .income::before { background: #10b981; }
@@ -212,108 +186,245 @@ button:hover { transform: translateY(-2px); box-shadow: 0 8px 25px rgba(37, 99, 
 .balance::before { background: #f59e0b; }
 .members-box::before { background: #3b82f6; }
 
-.box span { display: block; font-size: 32px; margin-top: 12px; font-weight: 700; }
-.income span { color: #10b981; }
-.expense span { color: #ef4444; }
-.balance span { color: #f59e0b; }
-.members-box span { color: #3b82f6; }
+.box span { display: block; font-size: 32px; margin-top: 12px; font-weight: 700; letter-spacing: 0.5px; }
+.income span { color: #10b981; text-shadow: 0 0 15px rgba(16,185,129,0.3); }
+.expense span { color: #ef4444; text-shadow: 0 0 15px rgba(239,68,68,0.3); }
+.balance span { color: #f59e0b; text-shadow: 0 0 15px rgba(245,158,11,0.3); }
+.members-box span { color: #3b82f6; text-shadow: 0 0 15px rgba(59,130,246,0.3); }
 
+/* 📑 카드 모르피즘 */
 .pro-card { 
-    background: var(--card-bg); padding: 35px; border-radius: 24px; box-shadow: var(--shadow); 
-    border: 1px solid var(--border-color); margin-bottom: 40px; backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    background: var(--card-bg); 
+    padding: 35px; 
+    border-radius: 24px; 
+    box-shadow: var(--shadow); 
+    border: 1px solid var(--border-color); 
+    margin-bottom: 40px; 
+    backdrop-filter: var(--glass-blur);
+    -webkit-backdrop-filter: var(--glass-blur);
 }
 .form-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 20px; }
 input, select { 
-    padding: 14px 18px; border: 1px solid var(--border-color); background: rgba(15, 23, 42, 0.6); 
-    color: var(--text-color); border-radius: 12px; font-size: 14px; outline: none; width: 100%; 
+    padding: 14px 18px; 
+    border: 1px solid var(--border-color); 
+    background: rgba(15, 23, 42, 0.6); 
+    color: var(--text-color); 
+    border-radius: 12px; 
+    font-size: 14px; 
+    outline: none; 
+    width: 100%; 
 }
-input:focus, select:focus { border-color: var(--primary); box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); }
+input:focus, select:focus { 
+    border-color: var(--primary); 
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.3); 
+    background: rgba(15, 23, 42, 0.8);
+}
 
-/* 👤 ডিরেক্টরি */
+/* 👤 멤버 디렉토리 */
 .member-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px; margin-top: 25px; }
-.member-card { background: rgba(30, 41, 59, 0.4); border: 1px solid var(--border-color); border-radius: 24px; padding: 30px 20px; text-align: center; box-shadow: var(--shadow); }
-.member-card:hover { transform: translateY(-5px); border-color: var(--primary); }
-.member-card .avatar { width: 90px; height: 90px; border-radius: 50%; object-fit: cover; border: 3px solid var(--primary); margin: 0 auto 18px; }
-.member-card h4 { margin: 0 0 6px; font-size: 19px; color: #ffffff; }
-.member-card .phone { font-size: 13px; color: var(--text-muted); text-decoration: none; display: block; margin-bottom: 18px; }
-.blood-badge { display: inline-block; background: rgba(239, 68, 68, 0.15); color: #fca5a5; padding: 6px 16px; border-radius: 50px; font-size: 12px; font-weight: 700; }
+.member-card { 
+    background: rgba(30, 41, 59, 0.4); 
+    border: 1px solid var(--border-color); 
+    border-radius: 24px; 
+    padding: 30px 20px; 
+    text-align: center; 
+    box-shadow: var(--shadow); 
+    position: relative; 
+}
+.member-card:hover { 
+    transform: translateY(-5px); 
+    box-shadow: 0 15px 35px rgba(59, 130, 246, 0.15); 
+    border-color: var(--primary); 
+}
+.member-card .avatar { 
+    width: 90px; 
+    height: 90px; 
+    border-radius: 50%; 
+    object-fit: cover; 
+    border: 3px solid var(--primary); 
+    margin: 0 auto 18px; 
+    box-shadow: 0 8px 16px rgba(0,0,0,0.2); 
+    background: #1e293b; 
+}
+.member-card h4 { margin: 0 0 6px; font-size: 19px; font-weight: 600; color: #ffffff; }
+.member-card .phone { 
+    font-size: 13px; 
+    color: var(--text-muted); 
+    text-decoration: none; 
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    margin-bottom: 18px; 
+}
+.member-card .phone:hover { color: var(--primary); }
+.blood-badge { 
+    display: inline-block; 
+    background: rgba(239, 68, 68, 0.15); 
+    color: #fca5a5; 
+    padding: 6px 16px; 
+    border-radius: 50px; 
+    font-size: 12px; 
+    font-weight: 700; 
+    border: 1px solid rgba(239, 68, 68, 0.25);
+}
 
-.table-responsive { overflow-x: auto; border-radius: 16px; border: 1px solid var(--border-color); box-shadow: var(--shadow); }
+/* 📊 테이블 디자인 */
+.table-responsive { overflow-x: auto; border-radius: 16px; border: 1px solid var(--border-color); margin-bottom: 10px; box-shadow: var(--shadow); }
 table { width: 100%; border-collapse: collapse; background: rgba(22, 32, 51, 0.5); }
 th, td { padding: 18px; text-align: center; border-bottom: 1px solid var(--border-color); font-size: 14px; color: #e2e8f0; }
-th { background: rgba(59, 130, 246, 0.1); color: #60a5fa; font-weight: 600; text-transform: uppercase; }
+th { background: rgba(59, 130, 246, 0.1); color: #60a5fa; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase; font-size: 13px; }
+tr:hover { background: rgba(255, 255, 255, 0.03); }
 
-/* 📸 গ্যালারি */
+/* 📸 앨범 갤러리 */
 .gallery-filter { display: flex; justify-content: center; gap: 12px; margin-bottom: 30px; flex-wrap: wrap; }
-.filter-btn { background: rgba(255,255,255,0.05); color: var(--text-muted); padding: 10px 22px; font-size: 13px; border-radius: 50px; border: 1px solid var(--border-color); cursor: pointer; }
-.filter-btn.active { background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: white; border-color: transparent; }
+.filter-btn { 
+    background: rgba(255,255,255,0.05); 
+    color: var(--text-muted); 
+    padding: 10px 22px; 
+    font-size: 13px; 
+    font-weight: 600; 
+    border-radius: 50px; 
+    border: 1px solid var(--border-color); 
+    cursor: pointer;
+}
+.filter-btn.active { 
+    background: linear-gradient(135deg, var(--primary), var(--primary-hover)); 
+    color: white; 
+    box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3); 
+    border-color: transparent;
+}
 .gallery-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 24px; }
 .gallery-item { position: relative; overflow: hidden; border-radius: 20px; height: 200px; box-shadow: var(--shadow); cursor: pointer; border: 1px solid var(--border-color); }
-.gallery-item img { width: 100%; height: 100%; object-fit: cover; }
-.gallery-caption { position: absolute; bottom: 0; left: 0; right: 0; background: linear-gradient(transparent, rgba(15, 23, 42, 0.95)); color: #fff; font-size: 13px; padding: 25px 20px 15px; }
-.del-gal-btn { position: absolute; top: 12px; right: 12px; background: #ef4444; color: white; border: none; width: 28px; height: 28px; border-radius: 50%; cursor: pointer; font-weight: bold; }
+.gallery-item img { width: 100%; height: 100%; object-fit: cover; transition: transform 0.5s ease; }
+.gallery-item:hover img { transform: scale(1.08); }
+.gallery-caption { 
+    position: absolute; bottom: 0; left: 0; right: 0; 
+    background: linear-gradient(transparent, rgba(15, 23, 42, 0.95)); 
+    color: #fff; font-size: 13px; padding: 25px 20px 15px; text-align: left; 
+}
+.del-gal-btn { 
+    position: absolute; top: 12px; right: 12px; background: #ef4444; color: white; border: none; 
+    width: 28px; height: 28px; border-radius: 50%; cursor: pointer; z-index: 10; font-size: 12px; 
+    display: flex; align-items: center; justify-content: center; font-weight: bold; box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+}
 
-.msg-box { background: rgba(15, 23, 42, 0.4); padding: 18px 22px; border-radius: 16px; margin-bottom: 14px; border-left: 4px solid var(--primary); display: flex; justify-content: space-between; align-items: center; }
+/* 📥 메시지 BOX */
+.msg-box { 
+    background: rgba(15, 23, 42, 0.4); 
+    padding: 18px 22px; 
+    border-radius: 16px; 
+    margin-bottom: 14px; 
+    border-left: 4px solid var(--primary); 
+    font-size: 14px; 
+    display: flex; justify-content: space-between; align-items: center;
+    border-top: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color);
+}
 
-/* মোডাল */
-.modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5, 11, 24, 0.8); backdrop-filter: blur(8px); z-index: 1000; justify-content: center; align-items: center; }
-.modal-content { background: #1e293b; color: var(--text-color); padding: 35px; border-radius: 28px; max-width: 550px; width: 90%; position: relative; border: 1px solid var(--border-color); }
+/* 모달 오 팝업 */
+.modal { 
+    display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; 
+    background: rgba(5, 11, 24, 0.8); backdrop-filter: blur(8px); -webkit-backdrop-filter: blur(8px);
+    z-index: 1000; justify-content: center; align-items: center; 
+}
+.modal-content { 
+    background: #1e293b; color: var(--text-color); padding: 35px; border-radius: 28px; 
+    max-width: 550px; width: 90%; box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5); 
+    position: relative; border: 1px solid var(--border-color); 
+}
 .close-modal { position: absolute; top: 22px; right: 22px; font-size: 26px; cursor: pointer; color: #ef4444; }
 
+/* 🌌 블랙아웃 라이트박스 */
 .lightbox { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(5,5,10,0.95); z-index: 2000; justify-content: center; align-items: center; flex-direction: column; }
-.lightbox img { max-width: 90%; max-height: 75%; border-radius: 16px; }
+.lightbox img { max-width: 90%; max-height: 75%; border-radius: 16px; box-shadow: 0 0 40px rgba(59,130,246,0.2); border: 1px solid rgba(255,255,255,0.1); }
+.lightbox-caption { color: #f8fafc; margin-top: 20px; font-size: 16px; font-weight: 500; text-align: center; }
 
+/* 플로팅 위젯 - Floating Widgets */
 .floating-widgets { position: fixed; bottom: 30px; right: 30px; display: flex; flex-direction: column; gap: 14px; z-index: 999; }
-.circle-btn { width: 58px; height: 58px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); color: white; border: none; cursor: pointer; font-size: 24px; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4); }
+.circle-btn { 
+    width: 58px; height: 58px; border-radius: 50%; background: linear-gradient(135deg, var(--primary), var(--primary-hover)); 
+    color: white; border: none; cursor: pointer; font-size: 24px; display: flex; align-items: center; justify-content: center; 
+    box-shadow: 0 10px 25px rgba(37, 99, 235, 0.4); 
+}
+.circle-btn:hover { transform: scale(1.1) translateY(-2px); }
 
-/* 🧮 ক্যালকুলেটর */
-.calc { display: none; position: fixed; bottom: 170px; right: 30px; z-index: 1000; background: rgba(30, 41, 59, 0.85); backdrop-filter: var(--glass-blur); padding: 24px; border-radius: 24px; width: 280px; box-shadow: var(--shadow); }
-.calc input { width: 100%; height: 55px; text-align: right; margin-bottom: 18px; font-size: 24px; border-radius: 12px; background: #0f172a; color: #ffffff; }
-.calc-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
-.calc-grid button { padding: 14px; display: flex; justify-content: center; align-items: center; width: 100%; border-radius: 10px; font-size: 16px;}
+/* 🧮 계산기 */
+.calc { 
+    display: none; position: fixed; bottom: 170px; right: 30px; z-index: 1000; 
+    background: rgba(30, 41, 59, 0.85); backdrop-filter: var(--glass-blur); -webkit-backdrop-filter: var(--glass-blur);
+    border: 1px solid var(--border-color); padding: 24px; border-radius: 24px; box-shadow: var(--shadow); width: 280px;
+}
+.calc input { width: 100%; height: 55px; text-align: right; margin-bottom: 18px; font-size: 24px; font-weight: 700; border-radius: 12px; border: 1px solid var(--border-color); background: #0f172a; color: #ffffff; padding: 0 15px;}
+.grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 12px; }
+.grid button { padding: 14px; box-shadow: none; display: flex; text-align: center; justify-content: center; align-items: center; width: 100%; border-radius: 10px; font-size: 16px;}
 
-.admin-status { text-align: center; font-size: 14px; color: #f87171; font-weight: 600; margin-bottom: 20px; padding: 10px 20px; border-radius: 50px; background: rgba(239,68,68,0.1); display: inline-block; left: 50%; transform: translateX(-50%); position: relative; }
+.admin-status { text-align: center; font-size: 14px; color: #f87171; font-weight: 600; margin-bottom: 20px; padding: 10px 20px; border-radius: 50px; background: rgba(239,68,68,0.1); display: inline-block; left: 50%; transform: translateX(-50%); position: relative; border: 1px solid rgba(239,68,68,0.15); }
 .admin-active { color: #4ade80; background: rgba(16,185,129,0.1); border-color: rgba(16,185,129,0.2); }
 
-footer { text-align: center; margin-top: 80px; padding: 25px 0; color: var(--text-muted); border-top: 1px solid var(--border-color); }
+footer { text-align: center; margin-top: 80px; padding: 25px 0; font-size: 14px; color: var(--text-muted); border-top: 1px solid var(--border-color); background: rgba(15, 23, 42, 0.4); }
 
-/* 🔔 টোস্ট */
-.toast-notification { position: fixed; bottom: -100px; left: 30px; background: #1e293b; color: #ffffff; padding: 16px 28px; border-radius: 16px; z-index: 99999; border-left: 6px solid #3b82f6; opacity: 0; font-weight: 600; transition: all 0.4s ease; }
+/* 🔔 프리미엄 토스트 노티피케이션 */
+.toast-notification { 
+    position: fixed; bottom: -100px; left: 30px; background: #1e293b; color: #ffffff; padding: 16px 28px; 
+    border-radius: 16px; box-shadow: 0 20px 30px rgba(0,0,0,0.4); display: flex; align-items: center; gap: 12px; 
+    z-index: 99999; border-left: 6px solid #3b82f6; opacity: 0; font-weight: 600; transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); 
+}
 .toast-notification.show { bottom: 30px; opacity: 1; }
-.toast-notification.success { border-left-color: #10b981; }
-.toast-notification.error { border-left-color: #ef4444; }
-.toast-notification.warning { border-left-color: #f59e0b; }
+.toast-notification.success { border-left-color: #10b981; box-shadow: 0 10px 25px rgba(16,185,129,0.15); }
+.toast-notification.error { border-left-color: #ef4444; box-shadow: 0 10px 25px rgba(239,68,68,0.15); }
+.toast-notification.warning { border-left-color: #f59e0b; box-shadow: 0 10px 25px rgba(245,158,11,0.15); }
+/* 🔐 Admin PIN Modal */
+.pin-modal {
+    display:none;
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,0.75);
+    backdrop-filter:blur(8px);
+    z-index:99999;
+    justify-content:center;
+    align-items:center;
+}
 
-@media (max-width: 768px) {
-    .navbar { padding: 0 20px; height: 65px; }
-    .menu-toggle { display: flex; }
-    .nav-links {
-        position: absolute; top: 65px; left: 0; right: 0; background: rgba(15, 23, 42, 0.95);
-        flex-direction: column; padding: 15px 0; opacity: 0; transform: translateY(-20px);
-        pointer-events: none; transition: all 0.4s ease;
-    }
-    .nav-links.active { opacity: 1; transform: translateY(0); pointer-events: auto; }
-    .nav-links a { width: 100%; text-align: center; padding: 18px 0; }
-    .nav-links a::after { display: none; }
+.pin-box {
+    width:90%;
+    max-width:380px;
+    background:#1e293b;
+    padding:35px;
+    border-radius:25px;
+    text-align:center;
+    box-shadow:0 20px 50px rgba(0,0,0,.5);
+    border:1px solid rgba(255,255,255,.1);
+}
+
+.pin-box h2{
+    color:#60a5fa;
+}
+
+.pin-input{
+    font-size:25px;
+    text-align:center;
+    letter-spacing:8px;
+    margin:20px 0;
+}
+
+.pin-btn{
+    width:100%;
 }
 </style>
 </head>
 <body onload="initDashboard()">
 
-<nav class="navbar" id="mainNavbar">
+<nav class="navbar">
     <a href="#" class="nav-brand">🏏 FIGHTER Club</a>
-    
-    <button class="menu-toggle" id="menuToggleBtn" onclick="toggleMenu()">
-        <span></span>
-        <span></span>
-        <span></span>
-    </button>
-
-    <div class="nav-links" id="navLinks">
-        <a href="#accountsSection" class="nav-item-link" onclick="closeMenu()">হিসাবপাতি</a>
-        <a href="#directorySection" class="nav-item-link" onclick="closeMenu()">মেম্বার্স</a>
-        <a href="#gallerySection" class="nav-item-link" onclick="closeMenu()">গ্যালারি</a>
-        <button id="authBtn" class="btn-success" onclick="handleAuth(); closeMenu();" style="padding: 10px 22px; font-size: 13px; border-radius: 10px;">🔐 Admin Login</button>
+    <div class="nav-links">
+        <a href="#accountsSection">হিসাবপাতি</a>
+        <a href="#directorySection">মেম্বার্স</a>
+        <a href="#gallerySection">গ্যালারি</a>
+        <!-- FIGHTER Chat Link on Navbar -->
+        <a href="https://fighter-bd.github.io/Fighter-Chat/" target="_blank" style="color: #a855f7; font-weight: 600;">💬 ফাইটার চ্যাট</a>
+        <button id="authBtn" class="btn-success" onclick="handleAuth()" style="padding: 8px 16px; font-size: 13px;">🔐 Admin Login</button>
     </div>
 </nav>
 
@@ -324,49 +435,55 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; color: var(--tex
 
     <div class="container">
         <div class="weather-widget">
-            <h3 style="margin:0 0 8px 0;">🌦️ গাইবান্ধা জেলা: আজকের খেলার আবহাওয়া খতিয়ান</h3>
-            <p id="weatherDisplay">গাইবান্ধার লাইভ আবহাওয়া লোড হচ্ছে...</p>
+            <h3 style="margin:0 0 8px 0; font-weight: 600; letter-spacing: 0.3px;">🌦️ গাইবান্ধা জেলা: আজকের খেলার আবহাওয়া খতিয়ান</h3>
+            <p id="weatherDisplay" style="margin:0; font-weight:500; color: #e2e8f0;">গাইবান্ধার লাইভ আবহাওয়া লোড হচ্ছে...</p>
         </div>
 
         <div class="header-section">
             <img src="fighter-cricket-logo.png" class="logo" alt="FIGHTER Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/5351/5351401.png'">
             <h2>FIGHTER Cricket Club ড্যাশবোর্ড</h2>
-            <p style="color: var(--text-muted);">📧 Email: fighterbd.com123@gmail.com</p>
+            <p style="color: var(--text-muted); font-weight: 500; margin: 5px 0 0;">📧 Email: <a href="mailto:fighterbd.com123@gmail.com" style="color: var(--primary); text-decoration: none;">fighterbd.com123@gmail.com</a></p>
         </div>
 
         <div class="top-bar">
-            <button onclick="toggleDark()">✨ Dark / Light</button>
+            <button onclick="toggleDark()" style="background: rgba(255,255,255,0.05);">✨ Dark / Light</button>
+            <!-- FIGHTER Chat Action Button -->
+            <a href="https://fighter-bd.github.io/Fighter-Chat/" target="_blank" class="btn-link btn-chat">💬 ওপেন ফাইটার চ্যাট</a>
         </div>
 
         <div id="adminStatus" class="admin-status">View Mode: আপনি এখন হিসাব শুধু দেখতে পারবেন।</div>
 
-        <div id="noticeForm" class="pro-card" style="display: none;">
-            <h4>📢 নোটিশ বোর্ড ও উইশ আপডেট</h4>
+        <div id="noticeForm" class="pro-card" style="display: none; border-color: rgba(245, 158, 11, 0.3); background: rgba(245, 158, 11, 0.03);">
+            <h4 style="margin-top:0; color: #f59e0b; font-size: 18px; font-weight: 600;">📢 নোটিশ বোর্ড, উইশ ও লাইভ পুশ নোটিফিকেশন</h4>
             <div class="form-grid">
                 <input id="newNotice" placeholder="নতুন নোটিশ...">
-                <button class="btn-success" onclick="updateNotice()">নোটিশ আপডেট</button>
+                <button class="btn-success" onclick="updateNotice()" style="background: linear-gradient(135deg, #f59e0b, #d97706); box-shadow:0 4px 14px rgba(245,158,11,0.2);">নোটিশ আপডেট</button>
             </div>
             <div class="form-grid" style="margin-top:10px;">
                 <input id="newBirthdayWish" placeholder="বার্থডে উইশ...">
-                <button class="btn-success" onclick="updateBirthdayWish()">উইশ আপডেট</button>
+                <button class="btn-success" onclick="updateBirthdayWish()" style="background: linear-gradient(135deg, #ec4899, #be185d); box-shadow:0 4px 14px rgba(236,72,153,0.2);">উইশ আপডেট</button>
+            </div>
+            <div class="form-grid" style="margin-top:10px; border-top: 1px dashed rgba(255,255,255,0.1); padding-top: 15px;">
+                <input id="pushMessage" placeholder="মেম্বারদের ব্রাউজারে পুশ নোটিফিকেশন পাঠান...">
+                <button class="btn-success" onclick="sendPushNotification()" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow:0 4px 14px rgba(59,130,246,0.3);">🔔 পুশ নোটিফিকেশন পাঠান</button>
             </div>
         </div>
 
         <div class="summary">
-            <div class="box income">মোট চাঁদা আদায়<br><span id="totalMoney">0 ৳</span></div>
-            <div class="box expense">মোট খরচ (ব্যয়)<br><span id="totalExpense">0 ৳</span></div>
-            <div class="box balance">তহবিলে অবশিষ্ট ক্যাশ<br><span id="liveVault">0 ৳</span></div>
-            <div class="box members-box">মোট সদস্য<br><span id="totalMembers">0 জন</span></div>
+            <div class="box income">মোট চাঁদা আদায়<br><span id="totalMoney">0</span></div>
+            <div class="box expense">মোট খরচ (ব্যয়)<br><span id="totalExpense">0</span></div>
+            <div class="box balance">তহবিলে অবশিষ্ট ক্যাশ<br><span id="liveVault">0</span></div>
+            <div class="box members-box">মোট সদস্য<br><span id="totalMembers">0</span></div>
         </div>
 
         <div class="pro-card" id="accountsSection">
-            <h3>💰 জমার খতিয়ান ও হিসাবপাতি</h3>
+            <h3 style="margin-top:0; font-size:22px; font-weight:700; letter-spacing: 0.3px;">💰 জমার খতিয়ান ও হিসাবপাতি</h3>
             <div style="margin-bottom: 25px;">
-                <input id="search" placeholder="🔍 সার্চ করুন (নাম বা বিবরণ)..." onkeyup="render()">
+                <input id="search" placeholder="🔍 সার্চ করুন (নাম বা বিবরণ)..." onkeyup="render()" style="padding: 16px 20px;">
             </div>
 
-            <div id="adminForm" style="display: none; padding: 25px; border: 1px dashed rgba(255,255,255,0.15); margin-bottom: 30px; border-radius: 16px;">
-                <h4>নতুন হিসাব যোগ করুন (Live)</h4>
+            <div id="adminForm" style="display: none; background: rgba(15,23,42,0.4); padding: 25px; border-radius: 16px; margin-bottom: 30px; border: 1px dashed rgba(255,255,255,0.15);">
+                <h4 style="margin-top:0; font-weight:600; color: var(--primary);">নতুন হিসাব যোগ করুন (Live)</h4>
                 <div class="form-grid">
                     <input id="member" placeholder="নাম / ক্লাব খরচ">
                     <input id="item" placeholder="বিবরণ">
@@ -392,10 +509,10 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; color: var(--tex
         </div>
 
         <div class="pro-card" id="directorySection">
-            <h3>👤 ফাইটার মেম্বার ডিরেক্টরি ও ব্লাড গ্রুপ</h3>
+            <h3 style="margin-top:0; font-size:22px; font-weight:700; letter-spacing: 0.3px;">👤 ফাইটার মেম্বার ডিরেক্টরি ও ব্লাড গ্রুপ</h3>
             
-            <div id="directoryForm" style="display: none; padding: 25px; border: 1px dashed rgba(255,255,255,0.15); margin-bottom: 30px; border-radius: 16px;">
-                <h4>নতুন মেম্বার প্রোফাইল তৈরি করুন</h4>
+            <div id="directoryForm" style="display: none; background: rgba(15,23,42,0.4); padding: 25px; border-radius: 16px; margin-bottom: 30px; border: 1px dashed rgba(255,255,255,0.15);">
+                <h4 style="margin-top:0; font-weight:600; color: var(--primary);">নতুন মেম্বার প্রোফাইল তৈরি করুন</h4>
                 <div class="form-grid">
                     <input id="dirName" placeholder="মেম্বারের নাম">
                     <input id="dirPhone" placeholder="ফোন নাম্বার">
@@ -405,7 +522,10 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; color: var(--tex
                         <option value="O+">O+</option><option value="O-">O-</option>
                         <option value="AB+">AB+</option><option value="AB-">AB-</option>
                     </select>
-                    <input type="file" id="dirFile" accept="image/*">
+                    <div>
+                        <label style="font-size:12px; font-weight:600; display:block; margin-bottom:6px; color: var(--text-muted);">প্রোফাইল ছবি:</label>
+                        <input type="file" id="dirFile" accept="image/*" style="padding: 10px;">
+                    </div>
                 </div>
                 <button class="btn-success" onclick="addDirectory()">✨ মেম্বার যুক্ত করুন</button>
             </div>
@@ -414,8 +534,8 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; color: var(--tex
         </div>
 
         <div class="pro-card">
-            <h3>🏏 ক্লাবের মালামালের হিসাব (Inventory)</h3>
-            <div id="inventoryForm" style="display: none; padding: 25px; border: 1px dashed rgba(255,255,255,0.15); margin-bottom: 30px; border-radius: 16px;">
+            <h3 style="margin-top:0; font-size:22px; font-weight:700; letter-spacing: 0.3px;">🏏 ক্লাবের মালামালের হিসাব (Inventory)</h3>
+            <div id="inventoryForm" style="display: none; background: rgba(15,23,42,0.4); padding: 25px; border-radius: 16px; margin-bottom: 30px; border: 1px dashed rgba(255,255,255,0.15);">
                 <div class="form-grid">
                     <input id="invItem" placeholder="জিনিসের নাম">
                     <input id="invQty" type="number" placeholder="পরিমাণ">
@@ -432,7 +552,7 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; color: var(--tex
         </div>
 
         <div class="pro-card" id="gallerySection">
-            <h3>📸 ফাইটার ক্লাব গ্যালারি</h3>
+            <h3 style="margin-top:0; font-size:22px; font-weight:700; letter-spacing: 0.3px;">📸 ফাইটার ক্লাব গ্যালারি</h3>
             <div class="gallery-filter" id="galleryFilterBox">
                 <button class="filter-btn active" onclick="filterGallery('All')">সব ছবি</button>
                 <button class="filter-btn" onclick="filterGallery('Tournament')">টুর্নামেন্ট 🏆</button>
@@ -440,10 +560,13 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; color: var(--tex
                 <button class="filter-btn" onclick="filterGallery('Tour')">ট্যুর/ভ্রমণ 🚌</button>
             </div>
 
-            <div id="galleryForm" style="display: none; padding: 25px; border: 1px dashed rgba(255,255,255,0.15); margin-bottom: 30px; border-radius: 16px;">
-                <h4>গ্যালারি থেকে ছবি পোস্ট করুন</h4>
+            <div id="galleryForm" style="display: none; background: rgba(15,23,42,0.4); padding: 25px; border-radius: 16px; margin-bottom: 30px; border: 1px dashed rgba(255,255,255,0.15);">
+                <h4 style="margin-top:0; font-weight:600; color: var(--primary);">গ্যালারি থেকে ছবি পোস্ট করুন</h4>
                 <div class="form-grid">
-                    <input type="file" id="galFile" accept="image/*">
+                    <div>
+                        <label style="font-size:12px; font-weight:600; display:block; margin-bottom:6px; color: var(--text-muted);">ছবি সিলেক্ট করুন:</label>
+                        <input type="file" id="galFile" accept="image/*" style="padding: 10px;">
+                    </div>
                     <input id="galCaption" placeholder="ছবির ক্যাপশন লিখুন...">
                     <select id="galAlbum">
                         <option value="Tournament">Tournament</option>
@@ -457,13 +580,13 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; color: var(--tex
         </div>
 
         <div class="pro-card">
-            <h3>💬 মেম্বার পরামর্শ বোর্ড</h3>
-            <div id="feedbackList" style="max-height: 280px; overflow-y: auto; margin-bottom: 25px;"></div>
+            <h3 style="margin-top:0; font-size:22px; font-weight:700; letter-spacing: 0.3px;">💬 মেম্বার পরামর্শ বোর্ড</h3>
+            <div id="feedbackList" style="max-height: 280px; overflow-y: auto; margin-bottom: 25px; padding-right: 5px;"></div>
             <div class="form-grid" style="grid-template-columns: 1fr 2fr;">
                 <input id="fbName" placeholder="আপনার নাম">
                 <input id="fbMsg" placeholder="পরামর্শটি লিখুন...">
             </div>
-            <button class="btn-success" onclick="sendFeedback()">💬 বার্তা পাঠান</button>
+            <button class="btn-success" style="margin-top: 5px;" onclick="sendFeedback()">💬 বার্তা পাঠান</button>
         </div>
     </div>
 </div>
@@ -471,14 +594,14 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; color: var(--tex
 <div id="memberModal" class="modal">
     <div class="modal-content">
         <span class="close-modal" onclick="closeModal()">&times;</span>
-        <h3 id="modalMemberName" style="color: #60a5fa; margin-top:0;"></h3>
+        <h3 id="modalMemberName" style="color: #60a5fa; margin-top:0; font-weight:700;"></h3>
         <hr style="border:0; border-top: 1px solid var(--border-color); margin-bottom:20px;">
-        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 25px; text-align: center; font-weight: bold;">
-            <div style="background: rgba(16, 185, 129, 0.1); color:#4ade80; padding:14px; border-radius:14px;">মোট পেইড: <span id="modalTotalPaid">0</span> ৳</div>
-            <div style="background: rgba(239, 68, 68, 0.1); color:#f87171; padding:14px; border-radius:14px;">মোট বাকি: <span id="modalTotalDue">0</span> ৳</div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin-bottom: 25px; font-weight: bold; text-align: center;">
+            <div style="background: rgba(16, 185, 129, 0.1); color:#4ade80; padding:14px; border-radius:14px; border: 1px solid rgba(16,185,129,0.2);">মোট পেইড: <span id="modalTotalPaid">0</span> ৳</div>
+            <div style="background: rgba(239, 68, 68, 0.1); color:#f87171; padding:14px; border-radius:14px; border: 1px solid rgba(239,68,68,0.2);">মোট বাকি: <span id="modalTotalDue">0</span> ৳</div>
         </div>
-        <div style="max-height: 250px; overflow-y: auto;">
-            <table style="width: 100%;">
+        <div style="max-height: 250px; overflow-y: auto; border-radius:14px; border:1px solid var(--border-color);">
+            <table style="width: 100%; font-size:13px;">
                 <thead><tr><th>বিবরণ</th><th>তারিখ</th><th>পেইড</th><th>বাকি</th></tr></thead>
                 <tbody id="modalTableBody"></tbody>
             </table>
@@ -493,7 +616,7 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; color: var(--tex
 
 <div class="calc" id="calculatorWidget">
     <input id="display" readonly>
-    <div class="calc-grid">
+    <div class="grid">
         <button onclick="p('7')" style="background: rgba(255,255,255,0.05);">7</button>
         <button onclick="p('8')" style="background: rgba(255,255,255,0.05);">8</button>
         <button onclick="p('9')" style="background: rgba(255,255,255,0.05);">9</button>
@@ -514,532 +637,760 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; color: var(--tex
 </div>
 
 <div class="floating-widgets">
-    <button class="circle-btn" style="background: linear-gradient(135deg, #ec4899, #be185d);" onclick="checkTodayBirthdays()">🎂</button>
+    <button class="circle-btn" style="background: linear-gradient(135deg, #ec4899, #be185d); box-shadow:0 8px 25px rgba(236,72,153,0.4);" onclick="checkTodayBirthdays()">🎂</button>
     <button class="circle-btn" onclick="toggleCalculator()">🧮</button>
 </div>
+    <!-- 🔐 Admin PIN Login -->
+<div id="pinModal" class="pin-modal">
 
+<div class="pin-box">
+
+<h2>🔐 Admin Security</h2>
+
+<p style="color:#94a3b8">
+FIGHTER Club Dashboard
+</p>
+
+<input 
+id="adminPinInput"
+class="pin-input"
+type="password"
+maxlength="6"
+placeholder="••••••">
+
+
+<button 
+class="pin-btn btn-success"
+onclick="verifyAdminPIN()">
+Login
+</button>
+
+<br><br>
+
+<button 
+class="btn-danger pin-btn"
+onclick="closePinModal()">
+Cancel
+</button>
+
+</div>
+
+</div>
 <div id="fighterToast" class="toast-notification">💡 মেসেজ এখানে দেখাবে</div>
 
 <footer>
     <p>© 2026 FIGHTER Cricket Club | Developed by <a href="about.html" target="_blank" style="color: var(--primary); font-weight: bold; text-decoration: none;">Borno Sarker</a></p>
 </footer>
 
-<script type="module">
-    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-    import { getAuth, signInWithEmailAndPassword, signOut, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
+<script>
+const FIREBASE_URL = "https://fighter-club-f5623-default-rtdb.firebaseio.com"; 
+const ADMIN_PIN = "2026"; // তোমার পছন্দের PIN
+const autoLockTime = 24 * 60 * 60 * 1000; // ২৪ ঘণ্টা
 
-    // ⚠️ আপনার Firebase প্রজেক্টের আসল Config ডেটা এখানে বসাবেন 
-    const firebaseConfig = {
-        apiKey: "YOUR_API_KEY",
-        authDomain: "YOUR_AUTH_DOMAIN",
-        projectId: "YOUR_PROJECT_ID",
-        storageBucket: "YOUR_STORAGE_BUCKET",
-        messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-        appId: "YOUR_APP_ID"
-    };
+let accountsData = [];
+let inventoryData = [];
+let feedbackData = [];
+let galleryData = [];
+let directoryData = [];
+let activeBirthdayWish = "আজ আমাদের ক্লাবের কোনো মেম্বারের জন্মদিন নেই। 🎉";
+let isAdmin = false;
+let currentFilter = 'All';
 
-    // Firebase ইনিশিয়ালাইজেশন
-    const app = initializeApp(firebaseConfig);
-    const auth = getAuth(app);
+function initDashboard() {
+    checkRememberLogin();
+    loadAccounts();
+    loadInventory();
+    loadFeedback();
+    loadGallery();
+    loadDirectory();
+    loadWeather();
+    requestNotificationPermission(); 
+    listenToPushNotifications();    
+    
+    document.getElementById('date').valueAsDate = new Date();
+    
+    fetch(FIREBASE_URL + "/notice.json").then(res => res.json()).then(text => { if(text) document.getElementById("noticeText").innerText = text; });
+    fetch(FIREBASE_URL + "/birthday.json").then(res => res.json()).then(wish => { if(wish) activeBirthdayWish = wish; });
+}
 
-    const FIREBASE_URL = "https://fighter-club-f5623-default-rtdb.firebaseio.com"; 
-
-    let accountsData = [];
-    let inventoryData = [];
-    let feedbackData = [];
-    let galleryData = [];
-    let directoryData = [];
-    let activeBirthdayWish = "আজ আমাদের ক্লাবের কোনো মেম্বারের জন্মদিন নেই। 🎉";
-    let isAdmin = false;
-    let currentFilter = 'All';
-
-    /* 📱 মোবাইল মেনু স্ক্রিপ্ট */
-    window.toggleMenu = function() {
-        document.getElementById("navLinks").classList.toggle("active");
-        document.getElementById("menuToggleBtn").classList.toggle("active");
-    }
-    window.closeMenu = function() {
-        document.getElementById("navLinks").classList.remove("active");
-        document.getElementById("menuToggleBtn").classList.remove("active");
-    }
-
-    /* 🔄 স্ক্রোলিং এফেক্ট (Navbar Hide/Show) */
-    let lastScrollTop = 0;
-    const navbar = document.getElementById("mainNavbar");
-
-    window.addEventListener("scroll", function() {
-        let scrollTop = window.pageYOffset || document.documentElement.scrollTop;
-        if (scrollTop > lastScrollTop && scrollTop > 100) {
-            navbar.classList.add("nav-hidden");
-            closeMenu();
-        } else {
-            navbar.classList.remove("nav-hidden");
-        }
-        lastScrollTop = scrollTop <= 0 ? 0 : scrollTop;
-    });
-
-    window.initDashboard = function() {
-        loadAccounts();
-        loadInventory();
-        loadFeedback();
-        loadGallery();
-        loadDirectory();
-        loadWeather();
-        
-        if(document.getElementById('date')) {
-            document.getElementById('date').valueAsDate = new Date();
-        }
-        
-        fetch(FIREBASE_URL + "/notice.json").then(res => res.json()).then(text => { if(text) document.getElementById("noticeText").innerText = text; }).catch(() => {});
-        fetch(FIREBASE_URL + "/birthday.json").then(res => res.json()).then(wish => { if(wish) activeBirthdayWish = wish; }).catch(() => {});
-    }
-
-    window.showFighterNotification = function(msg, type = "success") {
-        let toast = document.getElementById("fighterToast");
-        toast.innerText = msg;
-        toast.className = `toast-notification show ${type}`;
-        setTimeout(() => { toast.classList.remove("show"); }, 3500);
-    }
-
-    window.toggleDark = function() {
-        document.body.classList.toggle("dark");
-        showFighterNotification("থিম পরিবর্তন করা হয়েছে!", "success");
-    }
-
-    /* 🔐 Firebase Auth হ্যান্ডলার */
-    window.handleAuth = function() {
-        if(!isAdmin) {
-            let email = prompt("অ্যাডমিন ইমেইল দিন (যেমন: admin@gmail.com):");
-            if (!email) return;
-            let pass = prompt("পাসওয়ার্ড দিন:");
-            if (!pass) return;
-
-            // ফায়ারবেস লগইন মেথড
-            signInWithEmailAndPassword(auth, email, pass)
-                .catch((error) => {
-                    showFighterNotification("ভুল ইমেইল বা পাসওয়ার্ড!", "error");
-                });
-        } else {
-            // ফায়ারবেস লগআউট মেথড
-            signOut(auth).then(() => {
-                showFighterNotification("লগআউট সফল হয়েছে।", "warning");
-            });
-        }
-    }
-
-    /* 🛡️ ফায়ারবেস রিয়েলটাইম স্টেট অবসার্ভার (লগইন স্ট্যাটাস চেক) */
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            // ইউজার সফলভাবে লগইন থাকলে
-            isAdmin = true;
-            document.getElementById("authBtn").innerText = "🔓 Logout";
-            document.getElementById("authBtn").className = "btn-danger";
-            document.getElementById("adminStatus").innerText = `Admin Mode: (${user.email}) আপনি এখন ডাটা পরিবর্তন করতে পারবেন।`;
-            document.getElementById("adminStatus").classList.add("admin-active");
-            document.getElementById("adminForm").style.display = "block";
-            document.getElementById("directoryForm").style.display = "block";
-            document.getElementById("inventoryForm").style.display = "block";
-            document.getElementById("galleryForm").style.display = "block";
-            document.getElementById("noticeForm").style.display = "block";
-        } else {
-            // ইউজার লগআউট থাকলে
-            isAdmin = false;
-            document.getElementById("authBtn").innerText = "🔐 Admin Login";
-            document.getElementById("authBtn").className = "btn-success";
-            document.getElementById("adminStatus").innerText = "View Mode: আপনি এখন হিসাব শুধু দেখতে পারবেন।";
-            document.getElementById("adminStatus").classList.remove("admin-active");
-            document.getElementById("adminForm").style.display = "none";
-            document.getElementById("directoryForm").style.display = "none";
-            document.getElementById("inventoryForm").style.display = "none";
-            document.getElementById("galleryForm").style.display = "none";
-            document.getElementById("noticeForm").style.display = "none";
-        }
-        // রেন্ডার রিফ্রেশ
-        render(); renderDirectory(); renderGallery(); renderInventory(); renderFeedback();
-    });
-
-    function loadAccounts() {
-        fetch(FIREBASE_URL + "/accounts.json").then(res => res.json()).then(serverData => {
-            accountsData = [];
-            if(serverData) { Object.keys(serverData).forEach(key => { accountsData.push({ id: key, ...serverData[key] }); }); }
-            render();
-        }).catch(() => {});
-    }
-
-    window.render = function() {
-        let list = document.getElementById("list");
-        if(!list) return;
-        list.innerHTML = "";
-        let search = document.getElementById("search").value.toLowerCase();
-        
-        let totalIncome = 0;
-        let totalExpense = 0;
-        
-        accountsData.forEach(acc => {
-            if(acc.type === "income") totalIncome += Number(acc.paid || 0);
-            if(acc.type === "expense") totalExpense += Number(acc.price || 0);
-            
-            if(acc.member.toLowerCase().includes(search) || acc.item.toLowerCase().includes(search)) {
-                let due = Number(acc.price) - Number(acc.paid);
-                list.innerHTML += `
-                    <tr>
-                        <td style="color:#3b82f6; font-weight:600; cursor:pointer;" onclick="openMemberModal('${acc.member}')">👤 ${acc.member}</td>
-                        <td>${acc.item}</td>
-                        <td><span style="color:${acc.type==='income'?'#10b981':'#ef4444'}; font-weight:bold;">${acc.type==='income'?'জমা (In)':'খরচ (Out)'}</span></td>
-                        <td>${acc.date}</td>
-                        <td style="font-weight:600;">${acc.price} ৳</td>
-                        <td style="color:#10b981; font-weight:600;">${acc.paid} ৳</td>
-                        <td style="color:${due>0?'#ef4444':'#10b981'}; font-weight:bold;">${due} ৳</td>
-                        ${isAdmin ? `<td><button class="btn-danger" style="padding:6px 12px; font-size:12px;" onclick="delAccount('${acc.id}')">Delete</button></td>` : ''}
-                    </tr>`;
-            }
-        });
-        
-        document.getElementById("totalMoney").innerText = totalIncome + " ৳";
-        document.getElementById("totalExpense").innerText = totalExpense + " ৳";
-        document.getElementById("liveVault").innerText = (totalIncome - totalExpense) + " ৳";
-    }
-
-    window.addAccount = function() {
-        let member = document.getElementById("member").value;
-        let item = document.getElementById("item").value;
-        let type = document.getElementById("type").value;
-        let price = Number(document.getElementById("price").value);
-        let paid = Number(document.getElementById("paid").value);
-        let date = document.getElementById("date").value;
-        
-        if(!member || !item || !price || !date) return showFighterNotification("সব তথ্য দিন!", "warning");
-        
-        let newData = { member, item, type, price, paid, date };
-        fetch(FIREBASE_URL + "/accounts.json", { method: "POST", body: JSON.stringify(newData) }).then(() => {
-            loadAccounts();
-            document.getElementById("member").value = ""; document.getElementById("item").value = "";
-            document.getElementById("price").value = ""; document.getElementById("paid").value = "";
-            showFighterNotification("হিসাব লাইভ ডেটাবেজে যুক্ত হয়েছে!", "success");
-        });
-    }
-
-    window.delAccount = function(id) {
-        if(confirm("হিসাবটি ডিলিট করতে চান?")) {
-            fetch(`${FIREBASE_URL}/accounts/${id}.json`, { method: "DELETE" }).then(() => { 
-                loadAccounts();
-                showFighterNotification("হিসাবটি ডিলিট করা হয়েছে।", "warning");
-            });
-        }
-    }
-
-    function loadDirectory() {
-        fetch(FIREBASE_URL + "/directory.json").then(res => res.json()).then(serverData => {
-            directoryData = [];
-            if(serverData) { Object.keys(serverData).forEach(key => { directoryData.push({ id: key, ...serverData[key] }); }); }
-            document.getElementById("totalMembers").innerText = directoryData.length + " জন";
-            renderDirectory();
-        }).catch(() => {});
-    }
-
-    window.addDirectory = function() {
-        let name = document.getElementById("dirName").value;
-        let phone = document.getElementById("dirPhone").value;
-        let blood = document.getElementById("dirBlood").value;
-        let fileInput = document.getElementById("dirFile").files[0];
-        
-        if(!name || !phone) return showFighterNotification("নাম ও ফোন নাম্বার দিন!", "warning");
-
-        if (fileInput) {
-            let reader = new FileReader();
-            reader.onload = function(e) {
-                saveDirectoryToFirebase(name, phone, e.target.result, blood);
-            };
-            reader.readAsDataURL(fileInput);
-        } else {
-            saveDirectoryToFirebase(name, phone, "https://cdn-icons-png.flaticon.com/512/149/149071.png", blood);
-        }
-    }
-
-    function saveDirectoryToFirebase(name, phone, imgData, blood) {
-        fetch(FIREBASE_URL + "/directory.json", { method: "POST", body: JSON.stringify({ name, phone, img: imgData, blood }) }).then(() => {
-            loadDirectory();
-            document.getElementById("dirName").value = ""; document.getElementById("dirPhone").value = "";
-            document.getElementById("dirFile").value = "";
-            showFighterNotification("মেম্বার প্রোফাইল তৈরি হয়েছে!", "success");
-        });
-    }
-
-    window.delDirectory = function(id) {
-        if(confirm("ডিরেক্টরি থেকে এই মেম্বার সরাতে চান?")) {
-            fetch(`${FIREBASE_URL}/directory/${id}.json`, { method: "DELETE" }).then(() => { 
-                loadDirectory(); 
-                showFighterNotification("মেম্বার প্রোফাইল রিমুভ করা হয়েছে।", "warning");
-            });
-        }
-    }
-
-    window.renderDirectory = function() {
-        let container = document.getElementById("directoryCardContainer"); container.innerHTML = "";
-        directoryData.forEach(d => {
-            container.innerHTML += `
-                <div class="member-card">
-                    <img src="${d.img}" class="avatar" onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png'">
-                    <h4>${d.name}</h4>
-                    <a class="phone" href="javascript:void(0)" onclick="showPhone('${d.phone}')">📞 ফোন নম্বর দেখুন</a>
-                    <span class="blood-badge">🩸 Group: ${d.blood}</span>
-                    ${isAdmin ? `<br><button class="btn-danger" style="margin-top:18px; width:100%; justify-content:center;" onclick="delDirectory('${d.id}')">Delete Profile</button>` : ''}
-                </div>`;
-        });
-    }
-
-    function loadInventory() {
-        fetch(FIREBASE_URL + "/inventory.json").then(res => res.json()).then(serverData => {
-            inventoryData = []; if(serverData) { Object.keys(serverData).forEach(key => { inventoryData.push({ id: key, ...serverData[key] }); }); }
-            renderInventory();
-        }).catch(() => {});
-    }
-
-    window.addInventory = function() {
-        let item = document.getElementById("invItem").value; let qty = document.getElementById("invQty").value; let status = document.getElementById("invStatus").value;
-        if(!item || !qty) return showFighterNotification("সব তথ্য দিন!", "warning");
-        fetch(FIREBASE_URL + "/inventory.json", { method: "POST", body: JSON.stringify({item, qty, status}) }).then(() => { 
-            loadInventory();
-            document.getElementById("invItem").value = ""; document.getElementById("invQty").value = "";
-            showFighterNotification("ইনভেন্টরি আপডেট হয়েছে!", "success");
-        });
-    }
-
-    window.delInventory = function(id) {
-        if(confirm("ইনভেন্টরি থেকে ডিলিট করতে চান?")) {
-            fetch(`${FIREBASE_URL}/inventory/${id}.json`, { method: "DELETE" }).then(() => { 
-                loadInventory(); 
-                showFighterNotification("আইটেম ডিলিট করা হয়েছে।", "warning");
-            });
-        }
-    }
-
-    window.renderInventory = function(){
-        let invList = document.getElementById("inventoryList"); invList.innerHTML = "";
-        inventoryData.forEach((d) => {
-            invList.innerHTML += `
-            <tr>
-                <td><strong>🏏 ${d.item}</strong></td>
-                <td>${d.qty} টি</td>
-                <td><span style="color:${d.status==='নষ্ট'?'#ef4444':'#10b981'}; font-weight:bold;">${d.status}</span></td>
-                ${isAdmin ? `<td><button class="btn-danger" onclick="delInventory('${d.id}')">Delete</button></td>` : ''}
-            </tr>`;
-        });
-    }
-
-    function loadGallery() {
-        fetch(FIREBASE_URL + "/gallery.json").then(res => res.json()).then(serverData => {
-            galleryData = [];
-            if(serverData) { Object.keys(serverData).forEach(key => { galleryData.push({ id: key, ...serverData[key] }); }); }
-            renderGallery();
-        }).catch(() => {});
-    }
-
-    window.uploadPhoto = function() {
-        let fileInput = document.getElementById("galFile").files[0];
-        let caption = document.getElementById("galCaption").value;
-        let album = document.getElementById("galAlbum").value;
-        
-        if(!fileInput || !caption) return showFighterNotification("ছবি এবং ক্যাপশন দুটোই দিন!", "warning");
-        
-        let reader = new FileReader();
-        reader.onload = function(e) {
-            let img = new Image();
-            img.src = e.target.result;
-            img.onload = function() {
-                let canvas = document.createElement('canvas');
-                let ctx = canvas.getContext('2d');
-                let maxWidth = 800;
-                let scale = maxWidth / img.width;
-                
-                if (img.width > maxWidth) {
-                    canvas.width = maxWidth;
-                    canvas.height = img.height * scale;
-                } else {
-                    canvas.width = img.width;
-                    canvas.height = img.height;
+function requestNotificationPermission() {
+    if ("Notification" in window) {
+        if (Notification.permission === "default") {
+            Notification.requestPermission().then(permission => {
+                if (permission === "granted") {
+                    console.log("Notification permission granted!");
                 }
-                
-                ctx.drawImage(img, 0, 0, canvas.width, canvas.height);
-                let compressedBase64Img = canvas.toDataURL('image/jpeg', 0.6);
-                
-                fetch(FIREBASE_URL + "/gallery.json", { 
-                    method: "POST", 
-                    body: JSON.stringify({ url: compressedBase64Img, caption, album }) 
-                }).then(() => {
-                    loadGallery();
-                    document.getElementById("galFile").value = ""; document.getElementById("galCaption").value = "";
-                    showFighterNotification("গ্যালারিতে ইমেজ পোস্ট সফল হয়েছে!", "success");
-                });
-            };
-        };
-        reader.readAsDataURL(fileInput);
-    }
-
-    window.delPhoto = function(id) {
-        if(confirm("ছবিটি মুছে ফেলতে চান?")) {
-            fetch(`${FIREBASE_URL}/gallery/${id}.json`, { method: "DELETE" }).then(() => { 
-                loadGallery(); 
-                showFighterNotification("ছবিটি মুছে ফেলা হয়েছে।", "warning");
             });
         }
     }
+}
 
-    window.filterGallery = function(albumName) {
-        currentFilter = albumName;
-        let btns = document.querySelectorAll('.filter-btn');
-        btns.forEach(btn => btn.classList.remove('active'));
-        if(event) { event.target.classList.add('active'); }
-        renderGallery();
-    }
-
-    window.renderGallery = function() {
-        let container = document.getElementById("galleryContainer"); container.innerHTML = "";
-        let filtered = galleryData.filter(p => currentFilter === 'All' || p.album === currentFilter);
-        
-        if(filtered.length === 0) {
-            container.innerHTML = "<p style='padding:20px; color:var(--text-muted);'>এই অ্যালবামে কোনো ছবি নেই।</p>";
-            return;
-        }
-        filtered.forEach(p => {
-            container.innerHTML += `
-                <div class="gallery-item" onclick="openLightbox('${p.url}', '${p.caption}')">
-                    ${isAdmin ? `<button class="del-gal-btn" onclick="event.stopPropagation(); delPhoto('${p.id}')">×</button>` : ''}
-                    <img src="${p.url}" alt="${p.caption}">
-                    <div class="gallery-caption">[${p.album || 'All'}] ${p.caption}</div>
-                </div>`;
-        });
-    }
-
-    window.openLightbox = function(url, caption) {
-        document.getElementById("lightboxImg").src = url;
-        document.getElementById("lightboxCaption").innerText = caption;
-        document.getElementById("lightbox").style.display = "flex";
-    }
-    window.closeLightbox = function() { document.getElementById("lightbox").style.display = "none"; }
-
-    function loadFeedback() {
-        fetch(FIREBASE_URL + "/feedback.json").then(res => res.json()).then(serverData => {
-            feedbackData = []; 
-            if(serverData) { Object.keys(serverData).forEach(key => { feedbackData.push({ id: key, ...serverData[key] }); }); }
-            renderFeedback();
-        }).catch(() => {});
-    }
-
-    window.sendFeedback = function() {
-        let name = document.getElementById("fbName").value;
-        let msg = document.getElementById("fbMsg").value;
-        if(!name || !msg) return showFighterNotification("নাম ও মেসেজ দুটোই লিখুন!", "warning");
-        
-        fetch(FIREBASE_URL + "/feedback.json", { method: "POST", body: JSON.stringify({name, msg}) }).then(() => {
-            loadFeedback();
-            document.getElementById("fbName").value = ""; document.getElementById("fbMsg").value = "";
-            showFighterNotification("পরামর্শ সাবমিট সফল!", "success");
-        });
-    }
-
-    window.delFeedback = function(id) {
-        if(confirm("পরামর্শটি মুছে ফেলতে চান?")) {
-            fetch(`${FIREBASE_URL}/feedback/${id}.json`, { method: "DELETE" }).then(() => { 
-                loadFeedback(); 
-                showFighterNotification("বার্তা মুছে ফেলা হয়েছে।", "warning");
-            });
-        }
-    }
-
-    window.renderFeedback = function() {
-        let fbList = document.getElementById("feedbackList"); fbList.innerHTML = "";
-        if(feedbackData.length === 0) {
-            fbList.innerHTML = "<p style='color:var(--text-muted);'>এখনো কোনো পরামর্শ নেই।</p>";
-            return;
-        }
-        feedbackData.forEach(f => {
-            fbList.innerHTML += `
-                <div class="msg-box">
-                    <div><strong>👤 ${f.name}:</strong> <span style="color: #cbd5e1; margin-left:6px;">${f.msg}</span></div>
-                    ${isAdmin ? `<button class="btn-danger" onclick="delFeedback('${f.id}')">Delete</button>` : ''}
-                </div>`;
-        });
-    }
-
-    window.updateNotice = function() {
-        let text = document.getElementById("newNotice").value;
-        if(!text) return;
-        fetch(FIREBASE_URL + "/notice.json", { method: "PUT", body: JSON.stringify(text) }).then(() => {
-            document.getElementById("noticeText").innerText = text;
-            document.getElementById("newNotice").value = "";
-            showFighterNotification("লাইভ নোটিশ আপডেট হয়েছে!", "success");
-        });
-    }
-
-    window.updateBirthdayWish = function() {
-        let wish = document.getElementById("newBirthdayWish").value;
-        if(!wish) return;
-        fetch(FIREBASE_URL + "/birthday.json", { method: "PUT", body: JSON.stringify(wish) }).then(() => {
-            activeBirthdayWish = wish;
-            document.getElementById("newBirthdayWish").value = "";
-            showFighterNotification("বার্থডে উইশ আপডেট সফল!", "success");
-        });
-    }
-
-    window.checkTodayBirthdays = function() {
-        alert(`🎂 আজকের উইশ বার্তা: \n\n${activeBirthdayWish}`);
-    }
-
-    window.openMemberModal = function(memberName) {
-        document.getElementById("modalMemberName").innerText = `👤 ${memberName} - এর ব্যক্তিগত হিসাব`;
-        let tableBody = document.getElementById("modalTableBody"); tableBody.innerHTML = "";
-        let totalPaid = 0, totalDue = 0;
-        
-        accountsData.forEach(acc => {
-            if(acc.member.toLowerCase() === memberName.toLowerCase()) {
-                let due = Number(acc.price) - Number(acc.paid);
-                totalPaid += Number(acc.paid); totalDue += due;
-                tableBody.innerHTML += `<tr><td>${acc.item}</td><td>${acc.date}</td><td style="color:#10b981;">${acc.paid} ৳</td><td style="color:#ef4444;">${due} ৳</td></tr>`;
-            }
-        });
-        document.getElementById("modalTotalPaid").innerText = totalPaid;
-        document.getElementById("modalTotalDue").innerText = totalDue;
-        document.getElementById("memberModal").style.display = "flex";
-    }
-    window.closeModal = function() { document.getElementById("memberModal").style.display = "none"; }
-
-    function loadWeather() {
-        fetch("https://api.open-meteo.com/v1/forecast?latitude=25.3289&longitude=89.5395&current=temperature_2m,relative_humidity_2m")
+function listenToPushNotifications() {
+    setInterval(() => {
+        fetch(FIREBASE_URL + "/push_notification.json")
         .then(res => res.json())
         .then(data => {
-            if(data && data.current) {
-                document.getElementById("weatherDisplay").innerText = `☀️ তাপমাত্রা: ${data.current.temperature_2m}°C | 💧 আর্দ্রতা: ${data.current.relative_humidity_2m}% | ক্রিকেট খেলার জন্য চমৎকার আবহাওয়া! 🏏`;
+            if (data && data.text) {
+                let lastNotifId = localStorage.getItem("last_fighter_notif_id");
+                if (lastNotifId !== data.id) {
+                    localStorage.setItem("last_fighter_notif_id", data.id);
+                    triggerSystemNotification(data.text);
+                }
             }
-        }).catch(() => {
-            document.getElementById("weatherDisplay").innerText = "☀️ তাপমাত্রা: ২৯°C | ক্রিকেট খেলার জন্য আবহাওয়া একদম অনুকূল!";
+        }).catch(err => console.log("Notification check failed", err));
+    }, 5000);
+}
+
+function triggerSystemNotification(message) {
+    if ("Notification" in window && Notification.permission === "granted") {
+        navigator.serviceWorker.ready.then(registration => {
+            registration.showNotification("🏏 FIGHTER Cricket Club", {
+                body: message,
+                icon: "fighter-cricket-logo.png",
+                badge: "fighter-cricket-logo.png",
+                vibrate: [200, 100, 200],
+                tag: "fighter-notice"
+            });
+        });
+    } else {
+        showFighterNotification("📢 নতুন ঘোষণা: " + message, "info");
+    }
+}
+
+function sendPushNotification() {
+    let msgText = document.getElementById("pushMessage").value;
+    if (!msgText) return showFighterNotification("নোটিফিকেশনের টেক্সট লিখুন!", "warning");
+    
+    let notificationPayload = {
+        id: new Date().getTime().toString(), 
+        text: msgText
+    };
+
+    fetch(FIREBASE_URL + "/push_notification.json", { 
+        method: "PUT", 
+        body: JSON.stringify(notificationPayload) 
+    }).then(() => {
+        document.getElementById("pushMessage").value = "";
+        showFighterNotification("🚀 সব মেম্বারের ফোনে নোটিফিকেশন চলে গেছে!", "success");
+    }).catch(() => {
+        showFighterNotification("❌ নোটিফিকেশন পাঠাতে ব্যর্থ হয়েছে।", "error");
+    });
+}
+
+function showFighterNotification(msg, type = "success") {
+    let toast = document.getElementById("fighterToast");
+    toast.innerText = msg;
+    toast.className = `toast-notification show ${type}`;
+    setTimeout(() => { toast.classList.remove("show"); }, 3500);
+}
+
+function toggleDark() {
+    document.body.classList.toggle("dark");
+    showFighterNotification("থিম পরিবর্তন করা হয়েছে!", "success");
+}
+function handleAuth(){
+
+    if(isAdmin){
+
+        logoutAdmin();
+
+    }else{
+        document.getElementById("adminPinInput").value = "";
+        document.getElementById("pinModal").style.display="flex";
+
+    }
+
+}
+
+
+
+function verifyAdminPIN(){
+
+let pin =
+document.getElementById("adminPinInput").value;
+
+
+if(pin === ADMIN_PIN){
+
+
+isAdmin=true;
+
+
+localStorage.setItem(
+"fighter_admin",
+"true"
+);
+
+
+localStorage.setItem(
+"fighter_login_time",
+Date.now()
+);
+
+
+
+document.getElementById("pinModal")
+.style.display="none";
+
+
+enableAdminMode();
+
+
+showFighterNotification(
+"🔓 Admin Login Successful",
+"success"
+);
+
+
+}
+else{
+
+
+showFighterNotification(
+"❌ Wrong PIN",
+"error"
+);
+
+
+}
+
+
+
+}
+
+
+
+function enableAdminMode(){
+
+
+document.getElementById("authBtn").innerText="🔓 Logout";
+
+document.getElementById("authBtn")
+.className="btn-danger";
+
+
+document.getElementById("adminStatus")
+.innerText=
+"Admin Mode: সব পরিবর্তন করার অনুমতি আছে";
+
+
+document.getElementById("adminStatus")
+.classList.add("admin-active");
+
+
+[
+"adminForm",
+"directoryForm",
+"inventoryForm",
+"galleryForm",
+"noticeForm"
+
+].forEach(id=>{
+
+document.getElementById(id)
+.style.display="block";
+
+});
+
+
+render();
+renderDirectory();
+renderGallery();
+renderInventory();
+
+
+}
+
+
+
+function logoutAdmin(){
+
+
+isAdmin=false;
+
+
+localStorage.removeItem(
+"fighter_admin"
+);
+
+localStorage.removeItem(
+"fighter_login_time"
+);
+
+
+
+document.getElementById("authBtn")
+.innerText="🔐 Admin Login";
+
+
+document.getElementById("authBtn")
+.className="btn-success";
+
+
+
+document.getElementById("adminStatus")
+.innerText=
+"View Mode: আপনি এখন হিসাব শুধু দেখতে পারবেন।";
+
+
+document.getElementById("adminStatus")
+.classList.remove("admin-active");
+
+
+
+[
+"adminForm",
+"directoryForm",
+"inventoryForm",
+"galleryForm",
+"noticeForm"
+
+].forEach(id=>{
+
+document.getElementById(id)
+.style.display="none";
+
+});
+
+
+showFighterNotification(
+"Logout Successful",
+"warning"
+);
+
+
+}
+
+
+
+function closePinModal(){
+
+document.getElementById("pinModal")
+.style.display="none";
+
+}
+
+
+
+function checkRememberLogin(){
+
+
+let saved =
+localStorage.getItem("fighter_admin");
+
+
+let time =
+localStorage.getItem("fighter_login_time");
+
+
+
+if(saved==="true" && time){
+
+let passed =
+Date.now()-Number(time);
+
+
+if(passed < autoLockTime){
+
+isAdmin=true;
+
+enableAdminMode();
+
+
+}
+
+else{
+
+logoutAdmin();
+
+}
+
+
+}
+
+
+}
+
+function loadAccounts() {
+    fetch(FIREBASE_URL + "/accounts.json").then(res => res.json()).then(serverData => {
+        accountsData = [];
+        if(serverData) { Object.keys(serverData).forEach(key => { accountsData.push({ id: key, ...serverData[key] }); }); }
+        render();
+    });
+}
+
+function render() {
+    let list = document.getElementById("list");
+    list.innerHTML = "";
+    let search = document.getElementById("search").value.toLowerCase();
+    
+    let totalIncome = 0;
+    let totalExpense = 0;
+    
+    accountsData.forEach(acc => {
+        if(acc.type === "income") totalIncome += Number(acc.paid || 0);
+        if(acc.type === "expense") totalExpense += Number(acc.price || 0);
+        
+        if(acc.member.toLowerCase().includes(search) || acc.item.toLowerCase().includes(search)) {
+            let due = Number(acc.price) - Number(acc.paid);
+            list.innerHTML += `
+                <tr>
+                    <td style="color:#3b82f6; font-weight:600; cursor:pointer;" onclick="openMemberModal('${acc.member}')">👤 ${acc.member}</td>
+                    <td>${acc.item}</td>
+                    <td><span style="color:${acc.type==='income'?'#10b981':'#ef4444'}; font-weight:bold;">${acc.type==='income'?'জমা (In)':'খরচ (Out)'}</span></td>
+                    <td>${acc.date}</td>
+                    <td style="font-weight:600;">${acc.price} ৳</td>
+                    <td style="color:#10b981; font-weight:600;">${acc.paid} ৳</td>
+                    <td style="color:${due>0?'#ef4444':'#10b981'}; font-weight:bold;">${due} ৳</td>
+                    ${isAdmin ? `<td><button class="btn-danger" style="padding:6px 12px; font-size:12px; border-radius:8px;" onclick="delAccount('${acc.id}')">Delete</button></td>` : ''}
+                </tr>`;
+        }
+    });
+    
+    document.getElementById("totalMoney").innerText = totalIncome + " ৳";
+    document.getElementById("totalExpense").innerText = totalExpense + " ৳";
+    document.getElementById("liveVault").innerText = (totalIncome - totalExpense) + " ৳";
+}
+
+function addAccount() {
+    let member = document.getElementById("member").value;
+    let item = document.getElementById("item").value;
+    let type = document.getElementById("type").value;
+    let price = Number(document.getElementById("price").value);
+    let paid = Number(document.getElementById("paid").value);
+    let date = document.getElementById("date").value;
+    
+    if(!member || !item || !price || !date) return showFighterNotification("সব তথ্য দিন!", "warning");
+    
+    let newData = { member, item, type, price, paid, date };
+    fetch(FIREBASE_URL + "/accounts.json", { method: "POST", body: JSON.stringify(newData) }).then(() => {
+        loadAccounts();
+        document.getElementById("member").value = ""; document.getElementById("item").value = "";
+        document.getElementById("price").value = ""; document.getElementById("paid").value = "";
+        showFighterNotification("হিসাব লাইভ ডেটাবেজে যুক্ত হয়েছে!", "success");
+    });
+}
+
+function delAccount(id) {
+    if(confirm("হিসাবটি ডিলিট করতে চান?")) {
+        fetch(`${FIREBASE_URL}/accounts/${id}.json`, { method: "DELETE" }).then(() => { 
+            loadAccounts();
+            showFighterNotification("হিসাবটি ডিলিট করা হয়েছে।", "warning");
         });
     }
+}
 
-    /* 🧮 ক্যালকুলেটর ফাংশন */
-    window.toggleCalculator = function() {
-        let calc = document.getElementById("calculatorWidget");
-        calc.style.display = (calc.style.display === "block") ? "none" : "block";
+function loadDirectory() {
+    fetch(FIREBASE_URL + "/directory.json").then(res => res.json()).then(serverData => {
+        directoryData = [];
+        if(serverData) { Object.keys(serverData).forEach(key => { directoryData.push({ id: key, ...serverData[key] }); }); }
+        document.getElementById("totalMembers").innerText = directoryData.length + " জন";
+        renderDirectory();
+    });
+}
+
+function addDirectory() {
+    let name = document.getElementById("dirName").value;
+    let phone = document.getElementById("dirPhone").value;
+    let blood = document.getElementById("dirBlood").value;
+    let fileInput = document.getElementById("dirFile").files[0];
+    
+    if(!name || !phone) return showFighterNotification("নাম ও ফোন নাম্বার দিন!", "warning");
+
+    if (fileInput) {
+        let reader = new FileReader();
+        reader.onload = function(e) {
+            let base64Img = e.target.result;
+            saveDirectoryToFirebase(name, phone, base64Img, blood);
+        };
+        reader.readAsDataURL(fileInput);
+    } else {
+        saveDirectoryToFirebase(name, phone, "https://cdn-icons-png.flaticon.com/512/149/149071.png", blood);
     }
-    window.p = function(val) { document.getElementById("display").value += val; }
-    window.clearCalc = function() { document.getElementById("display").value = ""; }
-    window.calc = function() {
-        try {
-            document.getElementById("display").value = eval(document.getElementById("display").value);
-        } catch(err) {
-            document.getElementById("display").value = "Error";
+}
+
+function saveDirectoryToFirebase(name, phone, imgData, blood) {
+    fetch(FIREBASE_URL + "/directory.json", { method: "POST", body: JSON.stringify({ name, phone, img: imgData, blood }) }).then(() => {
+        loadDirectory();
+        document.getElementById("dirName").value = ""; document.getElementById("dirPhone").value = "";
+        document.getElementById("dirFile").value = "";
+        showFighterNotification("মেম্বার প্রোফাইল তৈরি হয়েছে!", "success");
+    });
+}
+
+function delDirectory(id) {
+    if(confirm("ডিরেক্টরি থেকে এই মেম্বার সнять চান?")) {
+        fetch(`${FIREBASE_URL}/directory/${id}.json`, { method: "DELETE" }).then(() => { 
+            loadDirectory(); 
+            showFighterNotification("মেম্বার প্রোফাইল রিমুভ করা হয়েছে।", "warning");
+        });
+    }
+}
+
+function renderDirectory() {
+    let container = document.getElementById("directoryCardContainer"); container.innerHTML = "";
+    directoryData.forEach(d => {
+        container.innerHTML += `
+            <div class="member-card">
+                <img src="${d.img}" class="avatar" onerror="this.src='https://cdn-icons-png.flaticon.com/512/149/149071.png'">
+                <h4>${d.name}</h4>
+                <a class="phone" href="javascript:void(0)" onclick="showPhone('${d.phone}')">📞 ফোন নম্বর দেখুন</a>
+                <span class="blood-badge">🩸 Group: ${d.blood}</span>
+                ${isAdmin ? `<br><button class="btn-danger" style="padding:6px 12px; font-size:11px; margin-top:18px; width:100%; justify-content:center; border-radius:8px;" onclick="delDirectory('${d.id}')">Delete Profile</button>` : ''}
+            </div>`;
+    });
+}
+
+function loadInventory() {
+    fetch(FIREBASE_URL + "/inventory.json").then(res => res.json()).then(serverData => {
+        inventoryData = []; if(serverData) { Object.keys(serverData).forEach(key => { inventoryData.push({ id: key, ...serverData[key] }); }); }
+        renderInventory();
+    });
+}
+/* Remaining scripts untouched to preserve stability */
+function addInventory() {
+    let item = document.getElementById("invItem").value; let qty = document.getElementById("invQty").value; let status = document.getElementById("invStatus").value;
+    if(!item || !qty) return showFighterNotification("সব তথ্য দিন!", "warning");
+    fetch(FIREBASE_URL + "/inventory.json", { method: "POST", body: JSON.stringify({item, qty, status}) }).then(() => { 
+        loadInventory();
+        document.getElementById("invItem").value = ""; document.getElementById("invQty").value = "";
+        showFighterNotification("ইনভেন্টরি আপডেট হয়েছে!", "success");
+    });
+}
+function delInventory(id) {
+    if(confirm("ইনভেন্টরি থেকে ডিলিট করতে চান?")) {
+        fetch(`${FIREBASE_URL}/inventory/${id}.json`, { method: "DELETE" }).then(() => { 
+            loadInventory(); 
+            showFighterNotification("আইটেম ডিলিট করা হয়েছে।", "warning");
+        });
+    }
+}
+function renderInventory(){
+    let invList = document.getElementById("inventoryList"); invList.innerHTML = "";
+    inventoryData.forEach((d) => {
+        invList.innerHTML += `
+        <tr>
+            <td><strong>🏏 ${d.item}</strong></td>
+            <td style="font-weight:600;">${d.qty} টি</td>
+            <td><span style="background:${d.status==='নষ্ট'?'rgba(239,68,68,0.15)':'rgba(16,185,129,0.15)'}; color:${d.status==='নষ্ট'?'#ef4444':'#10b981'}; padding:4px 12px; border-radius:50px; font-size:12px; font-weight:bold;">${d.status}</span></td>
+            ${isAdmin ? `<td><button class="btn-danger" style="padding:6px 12px; font-size:12px; border-radius:8px;" onclick="delInventory('${d.id}')">Delete</button></td>` : ''}
+        </tr>`;
+    });
+}
+
+function loadGallery() {
+    fetch(FIREBASE_URL + "/gallery.json").then(res => res.json()).then(serverData => {
+        galleryData = [];
+        if(serverData) { Object.keys(serverData).forEach(key => { galleryData.push({ id: key, ...serverData[key] }); }); }
+        renderGallery();
+    });
+}
+
+function uploadPhoto() {
+    let fileInput = document.getElementById("galFile").files[0];
+    let caption = document.getElementById("galCaption").value;
+    let album = document.getElementById("galAlbum").value;
+    
+    if(!fileInput || !caption) return showFighterNotification("ছবি এবং ক্যাপশন দুটোই দিন!", "warning");
+    
+    let reader = new FileReader();
+    reader.onload = function(e) {
+        let base64Img = e.target.result;
+        fetch(FIREBASE_URL + "/gallery.json", { method: "POST", body: JSON.stringify({ url: base64Img, caption, album }) }).then(() => {
+            loadGallery();
+            document.getElementById("galFile").value = ""; document.getElementById("galCaption").value = "";
+            showFighterNotification("গ্যালারিতে ইমেজ পোস্ট সফল হয়েছে!", "success");
+        });
+    };
+    reader.readAsDataURL(fileInput);
+}
+
+function delPhoto(id) {
+    event.stopPropagation();
+    if(confirm("ছবিটি মুছে ফেলতে চান?")) {
+        fetch(`${FIREBASE_URL}/gallery/${id}.json`, { method: "DELETE" }).then(() => { 
+            loadGallery(); 
+            showFighterNotification("ছবিটি মুছে ফেলা হয়েছে।", "warning");
+        });
+    }
+}
+
+function filterGallery(albumName) {
+    currentFilter = albumName;
+    let btns = document.querySelectorAll('.filter-btn');
+    btns.forEach(btn => btn.classList.remove('active'));
+    event.target.classList.add('active');
+    renderGallery();
+}
+
+function renderGallery() {
+    let container = document.getElementById("galleryContainer"); container.innerHTML = "";
+    let filtered = galleryData.filter(p => currentFilter === 'All' || p.album === currentFilter);
+    if(filtered.length === 0) {
+        container.innerHTML = "<p style='padding:20px; color:var(--text-muted);'>এই অ্যালবামে কোনো ছবি নেই।</p>";
+        return;
+    }
+    filtered.forEach(p => {
+        container.innerHTML += `
+            <div class="gallery-item" onclick="openLightbox('${p.url}', '${p.caption}')">
+                ${isAdmin ? `<button class="del-gal-btn" onclick="delPhoto('${p.id}')">×</button>` : ''}
+                <img src="${p.url}" alt="${p.caption}">
+                <div class="gallery-caption">[${p.album || 'All'}] ${p.caption}</div>
+            </div>`;
+    });
+}
+
+function openLightbox(url, caption) {
+    document.getElementById("lightboxImg").src = url;
+    document.getElementById("lightboxCaption").innerText = caption;
+    document.getElementById("lightbox").style.display = "flex";
+}
+function closeLightbox() { document.getElementById("lightbox").style.display = "none"; }
+
+function loadFeedback() {
+    fetch(FIREBASE_URL + "/feedback.json").then(res => res.json()).then(serverData => {
+        feedbackData = []; 
+        if(serverData) { Object.keys(serverData).forEach(key => { feedbackData.push({ id: key, ...serverData[key] }); }); }
+        renderFeedback();
+    });
+}
+
+function sendFeedback() {
+    let name = document.getElementById("fbName").value;
+    let msg = document.getElementById("fbMsg").value;
+    if(!name || !msg) return showFighterNotification("নাম ও মেসেজ দুটোই লিখুন!", "warning");
+    
+    fetch(FIREBASE_URL + "/feedback.json", { method: "POST", body: JSON.stringify({name, msg}) }).then(() => {
+        loadFeedback();
+        document.getElementById("fbName").value = ""; document.getElementById("fbMsg").value = "";
+        showFighterNotification("পরামর্শ বোর্ড সাবমিট সফল!", "success");
+    });
+}
+
+function delFeedback(id) {
+    if(confirm("পরামর্শটি মুছে ফেলতে চান?")) {
+        fetch(`${FIREBASE_URL}/feedback/${id}.json`, { method: "DELETE" }).then(() => { 
+            loadFeedback(); 
+            showFighterNotification("বার্তা মুছে ফেলা হয়েছে।", "warning");
+        });
+    }
+}
+
+function renderFeedback() {
+    let fbList = document.getElementById("feedbackList"); 
+    fbList.innerHTML = "";
+    if(feedbackData.length === 0) {
+        fbList.innerHTML = "<p style='color:var(--text-muted); font-size:14px;'>এখনো কোনো পরামর্শ নেই।</p>";
+        return;
+    }
+    feedbackData.forEach(f => {
+        fbList.innerHTML += `
+            <div class="msg-box">
+                <div><strong>👤 ${f.name}:</strong> <span style="color: #cbd5e1; margin-left: 6px;">${f.msg}</span></div>
+                ${isAdmin ? `<button class="btn-danger" style="padding:4px 10px; font-size:11px; border-radius:6px;" onclick="delFeedback('${f.id}')">Delete</button>` : ''}
+            </div>`;
+    });
+}
+
+function updateNotice() {
+    let text = document.getElementById("newNotice").value;
+    if(!text) return;
+    fetch(FIREBASE_URL + "/notice.json", { method: "PUT", body: JSON.stringify(text) }).then(() => {
+        document.getElementById("noticeText").innerText = text;
+        document.getElementById("newNotice").value = "";
+        showFighterNotification("লাইভ নোটিশ আপডেট হয়েছে!", "success");
+    });
+}
+
+function updateBirthdayWish() {
+    let wish = document.getElementById("newBirthdayWish").value;
+    if(!wish) return;
+    fetch(FIREBASE_URL + "/birthday.json", { method: "PUT", body: JSON.stringify(wish) }).then(() => {
+        activeBirthdayWish = wish;
+        document.getElementById("newBirthdayWish").value = "";
+        showFighterNotification("বার্থডে উইশ মেমোরি আপডেট সফল!", "success");
+    });
+}
+
+function checkTodayBirthdays() {
+    alert(`🎂 আজকের উইশ বার্তা: \n\n${activeBirthdayWish}`);
+}
+
+function openMemberModal(memberName) {
+    document.getElementById("modalMemberName").innerText = `👤 ${memberName} - এর ব্যক্তিগত হিসাব`;
+    let tableBody = document.getElementById("modalTableBody");
+    tableBody.innerHTML = "";
+    
+    let totalPaid = 0;
+    let totalDue = 0;
+    
+    accountsData.forEach(acc => {
+        if(acc.member.toLowerCase() === memberName.toLowerCase()) {
+            let due = Number(acc.price) - Number(acc.paid);
+            totalPaid += Number(acc.paid);
+            totalDue += due;
+            
+            tableBody.innerHTML += `
+                <tr>
+                    <td>${acc.item}</td>
+                    <td>${acc.date}</td>
+                    <td style="color:#10b981;">${acc.paid} ৳</td>
+                    <td style="color:${due>0?'#ef4444':'#10b981'}; font-weight:bold;">${due} ৳</td>
+                </tr>`;
         }
-    }
+    });
+    
+    document.getElementById("modalTotalPaid").innerText = totalPaid;
+    document.getElementById("modalTotalDue").innerText = totalDue;
+    document.getElementById("memberModal").style.display = "flex";
+}
+function closeModal() { document.getElementById("memberModal").style.display = "none"; }
 
-    const PHONE_PASSWORD = "fightermember2026";
-    window.showPhone = function(phone) {
-        const pass = prompt("📞 ফোন নম্বর দেখতে পাসওয়ার্ড দিন:");
-        if (pass === PHONE_PASSWORD) alert("📞 ফোন নম্বর: " + phone);
-        else if(pass !== null) showFighterNotification("❌ ভুল পাসওয়ার্ড!", "error");
-    }
+function loadWeather() {
+    fetch("https://api.open-meteo.com/v1/forecast?latitude=25.3289&longitude=89.5395&current=temperature_2m,relative_humidity_2m")
+    .then(res => res.json())
+    .then(data => {
+        if(data && data.current) {
+            let temp = data.current.temperature_2m;
+            let humidity = data.current.relative_humidity_2m;
+            document.getElementById("weatherDisplay").innerText = `☀️ তাপমাত্রা: ${temp}°C | 💧 আর্দ্রতা: ${humidity}% | ক্রিকেট খেলার জন্য আবহাওয়া চমৎকার! 🏏`;
+        }
+    }).catch(() => {
+        document.getElementById("weatherDisplay").innerText = "☀️ তাপমাত্রা: ২৯°C | ক্রিকেট খেলার জন্য আবহাওয়া একদম অনুকূল!";
+    });
+}
 
-    // ড্যাশবোর্ড ইনিশিয়াল লোড
-    initDashboard();
+function toggleCalculator() {
+    let calc = document.getElementById("calculatorWidget");
+    calc.style.display = (calc.style.display === "block") ? "none" : "block";
+}
+function p(val) { document.getElementById("display").value += val; }
+function clearCalc() { document.getElementById("display").value = ""; }
+function calc() {
+    try {
+        let result = eval(document.getElementById("display").value);
+        document.getElementById("display").value = result;
+    } catch(err) {
+        document.getElementById("display").value = "Error";
+    }
+}
+
+const PHONE_PASSWORD = "fightermember2026";
+
+function showPhone(phone) {
+    const pass = prompt("📞 ফোন নম্বর দেখতে পাসওয়ার্ড দিন:");
+    if (pass === null) return;
+    if (pass === PHONE_PASSWORD) {
+        alert("📞 ফোন নম্বর: " + phone);
+    } else {
+        showFighterNotification("❌ ভুল পাসওয়ার্ড!", "error");
+    }
+}
+if ("serviceWorker" in navigator) {
+    navigator.serviceWorker.register("sw.js")
+    .then(() => console.log("Service Worker Registered"))
+    .catch(err => console.log("SW Error", err));
+}
 </script>
 </body>
 </html>
