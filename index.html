@@ -6,7 +6,7 @@
 <link class="icon" href="fighter-cricket-logo.png">
 <link rel="shortcut icon" href="fighter-cricket-logo.png">
 <link rel="apple-touch-icon" href="fighter-cricket-logo.png">
-
+<link rel="stylesheet" href="animation.css">
 <meta property="og:title" content="FIGHTER Cricket Club">
 <meta property="og:image" content="https://yourdomain.com/fighter-cricket-logo.png">
 <meta property="og:type" content="website">
@@ -143,7 +143,18 @@ body {
     box-shadow: 0 0 25px rgba(59, 130, 246, 0.5); 
     object-fit: cover;
     border: 2px solid var(--primary);
+    animation: floatLogo 3s ease-in-out infinite;
 }
+@keyframes floatLogo {
+    0%, 100% {
+        transform: translateY(0);
+    }
+
+    50% {
+        transform: translateY(-10px);
+    }
+}
+
 .header-section h2 { 
     font-size: 36px; 
     font-weight: 700; 
@@ -209,6 +220,11 @@ button:active { transform: translateY(0); }
 .expense span { color: #ef4444; text-shadow: 0 0 15px rgba(239,68,68,0.3); }
 .balance span { color: #f59e0b; text-shadow: 0 0 15px rgba(245,158,11,0.3); }
 .members-box span { color: #3b82f6; text-shadow: 0 0 15px rgba(59,130,246,0.3); }
+
+.box:hover{
+    transform: translateY(-10px) scale(1.03);
+    box-shadow: 0 20px 40px rgba(59,130,246,.35);
+}
 
 /* 📑 কার্ড মরফিজম */
 .pro-card { 
@@ -393,10 +409,312 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; font-size: 14px;
 .toast-notification.success { border-left-color: #10b981; box-shadow: 0 10px 25px rgba(16,185,129,0.15); }
 .toast-notification.error { border-left-color: #ef4444; box-shadow: 0 10px 25px rgba(239,68,68,0.15); }
 .toast-notification.warning { border-left-color: #f59e0b; box-shadow: 0 10px 25px rgba(245,158,11,0.15); }
+/* Scroll Progress Bar */
+#progressBar{
+    position:fixed;
+    top:0;
+    left:0;
+    width:0%;
+    height:4px;
+    background:linear-gradient(90deg,#3b82f6,#06b6d4,#22c55e);
+    z-index:999999;
+    transition:width .15s linear;
+}
+.settings-panel{
+position:fixed;
+top:0;
+right:-320px;
+width:300px;
+height:100%;
+background:#1e293b;
+padding:20px;
+z-index:999999;
+transition:.4s;
+box-shadow:-10px 0 25px rgba(0,0,0,.35);
+overflow:auto;
+}
+
+.settings-panel.active{
+right:0;
+}
+
+.settings-panel h2{
+margin-top:0;
+text-align:center;
+color:white;
+}
+
+.settings-panel button{
+width:100%;
+margin:10px 0;
+}
+.welcome-popup{
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.75);
+display:flex;
+justify-content:center;
+align-items:center;
+z-index:999999;
+}
+
+.welcome-card{
+background:#1e293b;
+padding:30px;
+border-radius:20px;
+width:90%;
+max-width:400px;
+text-align:center;
+box-shadow:0 0 30px rgba(59,130,246,.35);
+animation:popup .5s;
+}
+
+.popup-logo{
+width:90px;
+margin-bottom:15px;
+border-radius:50%;
+}
+
+.welcome-card button{
+margin-top:20px;
+}
+
+@keyframes popup{
+from{
+transform:scale(.7);
+opacity:0;
+}
+to{
+transform:scale(1);
+opacity:1;
+}
+}
+#aiBtn{
+position:fixed;
+right:20px;
+bottom:25px;
+width:60px;
+height:60px;
+border:none;
+border-radius:50%;
+font-size:28px;
+cursor:pointer;
+background:#3b82f6;
+color:#fff;
+box-shadow:0 10px 25px rgba(0,0,0,.3);
+z-index:99999;
+}
+
+#aiBox{
+position:fixed;
+right:20px;
+bottom:95px;
+width:320px;
+background:#1e293b;
+border-radius:18px;
+display:none;
+overflow:hidden;
+box-shadow:0 15px 35px rgba(0,0,0,.4);
+z-index:99999;
+}
+
+.ai-header{
+background:#3b82f6;
+color:white;
+padding:12px;
+display:flex;
+justify-content:space-between;
+font-weight:bold;
+}
+
+#aiMessages{
+padding:15px;
+max-height:260px;
+overflow:auto;
+}
+
+.ai-msg{
+background:#334155;
+padding:10px;
+border-radius:10px;
+margin-bottom:10px;
+}
+
+.ai-buttons{
+padding:10px;
+display:grid;
+grid-template-columns:1fr 1fr;
+gap:8px;
+}
+
+.ai-buttons button{
+padding:10px;
+cursor:pointer;
+}
+.update-popup{
+    position:fixed;
+    inset:0;
+    background:rgba(0,0,0,.75);
+    display:none;
+    justify-content:center;
+    align-items:center;
+    z-index:999999;
+}
+
+.update-card{
+    background:#1e293b;
+    padding:25px;
+    width:90%;
+    max-width:400px;
+    border-radius:20px;
+    text-align:center;
+    box-shadow:0 0 30px rgba(59,130,246,.35);
+}
+
+.update-card button{
+    margin:8px;
+}
+.update-popup{
+display:none;
+position:fixed;
+top:0;
+left:0;
+width:100%;
+height:100%;
+background:rgba(0,0,0,.6);
+justify-content:center;
+align-items:center;
+z-index:999999;
+}
+
+.update-card{
+background:#1e293b;
+padding:25px;
+border-radius:18px;
+text-align:center;
+max-width:350px;
+width:90%;
+box-shadow:0 10px 30px rgba(0,0,0,.35);
+}
+
+.update-card button{
+margin-top:15px;
+padding:10px 20px;
+background:#3b82f6;
+color:white;
+border:none;
+border-radius:10px;
+cursor:pointer;
+}
+
+/* Executive Committee Section Style */
+.committee-section{
+    margin:40px 0;
+}
+
+.committee-section h2{
+    text-align:center;
+    margin-bottom:25px;
+    color:var(--primary);
+}
+
+.committee-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(230px,1fr));
+    gap:20px;
+}
+
+.committee-card{
+    background:#1e293b;
+    border-radius:18px;
+    padding:20px;
+    text-align:center;
+    transition:.3s;
+    border:1px solid rgba(255,255,255,.08);
+}
+
+.committee-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 12px 30px rgba(59,130,246,.35);
+}
+
+.committee-card img{
+    width:100px;
+    height:100px;
+    border-radius:50%;
+    object-fit:cover;
+    border:3px solid #3b82f6;
+    margin-bottom:15px;
+}
+
+.committee-card h3{
+    color:#3b82f6;
+    margin-bottom:10px;
+}
 </style>
 </head>
 <body onload="initDashboard()">
+    <div id="progressBar"></div>
+<div id="welcomePopup" class="welcome-popup">
+    <div class="welcome-card">
+        <img src="fighter-cricket-logo.png" class="popup-logo">
 
+        <h2>🏏 Welcome to FIGHTER Cricket Club</h2>
+
+        <p>
+            Welcome to the official website of
+            <b>FIGHTER Cricket Club</b>.
+            Enjoy your visit!
+        </p>
+
+        <button onclick="closeWelcome()">Enter Website</button>
+    </div>
+</div>
+
+<!-- Fighter AI -->
+<button id="aiBtn" onclick="toggleAI()">
+🤖
+</button>
+
+<div id="aiBox">
+
+<div class="ai-header">
+🤖 Fighter AI
+<span onclick="toggleAI()">✖</span>
+</div>
+
+<div id="aiMessages">
+
+<div class="ai-msg">
+👋 Hello! আমি Fighter AI। নিচের বাটন থেকে একটি প্রশ্ন নির্বাচন করুন।
+</div>
+
+</div>
+
+<div class="ai-buttons">
+
+<button onclick="askAI('members')">
+👥 Members
+</button>
+
+<button onclick="askAI('notice')">
+📢 Notice
+</button>
+
+<button onclick="askAI('weather')">
+🌦 Weather
+</button>
+
+<button onclick="askAI('about')">
+ℹ About
+</button>
+
+</div>
+
+</div>
 <nav class="navbar">
     <a href="#" class="nav-brand">🏏 FIGHTER Club</a>
     <div class="nav-links">
@@ -413,7 +731,14 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; font-size: 14px;
     <div class="notice-board">
         <div class="notice-text" id="noticeText">স্বাগতম! FIGHTER Cricket Club-এর অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম।</div>
     </div>
-
+    <!-- Loading Screen -->
+<div id="loader">
+    <div class="loader-box">
+        <img src="fighter-cricket-logo.png" alt="Logo">
+        <h2>FIGHTER Cricket Club</h2>
+        <div class="spinner"></div>
+    </div>
+</div>
     <div class="container">
         <div class="weather-widget">
             <h3 style="margin:0 0 8px 0; font-weight: 600; letter-spacing: 0.3px;">🌦️ গাইবান্ধা জেলা: আজকের খেলার আবহাওয়া খতিয়ান</h3>
@@ -486,6 +811,37 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; font-size: 14px;
                 </table>
             </div>
         </div>
+
+        <!-- Executive Committee HTML Section Added Here -->
+        <section class="committee-section">
+            <h2>👑 Executive Committee</h2>
+            <div class="committee-grid">
+                <div class="committee-card">
+                    <img src="fighter-cricket-logo.png" alt="Chairman">
+                    <h3>Chairman</h3>
+                    <p><b>Name:</b> Your Name</p>
+                    <p>📞 01XXXXXXXXX</p>
+                </div>
+                <div class="committee-card">
+                    <img src="fighter-cricket-logo.png" alt="President">
+                    <h3>President (সভাপতি)</h3>
+                    <p><b>Name:</b> Your Name</p>
+                    <p>📞 01XXXXXXXXX</p>
+                </div>
+                <div class="committee-card">
+                    <img src="fighter-cricket-logo.png" alt="Secretary">
+                    <h3>General Secretary</h3>
+                    <p><b>Name:</b> Your Name</p>
+                    <p>📞 01XXXXXXXXX</p>
+                </div>
+                <div class="committee-card">
+                    <img src="fighter-cricket-logo.png" alt="Treasurer">
+                    <h3>Treasurer</h3>
+                    <p><b>Name:</b> Your Name</p>
+                    <p>📞 01XXXXXXXXX</p>
+                </div>
+            </div>
+        </section>
 
         <div class="pro-card" id="directorySection">
             <h3 style="margin-top:0; font-size:22px; font-weight:700; letter-spacing: 0.3px;">👤 ফাইটার মেম্বার ডিরেক্টরি ও ব্লাড গ্রুপ</h3>
@@ -618,9 +974,69 @@ footer { text-align: center; margin-top: 80px; padding: 25px 0; font-size: 14px;
 <div class="floating-widgets">
     <button class="circle-btn" style="background: linear-gradient(135deg, #ec4899, #be185d); box-shadow:0 8px 25px rgba(236,72,153,0.4);" onclick="checkTodayBirthdays()">🎂</button>
     <button class="circle-btn" onclick="toggleCalculator()">🧮</button>
+    <button class="circle-btn" onclick="scrollToTop()">⬆️</button>
+    <button class="circle-btn" style="background:linear-gradient(135deg,#f59e0b,#d97706)" onclick="toggleSettings()">⚙️</button>
 </div>
 
+<div id="settingsPanel" class="settings-panel">
+
+<h2>⚙️ Settings</h2>
+
+<button onclick="toggleDark()">
+🌙 Dark / Light
+</button>
+
+<button onclick="changeTheme('#3b82f6')">
+🔵 Blue
+</button>
+
+<button onclick="changeTheme('#10b981')">
+🟢 Green
+</button>
+
+<button onclick="changeTheme('#ef4444')">
+🔴 Red
+</button>
+
+<button onclick="changeTheme('#a855f7')">
+🟣 Purple
+</button>
+
+<button onclick="toggleSettings()">
+❌ Close
+</button>
+
+</div>
 <div id="fighterToast" class="toast-notification">💡 মেসেজ এখানে দেখাবে</div>
+<div id="updatePopup" class="update-popup">
+    <div class="update-card">
+        <h2>🚀 New Update Available</h2>
+        <p>
+            A new version of Fighter Cricket Club is ready.
+        </p>
+
+        <button onclick="updateApp()">
+            Update Now
+        </button>
+
+        <button onclick="closeUpdatePopup()">
+            Later
+        </button>
+    </div>
+</div>
+<div id="updatePopup" class="update-popup">
+
+<div class="update-card">
+
+<h2>🚀 Update Available</h2>
+
+<p>A new version of Fighter Cricket Club is available.</p>
+
+<button id="updateNow">Update Now</button>
+
+</div>
+
+</div>
 
 <footer>
     <p>© 2026 FIGHTER Cricket Club | Developed by <a href="about.html" target="_blank" style="color: var(--primary); font-weight: bold; text-decoration: none;">Borno Sarker</a></p>
@@ -1141,10 +1557,124 @@ function showPhone(phone) {
 }
 
 if ("serviceWorker" in navigator) {
-    navigator.serviceWorker.register("sw.js")
-    .then(() => console.log("Service Worker Registered"))
-    .catch(err => console.log("SW Error", err));
+navigator.serviceWorker.register("sw.js")
+.then(reg => {
+console.log("Service Worker Registered");
+reg.addEventListener("updatefound",()=>{
+const newWorker=reg.installing;
+newWorker.addEventListener("statechange",()=>{
+if(newWorker.state==="installed" && navigator.serviceWorker.controller){
+document.getElementById("updatePopup").style.display="flex";
+}
+});
+});
+document.getElementById("updateNow").onclick=function(){
+if(reg.waiting){
+reg.waiting.postMessage({
+type:"SKIP_WAITING"
+});
+}
+location.reload();
+};
+})
+.catch(err=>console.log(err));
+}
+window.addEventListener("scroll", () => {
+const winScroll=document.documentElement.scrollTop;
+const height=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+const scrolled=(winScroll/height)*100;
+document.getElementById("progressBar").style.width=scrolled+"%";
+});
+function scrollToTop(){
+window.scrollTo({
+top:0,
+behavior:"smooth"
+});
+}
+function toggleSettings(){
+document
+.getElementById("settingsPanel")
+.classList.toggle("active");
+}
+
+function changeTheme(color){
+document.documentElement
+.style.setProperty("--primary",color);
+showFighterNotification(
+"Theme Changed!",
+"success"
+);
+}
+function closeWelcome(){
+document
+.getElementById("welcomePopup")
+.style.display="none";
+}
+function toggleAI(){
+const box=document.getElementById("aiBox");
+box.style.display=
+box.style.display==="block"
+?"none":"block";
+}
+
+function askAI(type){
+let answer="";
+switch(type){
+case "members":
+answer="👥 বর্তমানে ক্লাবের Member তালিকা Member Directory-তে দেখতে পারবেন।";
+break;
+case "notice":
+answer="📢 সর্বশেষ Notice দেখতে Notice Board খুলুন।";
+break;
+case "weather":
+answer="🌦 আজকের আবহাওয়া Dashboard-এর Weather Card-এ দেখানো হচ্ছে।";
+break;
+case "about":
+answer="🏏 FIGHTER Cricket Club একটি আধুনিক ক্রিকেট ক্লাব ম্যানেজমেন্ট প্ল্যাটফর্ম।";
+break;
+}
+document.getElementById("aiMessages").innerHTML+=`
+<div class="ai-msg">${answer}</div>
+`;
+document.getElementById("aiMessages").scrollTop=
+document.getElementById("aiMessages").scrollHeight;
+}
+let newWorker;
+
+if ('serviceWorker' in navigator) {
+    navigator.serviceWorker.register('service-worker.js')
+    .then(reg => {
+        reg.addEventListener('updatefound', () => {
+            newWorker = reg.installing;
+            newWorker.addEventListener('statechange', () => {
+                if (
+                    newWorker.state === 'installed' &&
+                    navigator.serviceWorker.controller
+                ) {
+                    document
+                    .getElementById('updatePopup')
+                    .style.display = 'flex';
+                }
+            });
+        });
+    });
+}
+
+function updateApp(){
+    if(newWorker){
+        newWorker.postMessage({
+            action:'skipWaiting'
+        });
+    }
+    location.reload();
+}
+
+function closeUpdatePopup(){
+    document
+    .getElementById('updatePopup')
+    .style.display='none';
 }
 </script>
+<script src="animation.js"></script>
 </body>
 </html>

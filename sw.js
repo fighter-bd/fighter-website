@@ -1,4 +1,4 @@
-const CACHE_NAME = "fighter-cache-v1";
+const CACHE_NAME = "fighter-cache-v3.0.0";
 const urlsToCache = [
   "./",
   "./index.html",
@@ -47,4 +47,35 @@ self.addEventListener("notificationclick", event => {
       }
     })
   );
+});
+self.addEventListener("message", (event) => {
+  if (event.data && event.data.type === "SKIP_WAITING") {
+    self.skipWaiting();
+  }
+});
+
+self.addEventListener("activate", (event) => {
+
+  event.waitUntil(
+
+    caches.keys().then(cacheNames => {
+
+      return Promise.all(
+
+        cacheNames.map(cache => {
+
+          if(cache !== CACHE_NAME){
+
+            return caches.delete(cache);
+
+          }
+
+        })
+
+      );
+
+    }).then(() => clients.claim())
+
+  );
+
 });
