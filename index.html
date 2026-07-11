@@ -554,61 +554,6 @@ gap:8px;
 padding:10px;
 cursor:pointer;
 }
-.update-popup{
-    position:fixed;
-    inset:0;
-    background:rgba(0,0,0,.75);
-    display:none;
-    justify-content:center;
-    align-items:center;
-    z-index:999999;
-}
-
-.update-card{
-    background:#1e293b;
-    padding:25px;
-    width:90%;
-    max-width:400px;
-    border-radius:20px;
-    text-align:center;
-    box-shadow:0 0 30px rgba(59,130,246,.35);
-}
-
-.update-card button{
-    margin:8px;
-}
-.update-popup{
-display:none;
-position:fixed;
-top:0;
-left:0;
-width:100%;
-height:100%;
-background:rgba(0,0,0,.6);
-justify-content:center;
-align-items:center;
-z-index:999999;
-}
-
-.update-card{
-background:#1e293b;
-padding:25px;
-border-radius:18px;
-text-align:center;
-max-width:350px;
-width:90%;
-box-shadow:0 10px 30px rgba(0,0,0,.35);
-}
-
-.update-card button{
-margin-top:15px;
-padding:10px 20px;
-background:#3b82f6;
-color:white;
-border:none;
-border-radius:10px;
-cursor:pointer;
-}
 
 /* Executive Committee Section Style */
 .committee-section{
@@ -731,14 +676,7 @@ cursor:pointer;
     <div class="notice-board">
         <div class="notice-text" id="noticeText">স্বাগতম! FIGHTER Cricket Club-এর অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম।</div>
     </div>
-    <!-- Loading Screen -->
-<div id="loader">
-    <div class="loader-box">
-        <img src="fighter-cricket-logo.png" alt="Logo">
-        <h2>FIGHTER Cricket Club</h2>
-        <div class="spinner"></div>
-    </div>
-</div>
+
     <div class="container">
         <div class="weather-widget">
             <h3 style="margin:0 0 8px 0; font-weight: 600; letter-spacing: 0.3px;">🌦️ গাইবান্ধা জেলা: আজকের খেলার আবহাওয়া খতিয়ান</h3>
@@ -1008,35 +946,6 @@ cursor:pointer;
 
 </div>
 <div id="fighterToast" class="toast-notification">💡 মেসেজ এখানে দেখাবে</div>
-<div id="updatePopup" class="update-popup">
-    <div class="update-card">
-        <h2>🚀 New Update Available</h2>
-        <p>
-            A new version of Fighter Cricket Club is ready.
-        </p>
-
-        <button onclick="updateApp()">
-            Update Now
-        </button>
-
-        <button onclick="closeUpdatePopup()">
-            Later
-        </button>
-    </div>
-</div>
-<div id="updatePopup" class="update-popup">
-
-<div class="update-card">
-
-<h2>🚀 Update Available</h2>
-
-<p>A new version of Fighter Cricket Club is available.</p>
-
-<button id="updateNow">Update Now</button>
-
-</div>
-
-</div>
 
 <footer>
     <p>© 2026 FIGHTER Cricket Club | Developed by <a href="about.html" target="_blank" style="color: var(--primary); font-weight: bold; text-decoration: none;">Borno Sarker</a></p>
@@ -1560,22 +1469,6 @@ if ("serviceWorker" in navigator) {
 navigator.serviceWorker.register("sw.js")
 .then(reg => {
 console.log("Service Worker Registered");
-reg.addEventListener("updatefound",()=>{
-const newWorker=reg.installing;
-newWorker.addEventListener("statechange",()=>{
-if(newWorker.state==="installed" && navigator.serviceWorker.controller){
-document.getElementById("updatePopup").style.display="flex";
-}
-});
-});
-document.getElementById("updateNow").onclick=function(){
-if(reg.waiting){
-reg.waiting.postMessage({
-type:"SKIP_WAITING"
-});
-}
-location.reload();
-};
 })
 .catch(err=>console.log(err));
 }
@@ -1638,41 +1531,6 @@ document.getElementById("aiMessages").innerHTML+=`
 `;
 document.getElementById("aiMessages").scrollTop=
 document.getElementById("aiMessages").scrollHeight;
-}
-let newWorker;
-
-if ('serviceWorker' in navigator) {
-    navigator.serviceWorker.register('service-worker.js')
-    .then(reg => {
-        reg.addEventListener('updatefound', () => {
-            newWorker = reg.installing;
-            newWorker.addEventListener('statechange', () => {
-                if (
-                    newWorker.state === 'installed' &&
-                    navigator.serviceWorker.controller
-                ) {
-                    document
-                    .getElementById('updatePopup')
-                    .style.display = 'flex';
-                }
-            });
-        });
-    });
-}
-
-function updateApp(){
-    if(newWorker){
-        newWorker.postMessage({
-            action:'skipWaiting'
-        });
-    }
-    location.reload();
-}
-
-function closeUpdatePopup(){
-    document
-    .getElementById('updatePopup')
-    .style.display='none';
 }
 </script>
 <script src="animation.js"></script>
