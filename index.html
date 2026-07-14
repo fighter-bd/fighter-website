@@ -768,6 +768,181 @@ cursor:pointer;
     opacity:1;
     background:#3b82f6;
 }
+/* ===== Notification ===== */
+
+.notification-wrapper{
+    position:relative;
+}
+
+.notification-btn{
+    width:48px;
+    height:48px;
+    border-radius:50%;
+    border:none;
+    cursor:pointer;
+    font-size:22px;
+    background:#3b82f6;
+    color:white;
+    position:relative;
+}
+
+.notification-count{
+    position:absolute;
+    top:-5px;
+    right:-5px;
+    background:#ef4444;
+    color:white;
+    width:22px;
+    height:22px;
+    border-radius:50%;
+    display:flex;
+    justify-content:center;
+    align-items:center;
+    font-size:12px;
+    font-weight:bold;
+}
+
+.notification-panel{
+    display:none;
+    position:absolute;
+    right:0;
+    top:60px;
+    width:330px;
+    background:#1e293b;
+    border-radius:18px;
+    overflow:hidden;
+    box-shadow:0 15px 35px rgba(0,0,0,.35);
+    border:1px solid rgba(255,255,255,.08);
+    z-index:99999;
+}
+
+.notification-header{
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+    padding:15px;
+    background:#3b82f6;
+    color:white;
+}
+
+.notification-header button{
+    padding:6px 12px;
+    font-size:12px;
+}
+
+.notification-item{
+    padding:15px;
+    border-bottom:1px solid rgba(255,255,255,.08);
+}
+
+.notification-item:hover{
+    background:#334155;
+}
+
+.notification-title{
+    font-weight:bold;
+    color:#fff;
+}
+
+.notification-time{
+    color:#94a3b8;
+    font-size:12px;
+    margin-top:5px;
+}
+/* ========================= */
+/* 📰 Fighter News Section */
+/* ========================= */
+
+.news-grid{
+    display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
+    gap:25px;
+    margin-top:25px;
+}
+
+.news-card{
+    background:rgba(30,41,59,.55);
+    border:1px solid rgba(255,255,255,.08);
+    border-radius:20px;
+    overflow:hidden;
+    transition:.35s;
+    backdrop-filter:blur(10px);
+    box-shadow:0 10px 25px rgba(0,0,0,.25);
+}
+
+.news-card:hover{
+    transform:translateY(-8px);
+    box-shadow:0 20px 40px rgba(59,130,246,.30);
+}
+
+.news-card img{
+    width:100%;
+    height:220px;
+    object-fit:cover;
+}
+
+.news-content{
+    padding:20px;
+}
+
+.news-category{
+    display:inline-block;
+    background:#3b82f6;
+    color:white;
+    padding:5px 12px;
+    border-radius:50px;
+    font-size:12px;
+    margin-bottom:12px;
+}
+
+.news-title{
+    font-size:22px;
+    font-weight:700;
+    margin-bottom:12px;
+    color:white;
+}
+
+.news-date{
+    color:#94a3b8;
+    font-size:13px;
+    margin-bottom:15px;
+}
+
+.news-desc{
+    color:#e2e8f0;
+    line-height:1.7;
+    font-size:15px;
+}
+
+.news-actions{
+    margin-top:18px;
+    display:flex;
+    justify-content:space-between;
+    align-items:center;
+}
+
+.read-btn{
+    background:#3b82f6;
+    color:white;
+    border:none;
+    padding:10px 18px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.delete-news{
+    background:#ef4444;
+    color:white;
+    border:none;
+    padding:8px 15px;
+    border-radius:10px;
+    cursor:pointer;
+}
+
+.news-card:hover img{
+    transform:scale(1.05);
+    transition:.4s;
+}
 </style>
 </head>
 <body onload="initDashboard()">
@@ -837,6 +1012,23 @@ cursor:pointer;
         <a href="#gallerySection">গ্যালারি</a>
         <!-- 💬 হোয়াটসঅ্যাপ বাটন এখানে যোগ করা হয়েছে -->
         <a href="https://fighter-bd.github.io/Fighter-Whatsapp/" target="_blank" class="btn-link btn-chat">💬 ওপেন ফাইটার হোয়াটসঅ্যাপ</a>
+        <div class="notification-wrapper">
+    <button class="notification-btn" onclick="toggleNotifications()">
+        🔔
+        <span id="notificationCount" class="notification-count">0</span>
+    </button>
+
+    <div id="notificationPanel" class="notification-panel">
+        <div class="notification-header">
+            <h3>🔔 Notifications</h3>
+            <button onclick="clearNotifications()">Clear</button>
+        </div>
+
+        <div id="notificationList">
+
+        </div>
+    </div>
+</div>
         <button id="authBtn" class="btn-success" onclick="handleAuth()" style="padding: 8px 16px; font-size: 13px;">🔐 Admin Login</button>
     </div>
 </nav>
@@ -846,7 +1038,8 @@ cursor:pointer;
         <div class="notice-text" id="noticeText">স্বাগতম! FIGHTER Cricket Club-এর অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম।</div>
     </div>
 </div>
-<!-- Premium Hero Banner -->
+    <div class="container">
+        <!-- Premium Hero Banner -->
 
 <div class="hero-banner">
 
@@ -890,7 +1083,6 @@ cursor:pointer;
 </div>
 
 </div>
-    <div class="container">
         <div class="weather-widget">
             <h3 style="margin:0 0 8px 0; font-weight: 600; letter-spacing: 0.3px;">🌦️ গাইবান্ধা জেলা: আজকের খেলার আবহাওয়া খতিয়ান</h3>
             <p id="weatherDisplay" style="margin:0; font-weight:500; color: #e2e8f0;">গাইবান্ধার লাইভ আবহাওয়া লোড হচ্ছে...</p>
@@ -969,7 +1161,7 @@ cursor:pointer;
             <div class="committee-grid">
                 <div class="committee-card">
                     <img src="fighter-cricket-logo.png" alt="Chairman">
-                    <h3>Chairman(সভাপতি)</h3>
+                    <h3>Chairman (সভাপতি)</h3>
                     <p><b>Name:</b> Your Name</p>
                     <p>📞 01XXXXXXXXX</p>
                 </div>
@@ -1058,7 +1250,7 @@ cursor:pointer;
             </div>
             <div class="gallery-grid" id="galleryContainer"></div>
         </div>
-
+</section>
         <div class="pro-card">
             <h3 style="margin-top:0; font-size:22px; font-weight:700; letter-spacing: 0.3px;">💬 মেম্বার পরামর্শ বোর্ড</h3>
             <div id="feedbackList" style="max-height: 280px; overflow-y: auto; margin-bottom: 25px; padding-right: 5px;"></div>
@@ -1230,6 +1422,7 @@ let accountsData = [];
 let inventoryData = [];
 let feedbackData = [];
 let galleryData = [];
+let newsData = [];
 let directoryData = [];
 let activeBirthdayWish = "আজ আমাদের ক্লাবের কোনো মেম্বারের জন্মদিন নেই। 🎉";
 let isAdmin = false;
@@ -1242,6 +1435,7 @@ function initDashboard() {
     loadGallery();
     loadDirectory();
     loadWeather();
+    loadNews();
     requestNotificationPermission(); 
     listenToPushNotifications();    
     
@@ -1855,36 +2049,6 @@ function closeUpdatePopup(){
     .getElementById('updatePopup')
     .style.display='none';
 }
-/* ===== Premium Confetti Effect ===== */
-
-function showConfetti() {
-
-    const duration = 3000;
-    const end = Date.now() + duration;
-
-    (function frame() {
-
-        confetti({
-            particleCount: 4,
-            angle: 60,
-            spread: 60,
-            origin: { x: 0 }
-        });
-
-        confetti({
-            particleCount: 4,
-            angle: 120,
-            spread: 60,
-            origin: { x: 1 }
-        });
-
-        if (Date.now() < end) {
-            requestAnimationFrame(frame);
-        }
-
-    })();
-
-}
 /* ===== Hero Banner Slider ===== */
 
 const slides = document.querySelectorAll(".hero-slide");
@@ -1907,8 +2071,364 @@ slides[currentSlide].classList.add("active");
 dots[currentSlide].classList.add("active");
 
 },5000);
+let notifications = [
+
+{
+title:"📢 Match Update",
+message:"FIGHTER vs Warriors আগামীকাল বিকাল ৩:৩০",
+time:"Today"
+},
+
+{
+title:"🎂 Birthday",
+message:"আজ রাহিমের জন্মদিন 🎉",
+time:"Today"
+},
+
+{
+title:"📢 Admin Message",
+message:"শুক্রবার সকাল ৮টায় প্র্যাকটিস",
+time:"2 Hours Ago"
+},
+
+{
+title:"🏆 Tournament",
+message:"Registration Started",
+time:"Yesterday"
+},
+
+{
+title:"💰 Payment Reminder",
+message:"আপনার ২০০ টাকা বাকি আছে।",
+time:"Yesterday"
+}
+
+];
+
+function loadNotifications(){
+
+const box=document.getElementById("notificationList");
+
+box.innerHTML="";
+
+notifications.forEach(n=>{
+
+box.innerHTML+=`
+
+<div class="notification-item">
+
+<div class="notification-title">${n.title}</div>
+
+<div>${n.message}</div>
+
+<div class="notification-time">${n.time}</div>
+
+</div>
+
+`;
+
+});
+
+document.getElementById("notificationCount").innerText=notifications.length;
+
+}
+
+function toggleNotifications(){
+
+let panel=document.getElementById("notificationPanel");
+
+panel.style.display=panel.style.display==="block"?"none":"block";
+
+}
+
+function clearNotifications(){
+
+notifications=[];
+
+loadNotifications();
+
+}
+
+window.addEventListener("load",loadNotifications);
+// ==========================
+// 📰 Fighter News System
+// ==========================
+
+function loadNews(){
+
+fetch(FIREBASE_URL + "/news.json")
+
+.then(res=>res.json())
+
+.then(data=>{
+
+newsData=[];
+
+if(data){
+
+Object.keys(data).forEach(key=>{
+
+newsData.push({
+
+id:key,
+
+...data[key]
+
+});
+
+});
+
+}
+
+renderNews();
+
+});
+
+}
+
+function addNews(){
+
+let title=document.getElementById("newsTitle").value;
+
+let category=document.getElementById("newsCategory").value;
+
+let date=document.getElementById("newsDate").value;
+
+let description=document.getElementById("newsDescription").value;
+
+let file=document.getElementById("newsImage").files[0];
+
+if(!title || !description){
+
+showFighterNotification("সব তথ্য দিন!","warning");
+
+return;
+
+}
+
+if(file){
+
+let reader=new FileReader();
+
+reader.onload=function(e){
+
+saveNews(
+
+title,
+
+category,
+
+date,
+
+description,
+
+e.target.result
+
+);
+
+};
+
+reader.readAsDataURL(file);
+
+}else{
+
+saveNews(
+
+title,
+
+category,
+
+date,
+
+description,
+
+"fighter-cricket-logo.png"
+
+);
+
+}
+
+}
+
+function saveNews(
+
+title,
+
+category,
+
+date,
+
+description,
+
+image
+
+){
+
+fetch(
+
+FIREBASE_URL+"/news.json",
+
+{
+
+method:"POST",
+
+body:JSON.stringify({
+
+title,
+
+category,
+
+date,
+
+description,
+
+image
+
+})
+
+}
+
+)
+
+.then(()=>{
+
+showFighterNotification(
+
+"📰 নিউজ প্রকাশ হয়েছে",
+
+"success"
+
+);
+
+document.getElementById("newsTitle").value="";
+
+document.getElementById("newsCategory").value="";
+
+document.getElementById("newsDate").value="";
+
+document.getElementById("newsDescription").value="";
+
+document.getElementById("newsImage").value="";
+
+loadNews();
+
+});
+
+}
+
+function renderNews(){
+
+const box=document.getElementById("newsContainer");
+
+box.innerHTML="";
+
+newsData.reverse().forEach(news=>{
+
+box.innerHTML+=`
+
+<div class="news-card">
+
+<img src="${news.image}">
+
+<div class="news-content">
+
+<div class="news-category">
+
+${news.category}
+
+</div>
+
+<div class="news-title">
+
+${news.title}
+
+</div>
+
+<div class="news-date">
+
+📅 ${news.date}
+
+</div>
+
+<div class="news-desc">
+
+${news.description.substring(0,120)}...
+
+</div>
+
+<div class="news-actions">
+
+<button
+
+class="read-btn"
+
+onclick="alert(\`${news.description}\`)">
+
+Read More
+
+</button>
+
+${isAdmin?
+
+`<button
+
+class="delete-news"
+
+onclick="deleteNews('${news.id}')">
+
+Delete
+
+</button>`
+
+:""}
+
+</div>
+
+</div>
+
+</div>
+
+`;
+
+});
+
+}
+
+function deleteNews(id){
+
+if(confirm("নিউজ ডিলিট করবেন?")){
+
+fetch(
+
+`${FIREBASE_URL}/news/${id}.json`,
+
+{
+
+method:"DELETE"
+
+}
+
+)
+
+.then(()=>{
+
+loadNews();
+
+showFighterNotification(
+
+"🗑️ নিউজ ডিলিট হয়েছে",
+
+"warning"
+
+);
+
+});
+
+}
+
+}
+
 </script>
 <script src="animation.js"></script>
-<script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
 </body>
 </html>
