@@ -1246,22 +1246,35 @@ cursor:pointer;
                         <option value="Tour">Tour</option>
                     </select>
                 </div>
+               <!--  এই কোডটুকু কপি করে ওই খালি জায়গায় বসাবেন -->
                 <button class="btn-success" onclick="uploadPhoto()">গ্যালারিতে পোস্ট করুন</button>
             </div>
+
+            <!-- গ্যালারির ছবি দেখানোর আসল কন্টেইনার -->
             <div class="gallery-grid" id="galleryContainer"></div>
         </div>
-</section>
+
+        <!-- নিউজ সেকশন -->
         <div class="pro-card">
-            <h3 style="margin-top:0; font-size:22px; font-weight:700; letter-spacing: 0.3px;">💬 মেম্বার পরামর্শ বোর্ড</h3>
-            <div id="feedbackList" style="max-height: 280px; overflow-y: auto; margin-bottom: 25px; padding-right: 5px;"></div>
-            <div class="form-grid" style="grid-template-columns: 1fr 2fr;">
-                <input id="fbName" placeholder="আপনার নাম">
-                <input id="fbMsg" placeholder="পরামর্শটি লিখুন...">
+            <h3>📰 Fighter News</h3>
+            
+            <!-- অ্যাডমিনদের জন্য নিউজ পোস্ট করার ফর্ম -->
+            <div id="newsForm" style="display: none; background: rgba(15,23,42,0.4); padding: 25px; border-radius: 16px; margin-bottom: 30px; border: 1px dashed rgba(255,255,255,0.15);">
+                <h4>নতুন নিউজ পোস্ট করুন (Live)</h4>
+                <div class="form-grid">
+                    <input id="newsTitle" placeholder="নিউজ টাইটেল">
+                    <input id="newsCategory" placeholder="ক্যাটাগরি (যেমন: Match, Practice)">
+                    <input type="date" id="newsDate">
+                    <input type="file" id="newsImage" accept="image/*">
+                </div>
+                <textarea id="newsDescription" placeholder="নিউজের বিস্তারিত বিবরণ..." style="width:100%; height:80px; background: rgba(15, 23, 42, 0.6); color: #fff; border-radius:12px; padding:10px; margin-bottom:10px; border:1px solid var(--border-color); outline:none;"></textarea>
+                <button class="btn-success" onclick="addNews()">📰 নিউজ প্রকাশ করুন</button>
             </div>
-            <button class="btn-success" style="margin-top: 5px;" onclick="sendFeedback()">💬 বার্তা পাঠান</button>
+
+            <!-- নিউজগুলো এখানে শো করবে -->
+            <div class="news-grid" id="newsContainer"></div>
         </div>
-    </div>
-</div>
+
 
 <div id="memberModal" class="modal">
     <div class="modal-content">
@@ -1360,17 +1373,6 @@ cursor:pointer;
             Later
         </button>
     </div>
-</div>
-<div id="updatePopup" class="update-popup">
-
-<div class="update-card">
-
-<h2>🚀 Update Available</h2>
-
-<p>A new version of Fighter Cricket Club is available.</p>
-
-<button id="updateNow">Update Now</button>
-
 </div>
 
 </div>
@@ -1535,6 +1537,7 @@ function handleAuth() {
             document.getElementById("inventoryForm").style.display = "block";
             document.getElementById("galleryForm").style.display = "block";
             document.getElementById("noticeForm").style.display = "block";
+            document.getElementById("newsForm").style.display = "block";
             showFighterNotification("অ্যাডমিন লগইন সফল হয়েছে!", "success");
             render(); renderDirectory(); renderGallery(); renderInventory(); loadFeedback();
         } else {
@@ -1551,6 +1554,7 @@ function handleAuth() {
         document.getElementById("inventoryForm").style.display = "none";
         document.getElementById("galleryForm").style.display = "none";
         document.getElementById("noticeForm").style.display = "none";
+        document.getElementById("newsForm").style.display = "none";
         showFighterNotification("লগআউট সফল হয়েছে।", "warning");
         render(); renderDirectory(); renderGallery(); renderInventory(); loadFeedback();
     }
@@ -1626,14 +1630,27 @@ function delAccount(id) {
 }
 
 function loadDirectory() {
-    fetch(FIREBASE_URL + "/directory.json").then(res => res.json()).then(serverData => {
+    fetch(FIREBASE_URL + "/directory.json")
+    .then(res => res.json())
+    .then(serverData => {
         directoryData = [];
-        if(serverData) { Object.keys(serverData).forEach(key => { directoryData.push({ id: key, ...serverData[key] }); }); }
-        document.getElementById("totalMembers").innerText = directoryData.length + " জন";
+        if(serverData) { 
+            Object.keys(serverData).forEach(key => { 
+                directoryData.push({ id: key, ...serverData[key] }); 
+            }); 
+        }
+        
+        // হোমপেজে বা ড্যাশবোর্ডে মোট সদস্য সংখ্যা আপডেট করা
+        let totalBox = document.getElementById("totalMembers");
+        if(totalBox) {
+            totalBox.innerText = directoryData.length + " জন";
+        }
+        
+        // মেম্বারদের লিস্ট স্ক্রিনে দেখানো
         renderDirectory();
-    });
+    })
+    .catch(err => console.error("Error loading directory:", err));
 }
-
 function addDirectory() {
     let name = document.getElementById("dirName").value;
     let phone = document.getElementById("dirPhone").value;
@@ -1642,6 +1659,7 @@ function addDirectory() {
     
     if(!name || !phone) return showFighterNotification("নাম ও ফোন নাম্বার দিন!", "warning");
 
+    // মেম্বার যোগ করার সময় বাটন লক করার জন্য (অপশনাল)
     if (fileInput) {
         let reader = new FileReader();
         reader.onload = function(e) {
@@ -1650,19 +1668,33 @@ function addDirectory() {
         };
         reader.readAsDataURL(fileInput);
     } else {
+        // ছবি না দিলে ডিফল্ট অ্যাভাটার ইমেজ যাবে
         saveDirectoryToFirebase(name, phone, "https://cdn-icons-png.flaticon.com/512/149/149071.png", blood);
     }
 }
 
 function saveDirectoryToFirebase(name, phone, imgData, blood) {
-    fetch(FIREBASE_URL + "/directory.json", { method: "POST", body: JSON.stringify({ name, phone, img: imgData, blood }) }).then(() => {
-        loadDirectory();
-        document.getElementById("dirName").value = ""; document.getElementById("dirPhone").value = "";
+    fetch(FIREBASE_URL + "/directory.json", { 
+        method: "POST", 
+        body: JSON.stringify({ name, phone, img: imgData, blood }) 
+    })
+    .then(res => res.json())
+    .then(() => {
+        // ফর্ম ক্লিয়ার করা
+        document.getElementById("dirName").value = ""; 
+        document.getElementById("dirPhone").value = "";
         document.getElementById("dirFile").value = "";
+        
         showFighterNotification("মেম্বার প্রোফাইল তৈরি হয়েছে!", "success");
+        
+        // মেম্বার লিস্ট এবং সংখ্যা সাথে সাথে আপডেট করার জন্য
+        loadDirectory(); 
+    })
+    .catch(err => {
+        console.error("Firebase Error:", err);
+        showFighterNotification("ডাটা সেভ করতে সমস্যা হয়েছে!", "error");
     });
 }
-
 function delDirectory(id) {
     if(confirm("ডিরেক্টরি থেকে এই মেম্বার সнять চান?")) {
         fetch(`${FIREBASE_URL}/directory/${id}.json`, { method: "DELETE" }).then(() => { 
@@ -1749,8 +1781,9 @@ function uploadPhoto() {
     reader.readAsDataURL(fileInput);
 }
 
+// পুরাতন delPhoto ফাংশনটি বদলে এটি দিন:
 function delPhoto(id) {
-    event.stopPropagation();
+    if(window.event) { window.event.stopPropagation(); }
     if(confirm("ছবিটি মুছে ফেলতে চান?")) {
         fetch(`${FIREBASE_URL}/gallery/${id}.json`, { method: "DELETE" }).then(() => { 
             loadGallery(); 
@@ -1759,28 +1792,32 @@ function delPhoto(id) {
     }
 }
 
+// পুরাতন filterGallery ফাংশনটি বদলে এটি দিন:
 function filterGallery(albumName) {
     currentFilter = albumName;
     let btns = document.querySelectorAll('.filter-btn');
     btns.forEach(btn => btn.classList.remove('active'));
-    event.target.classList.add('active');
+    if(window.event && window.event.target) { window.event.target.classList.add('active'); }
     renderGallery();
 }
 
 function renderGallery() {
-    let container = document.getElementById("galleryContainer"); container.innerHTML = "";
-    let filtered = galleryData.filter(p => currentFilter === 'All' || p.album === currentFilter);
-    if(filtered.length === 0) {
-        container.innerHTML = "<p style='padding:20px; color:var(--text-muted);'>এই অ্যালবামে কোনো ছবি নেই।</p>";
-        return;
-    }
-    filtered.forEach(p => {
-        container.innerHTML += `
-            <div class="gallery-item" onclick="openLightbox('${p.url}', '${p.caption}')">
-                ${isAdmin ? `<button class="del-gal-btn" onclick="delPhoto('${p.id}')">×</button>` : ''}
-                <img src="${p.url}" alt="${p.caption}">
-                <div class="gallery-caption">[${p.album || 'All'}] ${p.caption}</div>
-            </div>`;
+    // গ্যালারির সঠিক HTML আইডি directoryCardContainer অথবা আপনার গ্যালারি গ্রিডের আইডি দিন
+    let container = document.getElementById("directoryCardContainer"); 
+    if(!container) return;
+    container.innerHTML = "";
+    
+    galleryData.forEach(item => {
+        let card = document.createElement("div");
+        card.className = "gallery-card";
+        card.innerHTML = `
+            <img src="${item.img || 'https://via.placeholder.com/150'}" alt="Gallery Image">
+            <div class="gallery-info">
+                <h4>${item.title || 'গ্যালারি ছবি'}</h4>
+                <button onclick="deleteGallery('${item.id}')" style="background:red; color:white; border:none; padding:5px 10px; border-radius:5px; cursor:pointer; margin-top:5px;">ডিলিট</button>
+            </div>
+        `;
+        container.appendChild(card);
     });
 }
 
