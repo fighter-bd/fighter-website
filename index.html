@@ -943,6 +943,93 @@ cursor:pointer;
     transform:scale(1.05);
     transition:.4s;
 }
+.logo{
+    width:140px;
+    height:140px;
+    border-radius:50%;
+    object-fit:cover;
+
+    animation:
+        floatLogo 4s ease-in-out infinite,
+        rotateLogo 12s linear infinite,
+        glowLogo 2s ease-in-out infinite;
+
+    transform-style:preserve-3d;
+}
+
+@keyframes rotateLogo{
+
+0%{
+transform:rotateY(0deg) rotateX(0deg);
+}
+
+50%{
+transform:rotateY(180deg) rotateX(12deg);
+}
+
+100%{
+transform:rotateY(360deg) rotateX(0deg);
+}
+
+}
+
+@keyframes glowLogo{
+
+0%{
+box-shadow:0 0 15px #3b82f6;
+}
+
+50%{
+box-shadow:
+0 0 45px #3b82f6,
+0 0 70px #60a5fa;
+}
+
+100%{
+box-shadow:0 0 15px #3b82f6;
+}
+
+}
+.live-clock{
+
+display:inline-block;
+
+margin-top:20px;
+
+padding:12px 25px;
+
+border-radius:40px;
+
+background:rgba(255,255,255,.08);
+
+backdrop-filter:blur(10px);
+
+font-size:22px;
+
+font-weight:bold;
+
+color:#FFD700;
+
+letter-spacing:2px;
+
+}
+.reveal{
+
+opacity:0;
+
+transform:translateY(80px);
+
+transition:1s;
+
+}
+
+.reveal.active{
+
+opacity:1;
+
+transform:translateY(0);
+
+}
 </style>
 </head>
 <body onload="initDashboard()">
@@ -1081,6 +1168,13 @@ cursor:pointer;
 <span></span>
 <span></span>
 </div>
+<div class="live-clock">
+
+🕒
+
+<span id="clock"></span>
+
+</div>
 
 </div>
         <div class="weather-widget">
@@ -1115,6 +1209,7 @@ cursor:pointer;
                 <button class="btn-success" onclick="sendPushNotification()" style="background: linear-gradient(135deg, #3b82f6, #1d4ed8); box-shadow:0 4px 14px rgba(59,130,246,0.3);">🔔 পুশ নোটিফিকেশন পাঠান</button>
             </div>
         </div>
+        
 
         <div class="summary">
             <div class="box income">মোট চাঁদা আদায়<br><span id="totalMoney">0</span></div>
@@ -1194,6 +1289,7 @@ cursor:pointer;
                         <option value="O+">O+</option><option value="O-">O-</option>
                         <option value="AB+">AB+</option><option value="AB-">AB-</option>
                     </select>
+                    <input type="date" id="dirDOB" placeholder="জন্মতারিখ">
                     <div>
                         <label style="font-size:12px; font-weight:600; display:block; margin-bottom:6px; color: var(--text-muted);">প্রোফাইল ছবি:</label>
                         <input type="file" id="dirFile" accept="image/*" style="padding: 10px;">
@@ -1253,6 +1349,7 @@ cursor:pointer;
             <!-- গ্যালারির ছবি দেখানোর আসল কন্টেইনার -->
             <div class="gallery-grid" id="galleryContainer"></div>
         </div>
+        
 
         <!-- নিউজ সেকশন -->
         <div class="pro-card">
@@ -1437,7 +1534,6 @@ function initDashboard() {
     loadGallery();
     loadDirectory();
     loadWeather();
-    loadNews();
     requestNotificationPermission(); 
     listenToPushNotifications();    
     
@@ -1445,8 +1541,10 @@ function initDashboard() {
     
     fetch(FIREBASE_URL + "/notice.json").then(res => res.json()).then(text => { if(text) document.getElementById("noticeText").innerText = text; });
     fetch(FIREBASE_URL + "/birthday.json").then(res => res.json()).then(wish => { if(wish) activeBirthdayWish = wish; });
+    
+    // নিউজ সবার শেষে লোড করা হচ্ছে যেন অন্য ডেটা জ্যাম না করে
+    loadNews();
 }
-
 function requestNotificationPermission() {
     if ("Notification" in window) {
         if (Notification.permission === "default") {
@@ -1648,6 +1746,31 @@ function loadDirectory() {
         
         // মেম্বারদের লিস্ট স্ক্রিনে দেখানো
         renderDirectory();
+        // মেম্বার লিস্ট লোড হওয়ার পর স্বয়ংক্রিয়ভাবে চেক করবে কোনো পপআপ ছাড়াই
+setTimeout(checkTodayBirthdaysSilent, 2000); 
+
+function checkTodayBirthdaysSilent() {
+    let today = new Date();
+    let todayDay = today.getDate();
+    let todayMonth = today.getMonth() + 1;
+    let birthdayBoys = [];
+
+    directoryData.forEach(member => {
+        if (member.dob) {
+            let memberBirthDate = new Date(member.dob);
+            if (todayDay === memberBirthDate.getDate() && todayMonth === (memberBirthDate.getMonth() + 1)) {
+                birthdayBoys.push(member.name);
+            }
+        }
+    });
+
+    if (birthdayBoys.length > 0) {
+        let noticeText = document.getElementById("noticeText");
+        if(noticeText) {
+            noticeText.innerText = `🎂 জন্মদিনের শুভেচ্ছা! আজ ফাইটার ক্লাবের সদস্য ${birthdayBoys.join(", ")} এর জন্মদিন! 🎉`;
+        }
+    }
+}
     })
     .catch(err => console.error("Error loading directory:", err));
 }
@@ -1655,43 +1778,38 @@ function addDirectory() {
     let name = document.getElementById("dirName").value;
     let phone = document.getElementById("dirPhone").value;
     let blood = document.getElementById("dirBlood").value;
+    let dob = document.getElementById("dirDOB").value; // নতুন ইনপুট
     let fileInput = document.getElementById("dirFile").files[0];
     
-    if(!name || !phone) return showFighterNotification("নাম ও ফোন নাম্বার দিন!", "warning");
+    if(!name || !phone || !dob) return showFighterNotification("নাম, ফোন ও জন্মতারিখ দিন!", "warning");
 
-    // মেম্বার যোগ করার সময় বাটন লক করার জন্য (অপশনাল)
     if (fileInput) {
         let reader = new FileReader();
         reader.onload = function(e) {
             let base64Img = e.target.result;
-            saveDirectoryToFirebase(name, phone, base64Img, blood);
+            saveDirectoryToFirebase(name, phone, base64Img, blood, dob);
         };
         reader.readAsDataURL(fileInput);
     } else {
-        // ছবি না দিলে ডিফল্ট অ্যাভাটার ইমেজ যাবে
-        saveDirectoryToFirebase(name, phone, "https://cdn-icons-png.flaticon.com/512/149/149071.png", blood);
+        saveDirectoryToFirebase(name, phone, "https://cdn-icons-png.flaticon.com/512/149/149071.png", blood, dob);
     }
 }
-
-function saveDirectoryToFirebase(name, phone, imgData, blood) {
+function saveDirectoryToFirebase(name, phone, imgData, blood, dob) {
     fetch(FIREBASE_URL + "/directory.json", { 
         method: "POST", 
-        body: JSON.stringify({ name, phone, img: imgData, blood }) 
+        body: JSON.stringify({ name, phone, img: imgData, blood, dob }) 
     })
     .then(res => res.json())
     .then(() => {
-        // ফর্ম ক্লিয়ার করা
         document.getElementById("dirName").value = ""; 
         document.getElementById("dirPhone").value = "";
+        document.getElementById("dirDOB").value = "";
         document.getElementById("dirFile").value = "";
         
         showFighterNotification("মেম্বার প্রোফাইল তৈরি হয়েছে!", "success");
-        
-        // মেম্বার লিস্ট এবং সংখ্যা সাথে সাথে আপডেট করার জন্য
         loadDirectory(); 
     })
     .catch(err => {
-        console.error("Firebase Error:", err);
         showFighterNotification("ডাটা সেভ করতে সমস্যা হয়েছে!", "error");
     });
 }
@@ -2190,37 +2308,26 @@ window.addEventListener("load",loadNotifications);
 // ==========================
 // 📰 Fighter News System
 // ==========================
-
 function loadNews(){
-
-fetch(FIREBASE_URL + "/news.json")
-
-.then(res=>res.json())
-
-.then(data=>{
-
-newsData=[];
-
-if(data){
-
-Object.keys(data).forEach(key=>{
-
-newsData.push({
-
-id:key,
-
-...data[key]
-
-});
-
-});
-
-}
-
-renderNews();
-
-});
-
+    fetch(FIREBASE_URL + "/news.json")
+    .then(res => res.json())
+    .then(data => {
+        newsData = []; // আগের ডেটা ক্লিয়ার করা
+        if(data){
+            Object.keys(data).forEach(key => {
+                newsData.push({
+                    id: key,
+                    ...data[key]
+                });
+            });
+        }
+        // ডেটা সফলভাবে অ্যারেতে পুশ হওয়ার পর রেন্ডার ফাংশন কল করা হচ্ছে
+        renderNews();
+    })
+    .catch(err => {
+        console.error("Error loading news:", err);
+        showFighterNotification("❌ নিউজ লোড করতে সমস্যা হয়েছে", "error");
+    });
 }
 
 function addNews(){
@@ -2354,117 +2461,111 @@ loadNews();
 }
 
 function renderNews(){
+    const box = document.getElementById("newsContainer");
+    box.innerHTML = "";
+    
+    // নিউজগুলোকে উল্টো করে দেখানো (নতুন নিউজ আগে দেখাবে)
+    let sortedNews = [...newsData].reverse();
+    
+    sortedNews.forEach(news => {
+        // যদি ইমেজ না থাকে তবে ডিফল্ট লোগো দেখাবে
+        let newsImg = news.image ? news.image : "fighter-cricket-logo.png";
+        
+        box.innerHTML += `
+        <div class="news-card">
+            <img src="${newsImg}" alt="News Image" onerror="this.src='fighter-cricket-logo.png'">
+            <div class="news-content">
+                <div class="news-category">
+                    ${news.category || 'General'}
+                </div>
+                <div class="news-title">
+                    ${news.title}
+                </div>
+                <div class="news-date">
+                    📅 ${news.date || ''}
+                </div>
+                <div class="news-desc">
+                    ${news.description ? news.description.substring(0,120) : ''}...
+                </div>
+                <div class="news-actions">
+                    <button class="read-btn" onclick="alert(\`${news.description}\`)">
+                        Read More
+                    </button>
+                    ${isAdmin ? `
+                    <button class="delete-news" onclick="deleteNews('${news.id}')">
+                        Delete
+                    </button>` : ""}
+                </div>
+            </div>
+        </div>
+        `;
+    });
+}
+// ডিরেক্টরি লোড হওয়ার পর স্বয়ংক্রিয়ভাবে জন্মদিন চেক হবে
+function checkTodayBirthdays() {
+    if (directoryData.length === 0) {
+        alert("🎂 ডিরেক্টরি ডাটা লোড হচ্ছে, অনুগ্রহ করে একটু অপেক্ষা করুন।");
+        return;
+    }
 
-const box=document.getElementById("newsContainer");
+    let today = new Date();
+    let todayDay = today.getDate();
+    let todayMonth = today.getMonth() + 1; // JavaScript-এ মাস ০ থেকে শুরু হয়
 
-box.innerHTML="";
+    let birthdayBoys = [];
 
-newsData.reverse().forEach(news=>{
+    directoryData.forEach(member => {
+        if (member.dob) {
+            let memberBirthDate = new Date(member.dob);
+            let birthDay = memberBirthDate.getDate();
+            let birthMonth = memberBirthDate.getMonth() + 1;
 
-box.innerHTML+=`
+            // যদি আজকের দিন এবং মাস মেম্বারের জন্মদিনের দিন ও মাসের সাথে মিলে যায়
+            if (todayDay === birthDay && todayMonth === birthMonth) {
+                birthdayBoys.push(member.name);
+            }
+        }
+    });
 
-<div class="news-card">
+    if (birthdayBoys.length > 0) {
+        let names = birthdayBoys.join(", ");
+        alert(`🎂 শুভ জন্মদিন! 🎉\n\nআজ আমাদের ফাইটার ক্লাবের প্রিয় সদস্য [ ${names} ] এর জন্মদিন। সবাই তাকে শুভেচ্ছা জানান! 🥳✨`);
+    } else {
+        alert("🎂 আজ আমাদের ক্লাবের কোনো মেম্বারের জন্মদিন নেই। 🎉");
+    }
+}
+function updateClock(){
 
-<img src="${news.image}">
+const now=new Date();
 
-<div class="news-content">
+document.getElementById("clock").innerHTML=
 
-<div class="news-category">
+now.toLocaleTimeString();
 
-${news.category}
+}
 
-</div>
+setInterval(updateClock,1000);
 
-<div class="news-title">
+updateClock();
+window.addEventListener("scroll",()=>{
 
-${news.title}
+const reveals=document.querySelectorAll(".reveal");
 
-</div>
+reveals.forEach(el=>{
 
-<div class="news-date">
+const top=el.getBoundingClientRect().top;
 
-📅 ${news.date}
+const windowHeight=window.innerHeight;
 
-</div>
+if(top<windowHeight-120){
 
-<div class="news-desc">
+el.classList.add("active");
 
-${news.description.substring(0,120)}...
-
-</div>
-
-<div class="news-actions">
-
-<button
-
-class="read-btn"
-
-onclick="alert(\`${news.description}\`)">
-
-Read More
-
-</button>
-
-${isAdmin?
-
-`<button
-
-class="delete-news"
-
-onclick="deleteNews('${news.id}')">
-
-Delete
-
-</button>`
-
-:""}
-
-</div>
-
-</div>
-
-</div>
-
-`;
+}
 
 });
 
-}
-
-function deleteNews(id){
-
-if(confirm("নিউজ ডিলিট করবেন?")){
-
-fetch(
-
-`${FIREBASE_URL}/news/${id}.json`,
-
-{
-
-method:"DELETE"
-
-}
-
-)
-
-.then(()=>{
-
-loadNews();
-
-showFighterNotification(
-
-"🗑️ নিউজ ডিলিট হয়েছে",
-
-"warning"
-
-);
-
 });
-
-}
-
-}
-
 </script>
 <script src="animation.js"></script>
 </body>
