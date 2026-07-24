@@ -22,6 +22,7 @@
 <link rel="stylesheet" href="football-game.html">
 <link rel="stylesheet" href="style.css">
 <link rel="canonical" href="https://fighter-bd.github.io/fighter-website/">
+<link rel="stylesheet" href="football-game.html">
 
 <meta name="keywords" content="Fighter Cricket Club, Fighter Football Club, Sports Club Bangladesh, Club Management System, Fighter BD">
 
@@ -56,6 +57,11 @@
 <meta name="twitter:image" content="https://fighter-bd.github.io/fighter-website/fighter-cricket-logo.png">
 </head>
 <body onload="initDashboard()">
+    <div class="bg-glow">
+    <span></span>
+    <span></span>
+    <span></span>
+</div>
     <div id="progressBar"></div>
 <div id="welcomePopup" class="welcome-popup">
     <div class="welcome-card">
@@ -212,12 +218,11 @@
             <h3 style="margin:0 0 8px 0; font-weight: 600; letter-spacing: 0.3px;">🌦️ গাইবান্ধা জেলা: আজকের খেলার আবহাওয়া খতিয়ান</h3>
             <p id="weatherDisplay" style="margin:0; font-weight:500; color: #e2e8f0;">গাইবান্ধার লাইভ আবহাওয়া লোড হচ্ছে...</p>
         </div>
-
-        <div class="header-section">
+        <div class="header-section hero-premium"></div>
             <img src="fighter-cricket-logo.png" class="logo" alt="FIGHTER Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/5351/5351401.png'">
-            <h2>FIGHTER Cricket Club ড্যাশবোর্ড</h2>
-            <p style="color: var(--text-muted); font-weight: 500; margin: 5px 0 0;">📧 Email: <a href="mailto:fighterbd.com123@gmail.com" style="color: var(--primary); text-decoration: none;">fighterbd.com123@gmail.com</a></p>
-        </div>
+           <center> <h2>FIGHTER Cricket Club ড্যাশবোর্ড</h2></center>
+            <center><p style="color: var(--text-muted); font-weight: 500; margin: 5px 0 0;">📧 Email: <a href="mailto:fighterbd.com123@gmail.com" style="color: var(--primary); text-decoration: none;">fighterbd.com123@gmail.com</a></p>
+        </div></center>
 
         <div class="top-bar">
             <button onclick="toggleDark()" style="background: rgba(255,255,255,0.05);">✨ Dark / Light</button>
@@ -548,5 +553,6 @@
 
 <script src="app.js"></script>
 <script src="animation.js"></script>
+<div class="cursor-glow"></div>
 </body>
 </html>

@@ -1001,3 +1001,92 @@ document
 }
 
 });
+window.addEventListener("scroll",()=>{
+
+const nav=document.querySelector(".navbar");
+
+if(window.scrollY>30){
+
+nav.classList.add("scrolled");
+
+}else{
+
+nav.classList.remove("scrolled");
+
+}
+
+});
+// Premium Mouse 3D Effect
+
+document.querySelectorAll(".pro-card,.box,.member-card,.gallery-item").forEach(card=>{
+
+card.addEventListener("mousemove",(e)=>{
+
+const rect=card.getBoundingClientRect();
+
+const x=e.clientX-rect.left;
+
+const y=e.clientY-rect.top;
+
+const rotateY=((x/rect.width)-0.5)*14;
+
+const rotateX=((rect.height/2-y)/rect.height)*14;
+
+card.style.transform=`
+perspective(1000px)
+rotateX(${rotateX}deg)
+rotateY(${rotateY}deg)
+translateY(-10px)
+`;
+
+});
+
+card.addEventListener("mouseleave",()=>{
+
+card.style.transform="perspective(1000px) rotateX(0deg) rotateY(0deg)";
+
+});
+
+});
+// Scroll Reveal
+
+const reveals=document.querySelectorAll(
+".pro-card,.box,.member-card,.gallery-item,.weather-widget,.notice-board"
+);
+
+reveals.forEach(el=>{
+el.classList.add("reveal");
+});
+
+function revealOnScroll(){
+
+reveals.forEach(el=>{
+
+const top=el.getBoundingClientRect().top;
+
+const visible=window.innerHeight-80;
+
+if(top<visible){
+
+el.classList.add("active");
+
+}
+
+});
+
+}
+
+window.addEventListener("scroll",revealOnScroll);
+
+revealOnScroll();
+// Cursor Glow
+
+const glow=document.querySelector(".cursor-glow");
+
+document.addEventListener("mousemove",(e)=>{
+
+glow.style.left=e.clientX+"px";
+
+glow.style.top=e.clientY+"px";
+
+});
