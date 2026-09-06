@@ -13,6 +13,16 @@
 <meta property="og:type" content="website">
 <meta property="og:url" content="https://fighter-bd.github.io/fighter-website/">
 <meta charset="UTF-8">
+<!-- OneSignal Web SDK -->
+<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+<script>
+  window.OneSignalDeferred = window.OneSignalDeferred || [];
+  OneSignalDeferred.push(async function(OneSignal) {
+    await OneSignal.init({
+      appId: "43718e70-ad37-47d1-9917-a395074b9912",
+    });
+  });
+</script>
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="description" content="FIGHTER Cricket Club - Official expense tracker, member directory, and gallery.">
 <title>FIGHTER Cricket Club - Dashboard</title>
@@ -23,6 +33,7 @@
 <link rel="stylesheet" href="style.css">
 <link rel="canonical" href="https://fighter-bd.github.io/fighter-website/">
 <link rel="stylesheet" href="football-game.html">
+<link rel="stylesheet" href="OneSignalSDKWorker.js">
 <meta name="google-site-verification" content="erWE5KhzCGzL-dl4Mo9CVFrRUhlbxCDjP9BeKibsN8w" />
 <meta name="keywords" content="Fighter Cricket Club, Fighter Football Club, Sports Club Bangladesh, Club Management System, Fighter BD">
 
@@ -356,36 +367,41 @@
             </div>
         </div>
 
-        <div class="pro-card" id="gallerySection">
-            <h3 style="margin-top:0; font-size:22px; font-weight:700; letter-spacing: 0.3px;">📸 ফাইটার ক্লাব গ্যালারি</h3>
-            <div class="gallery-filter" id="galleryFilterBox">
-                <button class="filter-btn active" onclick="filterGallery('All')">সব ছবি</button>
-                <button class="filter-btn" onclick="filterGallery('Tournament')">টুর্নামেন্ট 🏆</button>
-                <button class="filter-btn" onclick="filterGallery('Practice')">প্র্যাকটিস 🏏</button>
-                <button class="filter-btn" onclick="filterGallery('Tour')">ট্যুর/ভ্রমণ 🚌</button>
-            </div>
+        <!-- Gallery Section -->
+<section id="gallerySection" class="section-box">
+  <h2>📸 Photo Gallery</h2>
+  
+  <!-- Category Filter Buttons -->
+  <div class="filter-btn-group" style="margin-bottom: 20px; display: flex; gap: 10px; flex-wrap: wrap;">
+    <button class="filter-btn active" onclick="filterGallery('All')">All</button>
+    <button class="filter-btn" onclick="filterGallery('Match')">Match</button>
+    <button class="filter-btn" onclick="filterGallery('Event')">Event</button>
+    <button class="filter-btn" onclick="filterGallery('Practice')">Practice</button>
+  </div>
 
-            <div id="galleryForm" style="display: none; background: rgba(15,23,42,0.4); padding: 25px; border-radius: 16px; margin-bottom: 30px; border: 1px dashed rgba(255,255,255,0.15);">
-                <h4 style="margin-top:0; font-weight:600; color: var(--primary);">গ্যালারি থেকে ছবি পোস্ট করুন</h4>
-                <div class="form-grid">
-                    <div>
-                        <label style="font-size:12px; font-weight:600; display:block; margin-bottom:6px; color: var(--text-muted);">ছবি সিলেক্ট করুন:</label>
-                        <input type="file" id="galFile" accept="image/*" style="padding: 10px;">
-                    </div>
-                    <input id="galCaption" placeholder="ছবির ক্যাপশন লিখুন...">
-                    <select id="galAlbum">
-                        <option value="Tournament">Tournament</option>
-                        <option value="Practice">Practice</option>
-                        <option value="Tour">Tour</option>
-                    </select>
-                </div>
-               <!--  এই কোডটুকু কপি করে ওই খালি জায়গায় বসাবেন -->
-                <button class="btn-success" onclick="uploadPhoto()">গ্যালারিতে পোস্ট করুন</button>
-            </div>
+  <!-- Admin Upload Form (Admin Mode Only) -->
+  <div id="galleryForm" style="display: none; margin-bottom: 25px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px;">
+    <h3>📤 Upload New Photo</h3>
+    <input type="file" id="galFile" accept="image/*" style="margin-bottom: 10px;">
+    <input type="text" id="galCaption" placeholder=" ছবির ক্যাপশন লিখুন..." style="margin-bottom: 10px; width: 100%; padding: 8px;">
+    <select id="galAlbum" style="margin-bottom: 10px; width: 100%; padding: 8px;">
+      <option value="Match">Match</option>
+      <option value="Event">Event</option>
+      <option value="Practice">Practice</option>
+    </select>
+    <button onclick="uploadPhoto()" class="btn-success" style="padding: 8px 16px; cursor: pointer;">Upload Photo</button>
+  </div>
 
-            <!-- গ্যালারির ছবি দেখানোর আসল কন্টেইনার -->
-            <div class="gallery-grid" id="galleryContainer"></div>
-        </div>
+  <!-- Gallery Grid Container -->
+  <div id="galleryGrid" class="gallery-grid"></div>
+</section>
+
+<!-- Lightbox Modal (Full Screen Image View) -->
+<div id="lightbox" class="lightbox" onclick="closeLightbox()" style="display:none; position:fixed; top:0; left:0; width:100%; height:100%; background:rgba(0,0,0,0.9); z-index:9999; justify-content:center; align-items:center; flex-direction:column;">
+  <span style="position:absolute; top:20px; right:30px; font-size:30px; color:white; cursor:pointer;">&times;</span>
+  <img id="lightboxImg" src="" style="max-width:90%; max-height:80vh; border-radius:8px;">
+  <p id="lightboxCaption" style="color:white; margin-top:15px; font-size:16px;"></p>
+</div>
         
 
         <!-- নিউজ সেকশন -->

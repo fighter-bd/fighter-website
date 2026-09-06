@@ -1833,3 +1833,442 @@ transition:
 left .08s linear,
 top .08s linear;
 }
+/* =====================================================
+   FIGHTER MEMBER REGISTRATION
+===================================================== */
+
+.registration-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.registration-header h3 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.registration-header p {
+    margin: 5px 0 0;
+    color: var(--text-muted);
+}
+
+.registration-badge {
+    padding: 9px 14px;
+    border-radius: 20px;
+    background: rgba(16,185,129,.12);
+    color: #34d399;
+    border: 1px solid rgba(16,185,129,.25);
+    font-size: 13px;
+    font-weight: 600;
+}
+
+.registration-form,
+.application-status-box,
+.membership-admin-panel,
+.receipt-admin-box {
+    padding: 22px;
+    border-radius: 18px;
+    background: rgba(15,23,42,.4);
+    border: 1px solid var(--border-color);
+    margin-bottom: 25px;
+}
+
+.registration-form h4,
+.application-status-box h4 {
+    margin-top: 0;
+}
+
+.registration-form textarea {
+    width: 100%;
+    box-sizing: border-box;
+    margin-top: 15px;
+    padding: 14px;
+    border-radius: 12px;
+    resize: vertical;
+    background: rgba(15,23,42,.6);
+    color: #fff;
+    border: 1px solid var(--border-color);
+    outline: none;
+}
+
+.registration-photo {
+    margin: 15px 0;
+}
+
+.registration-photo label {
+    display: block;
+    margin-bottom: 7px;
+    font-weight: 600;
+    font-size: 13px;
+}
+
+
+/* =====================================================
+   APPLICATION STATUS
+===================================================== */
+
+#applicationStatusResult {
+    margin-top: 15px;
+}
+
+.application-status-card {
+    padding: 15px;
+    border-radius: 14px;
+    border: 1px solid var(--border-color);
+}
+
+.status-pending {
+    color: #fbbf24;
+}
+
+.status-approved {
+    color: #34d399;
+}
+
+.status-rejected {
+    color: #f87171;
+}
+
+
+/* =====================================================
+   APPROVED MEMBERS
+===================================================== */
+
+.approved-members-grid {
+    display: grid;
+    grid-template-columns:
+        repeat(auto-fit, minmax(230px, 1fr));
+    gap: 15px;
+}
+
+.approved-member-card {
+    padding: 18px;
+    border-radius: 18px;
+    border: 1px solid var(--border-color);
+    background: rgba(255,255,255,.04);
+    text-align: center;
+}
+
+.approved-member-card img {
+    width: 80px;
+    height: 80px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 3px solid var(--primary);
+}
+
+.approved-member-card h4 {
+    margin: 10px 0 4px;
+}
+
+.member-id-badge {
+    display: inline-block;
+    padding: 5px 9px;
+    border-radius: 8px;
+    background: rgba(59,130,246,.12);
+    color: #60a5fa;
+    font-size: 12px;
+    font-weight: 700;
+}
+
+
+/* =====================================================
+   ADMIN STATS
+===================================================== */
+
+.admin-registration-stats {
+    display: grid;
+    grid-template-columns:
+        repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 25px;
+}
+
+.admin-registration-stats > div {
+    padding: 18px;
+    border-radius: 15px;
+    background: rgba(255,255,255,.04);
+    border: 1px solid var(--border-color);
+    text-align: center;
+}
+
+.admin-registration-stats span {
+    display: block;
+    color: var(--text-muted);
+    font-size: 13px;
+}
+
+.admin-registration-stats strong {
+    display: block;
+    font-size: 28px;
+    margin-top: 5px;
+}
+
+
+/* =====================================================
+   ADMIN APPLICATION CARD
+===================================================== */
+
+.admin-application-card {
+    padding: 18px;
+    margin-bottom: 12px;
+    border-radius: 15px;
+    border: 1px solid var(--border-color);
+    background: rgba(255,255,255,.03);
+}
+
+.admin-application-top {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+    align-items: center;
+}
+
+.admin-application-actions {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin-top: 15px;
+}
+
+.admin-application-actions button {
+    border: 0;
+    padding: 8px 13px;
+    border-radius: 9px;
+    cursor: pointer;
+    font-weight: 600;
+}
+
+.approve-btn {
+    background: #10b981;
+    color: white;
+}
+
+.reject-btn {
+    background: #ef4444;
+    color: white;
+}
+
+.delete-btn {
+    background: #475569;
+    color: white;
+}
+
+
+/* =====================================================
+   RECEIPT MODAL
+===================================================== */
+
+.receipt-modal {
+    position: fixed;
+    inset: 0;
+    z-index: 99999;
+    background: rgba(0,0,0,.75);
+    display: none;
+    align-items: center;
+    justify-content: center;
+    padding: 20px;
+}
+
+.receipt-modal.show {
+    display: flex;
+}
+
+.receipt-modal-content {
+    width: min(600px, 100%);
+    max-height: 95vh;
+    overflow-y: auto;
+    background: white;
+    color: #111827;
+    border-radius: 18px;
+    position: relative;
+    padding: 20px;
+}
+
+.receipt-close {
+    position: absolute;
+    right: 15px;
+    top: 15px;
+    width: 35px;
+    height: 35px;
+    border: 0;
+    border-radius: 50%;
+    cursor: pointer;
+    background: #ef4444;
+    color: white;
+    font-size: 18px;
+}
+
+
+/* =====================================================
+   PRINTABLE RECEIPT
+===================================================== */
+
+.printable-receipt {
+    background: white;
+    color: #111827;
+    padding: 25px;
+    border: 1px solid #e5e7eb;
+}
+
+.receipt-top {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.receipt-top img {
+    width: 70px;
+    height: 70px;
+    object-fit: contain;
+}
+
+.receipt-top h2 {
+    margin: 0;
+}
+
+.receipt-top p {
+    margin: 4px 0 0;
+    color: #64748b;
+}
+
+.receipt-line {
+    height: 2px;
+    background: #111827;
+    margin: 20px 0;
+}
+
+.receipt-info {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+}
+
+.receipt-info div {
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 10px;
+}
+
+.receipt-info span {
+    display: block;
+    font-size: 12px;
+    color: #64748b;
+}
+
+.receipt-info strong {
+    display: block;
+    margin-top: 4px;
+}
+
+.receipt-member,
+.receipt-payment {
+    margin-top: 20px;
+}
+
+.receipt-member h3,
+.receipt-payment h3 {
+    font-size: 16px;
+    border-bottom: 1px solid #e5e7eb;
+    padding-bottom: 8px;
+}
+
+.receipt-member p {
+    margin: 8px 0;
+}
+
+.receipt-payment-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 15px;
+    padding: 10px 0;
+    border-bottom: 1px solid #e5e7eb;
+}
+
+.receipt-total {
+    margin-top: 20px;
+    padding: 15px;
+    text-align: right;
+    font-size: 20px;
+    background: #f1f5f9;
+    border-radius: 10px;
+}
+
+.receipt-footer {
+    text-align: center;
+    margin-top: 25px;
+    color: #64748b;
+}
+
+.receipt-actions {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+
+/* =====================================================
+   MOBILE
+===================================================== */
+
+@media (max-width: 650px) {
+
+    .registration-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .admin-registration-stats {
+        grid-template-columns: 1fr;
+    }
+
+    .receipt-info {
+        grid-template-columns: 1fr;
+    }
+
+    .receipt-actions {
+        flex-direction: column;
+    }
+
+}
+/* Delete Button Style */
+.btn-danger {
+    display: inline-block !important;
+    background-color: #ef4444 !important;
+    color: #ffffff !important;
+    border: none !important;
+    padding: 6px 12px !important;
+    font-size: 12px !important;
+    border-radius: 8px !important;
+    cursor: pointer !important;
+    font-weight: bold !important;
+    transition: background-color 0.2s ease;
+}
+
+.btn-danger:hover {
+    background-color: #dc2626 !important;
+}
+.gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+    gap: 15px;
+    margin-top: 15px;
+}
+
+.filter-btn {
+    padding: 6px 16px;
+    border: 1px solid rgba(255,255,255,0.2);
+    background: transparent;
+    color: #fff;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 13px;
+}
+
+.filter-btn.active {
+    background: #3b82f6;
+    border-color: #3b82f6;
+}
