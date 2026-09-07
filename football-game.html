@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Football Penalty Game</title>
+
+<style>
+body{
+    margin:0;
+    background:#0b8f3a;
+    overflow:hidden;
+    font-family:Arial;
+    text-align:center;
+}
+
+h1{
+    color:white;
+}
+
+canvas{
+    background:#39b54a;
+    display:block;
+    margin:auto;
+    border:5px solid white;
+}
+
+#score{
+    color:white;
+    font-size:24px;
+    margin:10px;
+}
+</style>
+</head>
+
+<body>
+
+<h1>⚽ Football Penalty Game</h1>
+
+<div id="score">
+Score : 0
+</div>
+
+<canvas id="game" width="900" height="500"></canvas>
+
+<script>
+
+const canvas=document.getElementById("game");
+const ctx=canvas.getContext("2d");
+
+let score=0;
+
+const goal={
+x:280,
+y:30,
+width:340,
+height:120
+};
+
+const keeper={
+x:420,
+y:70,
+width:60,
+height:70,
+speed:4,
+dir:1
+};
+
+const ball={
+x:450,
+y:430,
+r:12,
+dx:0,
+dy:0,
+moving:false
+};
+
+let aim=0;
+
+function drawGoal(){
+
+ctx.strokeStyle="white";
+ctx.lineWidth=5;
+
+ctx.strokeRect(goal.x,goal.y,goal.width,goal.height);
+
+}
+
+function drawKeeper(){
+
+ctx.fillStyle="blue";
+
+ctx.fillRect(
+keeper.x,
+keeper.y,
+keeper.width,
+keeper.height
+);
+
+}
+
+function drawBall(){
+
+ctx.beginPath();
+
+ctx.arc(
+ball.x,
+ball.y,
+ball.r,
+0,
+Math.PI*2
+);
+
+ctx.fillStyle="white";
+ctx.fill();
+
+ctx.stroke();
+
+}
+
+function drawPlayer(){
+
+ctx.fillStyle="black";
+
+ctx.beginPath();
+
+ctx.arc(450,470,20,0,Math.PI*2);
+
+ctx.fill();
+
+}
+
+function drawAim(){
+
+ctx.strokeStyle="yellow";
+
+ctx.beginPath();
+
+ctx.moveTo(ball.x,ball.y);
+
+ctx.lineTo(ball.x+aim,250);
+
+ctx.stroke();
+
+}
+
+function updateKeeper(){
+
+keeper.x+=keeper.speed*keeper.dir;
+
+if(keeper.x<goal.x)
+keeper.dir=1;
+
+if(keeper.x+keeper.width>goal.x+goal.width)
+keeper.dir=-1;
+
+}
+
+function updateBall(){
+
+if(ball.moving){
+
+ball.x+=ball.dx;
+
+ball.y+=ball.dy;
+
+if(ball.y<goal.y+goal.height){
+
+ball.moving=false;
+
+if(
+ball.x>goal.x &&
+ball.x<goal.x+goal.width &&
+!(
+ball.x>keeper.x &&
+ball.x<keeper.x+keeper.width
+)
+){
+
+score++;
+
+document.getElementById("score").innerHTML="Score : "+score;
+
+alert("GOAL!! ⚽");
+
+}else{
+
+alert("Saved / Missed!");
+
+}
+
+resetBall();
+
+}
+
+}
+
+}
+
+function resetBall(){
+
+ball.x=450;
+ball.y=430;
+ball.dx=0;
+ball.dy=0;
+ball.moving=false;
+
+}
+
+document.addEventListener("keydown",function(e){
+
+if(e.key=="ArrowLeft")
+aim-=10;
+
+if(e.key=="ArrowRight")
+aim+=10;
+
+if(e.code=="Space" && !ball.moving){
+
+ball.dx=aim/30;
+
+ball.dy=-8;
+
+ball.moving=true;
+
+}
+
+});
+
+function game(){
+
+ctx.clearRect(0,0,900,500);
+
+drawGoal();
+
+drawKeeper();
+
+drawPlayer();
+
+drawBall();
+
+drawAim();
+
+updateKeeper();
+
+updateBall();
+
+requestAnimationFrame(game);
+
+}
+
+game();
+
+</script>
+
+</body>
+</html>
