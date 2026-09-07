@@ -2,70 +2,52 @@
 <!DOCTYPE html>
 <html lang="bn">
 <head>
-<link rel="manifest" href="manifest.json">
-<meta name="theme-color" content="#3b82f6">
-<link class="icon" href="fighter-cricket-logo.png">
-<link rel="shortcut icon" href="fighter-cricket-logo.png">
-<link rel="apple-touch-icon" href="fighter-cricket-logo.png">
-<link rel="stylesheet" href="animation.css">
-<meta property="og:title" content="FIGHTER Cricket Club">
-<meta property="og:image" content="https://fighter-bd.github.io/fighter-website/fighter-cricket-logo.png">
-<meta property="og:type" content="website">
-<meta property="og:url" content="https://fighter-bd.github.io/fighter-website/">
-<meta charset="UTF-8">
-<!-- OneSignal Web SDK -->
-<script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
-<script>
-  window.OneSignalDeferred = window.OneSignalDeferred || [];
-  OneSignalDeferred.push(async function(OneSignal) {
-    await OneSignal.init({
-      appId: "43718e70-ad37-47d1-9917-a395074b9912",
-    });
-  });
-</script>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<meta name="description" content="FIGHTER Cricket Club - Official expense tracker, member directory, and gallery.">
-<title>FIGHTER Cricket Club - Dashboard</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FIGHTER Club</title>
+    
+    <!-- SEO & Metadata -->
+    <meta name="description" content="FIGHTER Club - Official expense tracker, member directory, gallery, and multi-sports management.">
+    <meta name="keywords" content="Fighter Club, Sports Club Bangladesh, Club Management System, Fighter BD">
+    <meta name="author" content="Borno Sarker">
+    <meta name="robots" content="index, follow">
+    <meta name="google-site-verification" content="erWE5KhzCGzL-dl4Mo9CVFrRUhlbxCDjP9BeKibsN8w" />
+    <link rel="canonical" href="https://fighter-bd.github.io/fighter-website/">
 
-<link rel="icon" type="image/png" href="fighter-cricket-logo.png">
-<link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="football-game.html">
-<link rel="stylesheet" href="style.css">
-<link rel="canonical" href="https://fighter-bd.github.io/fighter-website/">
-<link rel="stylesheet" href="football-game.html">
-<link rel="stylesheet" href="OneSignalSDKWorker.js">
-<meta name="google-site-verification" content="erWE5KhzCGzL-dl4Mo9CVFrRUhlbxCDjP9BeKibsN8w" />
-<meta name="keywords" content="Fighter Cricket Club, Fighter Football Club, Sports Club Bangladesh, Club Management System, Fighter BD">
+    <!-- Open Graph / Social Media (Facebook, LinkedIn) -->
+    <meta property="og:title" content="FIGHTER Club">
+    <meta property="og:description" content="Official Sports Club Management System">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://fighter-bd.github.io/fighter-website/">
+    <meta property="og:image" content="https://fighter-bd.github.io/fighter-website/fighter-cricket-logo.png">
 
-<meta name="author" content="Borno Sarker">
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="FIGHTER Club">
+    <meta name="twitter:image" content="https://fighter-bd.github.io/fighter-website/fighter-cricket-logo.png">
 
-<meta name="robots" content="index, follow">
+    <!-- App & Icons -->
+    <link rel="manifest" href="manifest.json">
+    <meta name="theme-color" content="#3b82f6">
+    <link rel="icon" type="image/png" href="fighter-cricket-logo.png">
+    <link rel="shortcut icon" href="fighter-cricket-logo.png">
+    <link rel="apple-touch-icon" href="fighter-cricket-logo.png">
 
-<!-- ========= SEO ========= -->
+    <!-- Stylesheets & Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Hind+Siliguri:wght@400;500;600;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="animation.css">
 
-<meta name="keywords" content="FIGHTER Cricket Club, Fighter Football Club, Sports Club Bangladesh, Fighter BD, Club Management">
-
-<meta name="author" content="Borno Sarker">
-
-<meta name="robots" content="index,follow">
-
-<link rel="canonical" href="https://fighter-bd.github.io/fighter-website/">
-
-<meta property="og:title" content="FIGHTER Cricket Club">
-
-<meta property="og:description" content="Official Cricket & Football Club Management System">
-
-<meta property="og:url" content="https://fighter-bd.github.io/fighter-website/">
-
-<meta property="og:image" content="https://fighter-bd.github.io/fighter-website/fighter-cricket-logo.png">
-
-<meta property="og:type" content="website">
-
-<meta name="twitter:card" content="summary_large_image">
-
-<meta name="twitter:title" content="FIGHTER Cricket Club">
-
-<meta name="twitter:image" content="https://fighter-bd.github.io/fighter-website/fighter-cricket-logo.png">
+    <!-- OneSignal Web SDK -->
+    <script src="https://cdn.onesignal.com/sdks/web/v16/OneSignalSDK.page.js" defer></script>
+    <script>
+      window.OneSignalDeferred = window.OneSignalDeferred || [];
+      OneSignalDeferred.push(async function(OneSignal) {
+        await OneSignal.init({
+          appId: "43718e70-ad37-47d1-9917-a395074b9912",
+        });
+      });
+    </script>
 </head>
 <body onload="initDashboard()">
     <div class="bg-glow">
@@ -78,11 +60,11 @@
     <div class="welcome-card">
         <img src="fighter-cricket-logo.png" class="popup-logo">
 
-        <h2>🏏 Welcome to FIGHTER Cricket Club</h2>
+        <h2>🏏 Welcome to FIGHTER Club</h2>
 
         <p>
             Welcome to the official website of
-            <b>FIGHTER Cricket Club</b>.
+            <b>FIGHTER Club</b>.
             Enjoy your visit!
         </p>
 
@@ -168,7 +150,7 @@
 
 <div id="mainContent">
     <div class="notice-board">
-        <div class="notice-text" id="noticeText">স্বাগতম! FIGHTER Cricket Club-এর অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম।</div>
+        <div class="notice-text" id="noticeText">স্বাগতম! FIGHTER Club-এর অফিসিয়াল ওয়েবসাইটে আপনাকে স্বাগতম।</div>
     </div>
 </div>
     <div class="container">
@@ -181,7 +163,7 @@
 <div class="hero-overlay"></div>
 
 <div class="hero-content">
-<h1>🏏 FIGHTER Cricket Club</h1>
+<h1>🏏 FIGHTER Club</h1>
 <p>Play • Respect • Victory</p>
 </div>
 
@@ -231,7 +213,7 @@
         </div>
         <div class="header-section hero-premium"></div>
             <img src="fighter-cricket-logo.png" class="logo" alt="FIGHTER Logo" onerror="this.src='https://cdn-icons-png.flaticon.com/512/5351/5351401.png'">
-           <center> <h2>FIGHTER Cricket Club ড্যাশবোর্ড</h2></center>
+           <center> <h2>FIGHTER Club ড্যাশবোর্ড</h2></center>
             <center><p style="color: var(--text-muted); font-weight: 500; margin: 5px 0 0;">📧 Email: <a href="mailto:fighterbd.com123@gmail.com" style="color: var(--primary); text-decoration: none;">fighterbd.com123@gmail.com</a></p>
         </div></center>
 
@@ -512,7 +494,7 @@
     <div class="update-card">
         <h2>🚀 New Update Available</h2>
         <p>
-            A new version of Fighter Cricket Club is ready.
+            A new version of Fighter Club is ready.
         </p>
 
         <button onclick="updateApp()">
@@ -530,7 +512,7 @@
 
 <div class="pro-card">
 
-    <h3>📍 FIGHTER Cricket Club Location</h3>
+    <h3>📍 FIGHTER Club Location</h3>
 
     <p>আমাদের ক্লাবের অবস্থান Google Maps-এ দেখুন।</p>
 
@@ -552,7 +534,7 @@
 
     <h3>📱 Scan QR Code</h3>
 
-    <p>QR Code স্ক্যান করে সরাসরি FIGHTER Cricket Club ওয়েবসাইটে প্রবেশ করুন।</p>
+    <p>QR Code স্ক্যান করে সরাসরি FIGHTER Club ওয়েবসাইটে প্রবেশ করুন।</p>
 
     <div class="qr-box">
 
@@ -564,7 +546,7 @@
 
 </div>
 <footer>
-    <p>© 2026 FIGHTER Cricket Club | Developed by <a href="about.html" target="_blank" style="color: var(--primary); font-weight: bold; text-decoration: none;">Borno Sarker</a></p>
+    <p>© 2026 FIGHTER Club | Developed by <a href="about.html" target="_blank" style="color: var(--primary); font-weight: bold; text-decoration: none;">Borno Sarker</a></p>
 </footer>
 
 <script src="app.js"></script>
